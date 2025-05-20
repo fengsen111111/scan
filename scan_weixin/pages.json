@@ -33,7 +33,14 @@
 				"style": {
 					"navigationBarTitleText": "订单详情"
 				}
-			}]
+			},
+			{
+				"path": "cpxdz/index",
+				"style": {
+					"navigationBarTitleText": "下单中"
+				}
+			}
+			]
 		},
 		{
 			"root": "mine_packages",

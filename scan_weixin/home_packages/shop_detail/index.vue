@@ -231,7 +231,7 @@
 			</view>
 			<view><text style="font-size: 2.67vw;">￥</text>{{moneyObj.price||0}}</view>
 			<view class="gotIt" @click.stop="scanTableCode()">
-				去结算
+				{{option.type=='add'?'加菜':'去结算'}}
 			</view>
 		</view>
 		<!-- 套餐 -->
@@ -606,10 +606,13 @@
 				groupGoods: [],
 				groupGoodsId: [],
 				
-				is_zksq:false
+				is_zksq:false,
+				
+				option:{}
 			};
 		},
 		async onLoad(option) {
+			this.option = option
 			if (!uni.getStorageSync("token")) {
 				this.loginShow = true;
 			}
@@ -971,14 +974,16 @@
 					})
 					return;
 				}
+				// 加菜
 				if (this.addType) {
 					this.$nav('/home_packages/place_order/index', {
 						id: this.shopInfo.id,
 						addType: true,
 						useCoupon: this.useCoupon,
-						orderId: this.orderId
+						orderId: this.orderId,
+						canwei: this.option.canwei
 					})
-				} else if (this.scanType) {
+				} else if (this.scanType) { //正常下单
 					this.$nav('/home_packages/place_order/index', {
 						id: this.shopInfo.id,
 						scanType: true,

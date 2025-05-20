@@ -19,7 +19,8 @@
     {
       "root": "order_packages",
       "pages": [
-        "detail/index"
+        "detail/index",
+        "cpxdz/index"
       ]
     },
     {

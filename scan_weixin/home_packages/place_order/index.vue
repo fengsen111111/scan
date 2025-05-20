@@ -80,7 +80,7 @@
 				</view>
 			</view>
 			<view class="right flex alignCenter">
-				<view class="gotIt" @click.stop="order()">{{workerType?'下单':'支付'}}</view>
+				<view class="gotIt" @click.stop="order()">{{addType?'加菜':'菜品下单'}}</view>
 			</view>
 		</view>
 		<u-popup :show="discountShow" :mode="discountFirst?'center':'bottom'" round="5.33vw" @close="discountClose()">
@@ -147,7 +147,7 @@
 					</view>
 					<u-icon name="checkmark-circle-fill" color="black" size="20" v-if="payType===1"></u-icon>
 				</view>
-				<view class="confirm" @click="confirm()">支付</view>
+				<view class="confirm" @click="confirm()">{{addType?'加菜':'菜品下单'}}</view>
 			</view>
 		</u-popup>
 		<u-picker :show="tableShow" :columns="[tableList]" keyName="code" @confirm="tableConfirm" title="餐位"
@@ -204,12 +204,22 @@
 
 				userMoney: 0,
 
-				workerType: false
+				workerType: false,
+
+				option: {}
 			};
 		},
 		onLoad(options) {
+			console.log('options', options);
+			this.option = options
 			if (options.addType) {
+				// 点击加菜进来的
+				this.table_code = options.canwei //餐位code
 				console.log(options.useCoupon)
+				setTimeout(() => {
+					let arr = this.tableList.filter((item) => item.code == options.canwei) //餐位号
+					this.orderForm.table_id = arr[0].id //餐位id
+				}, 1000)
 				this.addType = true;
 				this.useCoupon = options.useCoupon !== 'false';
 				this.orderId = options.orderId
@@ -404,15 +414,19 @@
 					let orderForm = {
 						...this.orderForm,
 						...this.formData,
-						...uni.getStorageSync("workerOrder")
+						...uni.getStorageSync("workerOrder"),
 					}
+
+					console.log('orderForm', orderForm);
+
+					// return false
 					this.$request("/food/Order/createOrder", orderForm).then(res => {
 						uni.hideLoading();
 						if (res.result === 1) {
 							uni.removeStorageSync("shop" + this.store_id);
 							uni.showToast({
 								title: "下单成功",
-								icon: "error",
+								icon: "success",
 								duration: 2000
 							})
 							uni.navigateBack({
@@ -479,11 +493,20 @@
 									icon: "success",
 									duration: 2000
 								})
+
 								setTimeout(() => {
-									uni.switchTab({
-										url: "/pages/Order/index"
-									})
+									if (this.addType) {
+										// 加菜
+										this.$nav('/order_packages/cpxdz/index', {
+											order: ''
+										})
+									} else {
+										uni.switchTab({
+											url: "/pages/Order/index"
+										})
+									}
 								}, 2000)
+
 							} else if (pay.result === 3) {
 								uni.requestPayment({
 									provider: "wxpay",
@@ -495,9 +518,17 @@
 											duration: 2000
 										})
 										setTimeout(() => {
-											uni.switchTab({
-												url: "/pages/Order/index"
-											})
+											if (this.addType) {
+												// 加菜
+												this.$nav(
+													'/order_packages/cpxdz/index', {
+														order: ''
+													})
+											} else {
+												uni.switchTab({
+													url: "/pages/Order/index"
+												})
+											}
 										}, 2000)
 									},
 									fail: () => {

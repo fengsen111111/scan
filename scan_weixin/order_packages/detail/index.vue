@@ -2,6 +2,10 @@
 	<view class="container">
 		<view style="height: 1.33vw;"></view>
 		<view class="content">
+			<view style="text-align: center;">
+				<view style="font-size: 36rpx;font-weight: bold;">下单成功</view>
+				<view style="color: #999999;font-size: 22rpx;margin-top: 10rpx;margin-bottom: 40rpx;">为保证您的用餐体验，建议用餐结束后再支付哦~</view>
+			</view>
 			<view class="order_num">订单编号:{{orderInfo.id}}</view>
 			<view class="label flex alignCenter spaceBetween">
 				下单时间
@@ -38,7 +42,7 @@
 						v-if="item.choice_des">（{{item.choice_des}}）</text>
 				</view>
 				<view class="info flex spaceBetween">
-					<image :src="item.image" mode=""></image>
+					<image :src="item.cover_image" mode=""></image>
 					<view class="concat">
 						{{item.introduce}}
 					</view>
@@ -49,8 +53,8 @@
 				</view>
 			</view>
 		</view>
-		<!-- <view style="height: 12.8vw;" v-if="time_status==='a'"></view>
-		<view class="bottom flex alignCenter spaceBetween" v-if="time_status==='a'">
+		<!-- <view style="height: 12.8vw;" v-if="time_status==='a'"></view> -->
+		<view class="bottom flex alignCenter spaceBetween" >
 			<view class="left flex alignCenter">
 				实付￥{{orderInfo.price}}
 				<view class="price flex alignCenter flexColumn">
@@ -60,9 +64,9 @@
 			</view>
 			<view class="right flex alignCenter">
 				<view class="add" @click="addMenu()">加菜</view>
-				<view class="pay" @click="goPay()" v-if="pay_status!=='a'">去支付</view>
+				<view class="pay" @click="goPay()">去结账</view>
 			</view>
-		</view> -->
+		</view>
 
 		<u-popup :show="payShow" mode="bottom" @close="payShow=false" round="5.33vw">
 			<view class="payContent">
@@ -123,7 +127,8 @@
 				this.$nav("/home_packages/shop_detail/index", {
 					id: this.orderInfo.store_id,
 					type: "add",
-					orderId: this.orderInfo.id
+					orderId: this.orderInfo.id,
+					canwei: this.orderInfo.table_code
 				})
 			},
 			goPay() {
