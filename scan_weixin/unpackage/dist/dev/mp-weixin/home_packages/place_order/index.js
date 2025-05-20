@@ -394,8 +394,10 @@ var _default = {
         table_id: "",
         person_number: 1,
         remark: "",
-        goods_list: []
+        goods_list: [],
+        order_id: "" //
       },
+
       goodsList: [],
       discountShow: false,
       discountFirst: false,
@@ -428,9 +430,12 @@ var _default = {
     var _this = this;
     console.log('options', options);
     this.option = options;
+    this.workerType = true; //不进入支付，直接下单  第一单需要支付
     if (options.addType) {
+      // this.workerType = true //不进入支付，直接下单
       // 点击加菜进来的
       this.table_code = options.canwei; //餐位code
+      this.orderForm.order_id = options.orderId; //订单id
       console.log(options.useCoupon);
       setTimeout(function () {
         var arr = _this.tableList.filter(function (item) {
@@ -613,6 +618,7 @@ var _default = {
       this.checkValue = e;
       this.changePayData();
     },
+    // 下单 
     order: function order() {
       var _this7 = this;
       if (!this.table_code) {
@@ -634,8 +640,8 @@ var _default = {
           title: "请稍后……"
         });
         var orderForm = _objectSpread(_objectSpread(_objectSpread({}, this.orderForm), this.formData), uni.getStorageSync("workerOrder"));
-        console.log('orderForm', orderForm);
 
+        // console.log('orderForm', orderForm);
         // return false
         this.$request("/food/Order/createOrder", orderForm).then(function (res) {
           uni.hideLoading();
@@ -646,9 +652,15 @@ var _default = {
               icon: "success",
               duration: 2000
             });
-            uni.navigateBack({
-              delta: 2
-            });
+            // 跳转打单界面
+            setTimeout(function () {
+              _this7.$nav('/order_packages/cpxdz/index', {
+                order: res.order_id
+              });
+            }, 2000);
+            // uni.navigateBack({
+            // 	delta: 2
+            // })
           } else {
             uni.showToast({
               title: "下单失败",
@@ -709,16 +721,19 @@ var _default = {
                 duration: 2000
               });
               setTimeout(function () {
-                if (_this8.addType) {
-                  // 加菜
-                  _this8.$nav('/order_packages/cpxdz/index', {
-                    order: ''
-                  });
-                } else {
-                  uni.switchTab({
-                    url: "/pages/Order/index"
-                  });
-                }
+                // if (this.addType) {
+                // 	// 加菜
+                // 	this.$nav('/order_packages/cpxdz/index', {
+                // 		order: res.order_id
+                // 	})
+                // } else {
+                // 	uni.switchTab({
+                // 		url: "/pages/Order/index"
+                // 	})
+                // }
+                _this8.$nav('/order_packages/cpxdz/index', {
+                  order: res.order_id
+                });
               }, 2000);
             } else if (pay.result === 3) {
               uni.requestPayment(_objectSpread(_objectSpread({
@@ -731,16 +746,19 @@ var _default = {
                     duration: 2000
                   });
                   setTimeout(function () {
-                    if (_this8.addType) {
-                      // 加菜
-                      _this8.$nav('/order_packages/cpxdz/index', {
-                        order: ''
-                      });
-                    } else {
-                      uni.switchTab({
-                        url: "/pages/Order/index"
-                      });
-                    }
+                    // if (this.addType) {
+                    // 	// 加菜
+                    // 	this.$nav('/order_packages/cpxdz/index', {
+                    // 		order: res.order_id
+                    // 	})
+                    // } else {
+                    // 	uni.switchTab({
+                    // 		url: "/pages/Order/index"
+                    // 	})
+                    // }
+                    _this8.$nav('/order_packages/cpxdz/index', {
+                      order: res.order_id
+                    });
                   }, 2000);
                 },
                 fail: function fail() {

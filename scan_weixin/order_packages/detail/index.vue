@@ -64,7 +64,8 @@
 			</view>
 			<view class="right flex alignCenter">
 				<view class="add" @click="addMenu()">加菜</view>
-				<view class="pay" @click="goPay()">去结账</view>
+				<view class="pay" v-if="orderInfo.price*1==orderInfo.total_price-orderInfo.discount_price">已支付</view>
+				<view class="pay" v-else @click="goPay()">去结账</view>
 			</view>
 		</view>
 

@@ -157,31 +157,69 @@ exports.default = void 0;
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
-      type: 1
+      type: 1,
+      option: {},
+      countdown: 10,
+      timer: null
     };
   },
   onLoad: function onLoad(options) {
-    // this.$request("/food/Order/userGetOrderDetail", {
-    // 	order_id: options.id
-    // }).then(res => {
-    // 	this.orderInfo = res
-    // uni.showToast({
-    // 	title: "支付成功",
-    // 	icon: "success",
-    // 	duration: 2000
-    // })
-    // })
+    if (this.option.order_id) {
+      this.clearTimer();
+    } else {
+      this.startCountdown();
+    }
+    console.log('options', options);
+    this.option = options;
   },
   methods: {
+    // 计时器
+    startCountdown: function startCountdown() {
+      var _this = this;
+      this.clearTimer(); // 先清一次防止重复
+      this.countdown = 10;
+      this.timer = setInterval(function () {
+        _this.countdown--;
+        if (_this.countdown <= 7) {
+          _this.clearTimer();
+          _this.type = 2;
+        }
+      }, 1000);
+    },
+    // 清除计时器
+    clearTimer: function clearTimer() {
+      if (this.timer) {
+        clearInterval(this.timer);
+        this.timer = null;
+      }
+    },
     // 跳转订单详情
     toOrder: function toOrder() {
+      this.clearTimer();
       uni.switchTab({
         url: "/pages/Order/index"
       });
+      // this.$nav('/pages/Order/index', {
+      // 	order: this.option.order_id
+      // })
     }
+  },
+  onUnload: function onUnload() {
+    this.clearTimer(); // 页面卸载时也清除定时器
   }
 };
 exports.default = _default;

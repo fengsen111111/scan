@@ -174,6 +174,7 @@
 					person_number: 1,
 					remark: "",
 					goods_list: [],
+					order_id: "", //
 				},
 				goodsList: [],
 				discountShow: false,
@@ -212,9 +213,12 @@
 		onLoad(options) {
 			console.log('options', options);
 			this.option = options
+			this.workerType = true //不进入支付，直接下单  第一单需要支付
 			if (options.addType) {
+				// this.workerType = true //不进入支付，直接下单
 				// 点击加菜进来的
 				this.table_code = options.canwei //餐位code
+				this.orderForm.order_id = options.orderId //订单id
 				console.log(options.useCoupon)
 				setTimeout(() => {
 					let arr = this.tableList.filter((item) => item.code == options.canwei) //餐位号
@@ -392,6 +396,7 @@
 				this.checkValue = e;
 				this.changePayData()
 			},
+			// 下单 
 			order() {
 				if (!this.table_code) {
 					uni.showToast({
@@ -417,8 +422,7 @@
 						...uni.getStorageSync("workerOrder"),
 					}
 
-					console.log('orderForm', orderForm);
-
+					// console.log('orderForm', orderForm);
 					// return false
 					this.$request("/food/Order/createOrder", orderForm).then(res => {
 						uni.hideLoading();
@@ -429,9 +433,15 @@
 								icon: "success",
 								duration: 2000
 							})
-							uni.navigateBack({
-								delta: 2
-							})
+							// 跳转打单界面
+							setTimeout(() => {
+								this.$nav('/order_packages/cpxdz/index', {
+									order: res.order_id
+								})
+							}, 2000)
+							// uni.navigateBack({
+							// 	delta: 2
+							// })
 						} else {
 							uni.showToast({
 								title: "下单失败",
@@ -495,16 +505,19 @@
 								})
 
 								setTimeout(() => {
-									if (this.addType) {
-										// 加菜
-										this.$nav('/order_packages/cpxdz/index', {
-											order: ''
-										})
-									} else {
-										uni.switchTab({
-											url: "/pages/Order/index"
-										})
-									}
+									// if (this.addType) {
+									// 	// 加菜
+									// 	this.$nav('/order_packages/cpxdz/index', {
+									// 		order: res.order_id
+									// 	})
+									// } else {
+									// 	uni.switchTab({
+									// 		url: "/pages/Order/index"
+									// 	})
+									// }
+									this.$nav('/order_packages/cpxdz/index', {
+										order: res.order_id
+									})
 								}, 2000)
 
 							} else if (pay.result === 3) {
@@ -518,17 +531,19 @@
 											duration: 2000
 										})
 										setTimeout(() => {
-											if (this.addType) {
-												// 加菜
-												this.$nav(
-													'/order_packages/cpxdz/index', {
-														order: ''
-													})
-											} else {
-												uni.switchTab({
-													url: "/pages/Order/index"
-												})
-											}
+											// if (this.addType) {
+											// 	// 加菜
+											// 	this.$nav('/order_packages/cpxdz/index', {
+											// 		order: res.order_id
+											// 	})
+											// } else {
+											// 	uni.switchTab({
+											// 		url: "/pages/Order/index"
+											// 	})
+											// }
+											this.$nav('/order_packages/cpxdz/index', {
+												order: res.order_id
+											})
 										}, 2000)
 									},
 									fail: () => {
