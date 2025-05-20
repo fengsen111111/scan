@@ -57,7 +57,8 @@
 
 			<view class="list flex alignCenter spaceBetween" v-for="(food,j) in item.goods_list" :key="food.id">
 				<view class="left flex alignCenter">
-					<image :src="food.image" mode=""></image>
+					<image v-if="food.image" :src="food.image" mode=""></image>
+					<image v-else src="../../static/cpmrt.png" mode=""></image>
 					{{food.goods_name}}
 					<text style="font-size: 3vw;color: #999999;font-weight: normal;"
 						v-if="food.choice_des">（{{food.choice_des}}）</text>

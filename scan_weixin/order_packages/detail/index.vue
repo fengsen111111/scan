@@ -42,7 +42,8 @@
 						v-if="item.choice_des">（{{item.choice_des}}）</text>
 				</view>
 				<view class="info flex spaceBetween">
-					<image :src="item.cover_image" mode=""></image>
+					<image v-if="item.cover_image" :src="item.cover_image" mode=""></image>
+					<image v-else src="../../static/cpmrt.png" mode=""></image>
 					<view class="concat">
 						{{item.introduce}}
 					</view>

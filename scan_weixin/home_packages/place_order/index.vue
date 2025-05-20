@@ -42,7 +42,8 @@
 					<u-icon name="trash" color="#000000" size="20" @click="trash(index)"></u-icon>
 				</view>
 				<view class="content flex spaceBetween">
-					<image :src="item.info.cover_image" mode=""></image>
+					<image v-if="item.info.cover_image" :src="item.info.cover_image" mode=""></image>
+					<image v-else src="../../static/cpmrt.png" mode=""></image>
 					<view class="con">{{item.info.introduce}}</view>
 				</view>
 				<view class="price flex alignCenter spaceBetween">

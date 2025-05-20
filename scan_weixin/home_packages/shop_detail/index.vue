@@ -137,7 +137,8 @@
 					<view class="label">{{item.name}}</view>
 					<view class="list" v-for="(obj,j) in item.list" :key="obj.id">
 						<view class="item" v-if="obj.is_group==='Y'&&!item.is_buyed" @click="selGroup(obj)">
-							<image :src="obj.cover_image" mode=""></image>
+							<image v-if="obj.cover_image" :src="obj.cover_image" mode=""></image>
+							<image v-else src="../../static/cpmrt.png" mode=""></image>
 							<view class="title flex alignCenter spaceBetween">
 								{{obj.name}}
 								<text>销量:{{obj.salled_number||0}}</text>
@@ -197,7 +198,8 @@
 						</view>
 						<view class="item_type flex alignCenter spaceBetween flexWrap" v-else
 							@click="openShopping(obj)">
-							<image :src="obj.cover_image" mode=""></image>
+							<image v-if="obj.cover_image" :src="obj.cover_image" mode=""></image>
+							<image v-else src="../../static/cpmrt.png" mode=""></image>
 							<view class="right">
 								<view class="title">{{obj.name}}</view>
 								<view class="sale">￥{{obj.price}}</view>
@@ -512,7 +514,8 @@
 								<view class="item" :class="groupGoodsId.includes(i.id)?'active':''"
 									v-for="(i) in item.goods_list" :key="i.id"
 									@click="selectGood(item.id,i,item.check_number)">
-									<image :src="i.cover_image" mode=""></image>
+									<image v-if="i.cover_image" :src="i.cover_image" mode=""></image>
+									<image v-else src="../../static/cpmrt.png" mode=""></image>
 									<view class="name">{{i.name}}</view>
 									<view class="number">x{{i.has_number}}</view>
 								</view>
@@ -523,7 +526,8 @@
 						<view class="label">已包含 （tips：套餐内默认餐品）</view>
 						<view class="gridBox">
 							<view class="item" v-for="(item) in groupContain" :key="item.id">
-								<image :src="item.cover_image" mode=""></image>
+								<image v-if="item.cover_image" :src="item.cover_image" mode=""></image>
+								<image v-else src="../../static/cpmrt.png" mode=""></image>
 								<view class="name">{{item.name}}</view>
 								<view class="number">x{{item.has_number}}</view>
 							</view>
