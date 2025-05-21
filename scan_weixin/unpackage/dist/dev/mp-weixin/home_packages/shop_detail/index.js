@@ -1536,6 +1536,7 @@ var _default = {
     },
     addShopCar: function addShopCar(type) {
       var _this7 = this;
+      console.log('goodsObj', this.goodsObj, type);
       var getAllgoods = uni.getStorageSync("shop" + this.shopInfo.id);
       var flag = true;
       if (getAllgoods) {

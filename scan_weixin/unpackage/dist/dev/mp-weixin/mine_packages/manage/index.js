@@ -137,7 +137,7 @@ var render = function () {
   var l0 = _vm.__map(_vm.list, function (item, index) {
     var $orig = _vm.__get_orig(item)
     var m0 = !(item.work_status === "a")
-      ? _vm.$dateFormat(item.open_time * 1000, "date")
+      ? _vm.$dateFormat(item.open_time * 1000, "datetime")
       : null
     return {
       $orig: $orig,
@@ -167,6 +167,13 @@ var render = function () {
     }
     _vm.e6 = function ($event) {
       _vm.orderShow = false
+    }
+    _vm.e7 = function (e) {
+      return (_vm.typeValue = e.detail.value
+        .replace(/[^\d.]/g, "")
+        .replace(/^0+(\d)/, "$1")
+        .replace(/\.{2,}/g, ".")
+        .replace(/^(\d+)\.(\d{0,2}).*$/, "$1.$2"))
     }
   }
   _vm.$mp.data = Object.assign(
@@ -218,6 +225,10 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+//
+//
+//
+//
 //
 //
 //
@@ -466,10 +477,10 @@ var _default = {
       this.typeValue = item;
     },
     orderConfirm: function orderConfirm() {
-      if (this.help_user_order === 'help_user_coupon' && !this.coupons.includes(this.typeValue)) {
+      if (this.help_user_order === 'help_user_coupon' && !this.typeValue) {
         uni.showToast({
           icon: "none",
-          title: "请选择代金券金额"
+          title: "请输入代金券金额"
         });
         return;
       }

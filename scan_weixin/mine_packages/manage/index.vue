@@ -46,7 +46,8 @@
 					</view>
 				</view>
 				<view class="info flex alignCenter spaceBetween">
-					开台时间 {{$dateFormat(item.open_time*1000,'date')}}
+					<!-- 开台时间 {{$dateFormat(item.open_time*1000,'date')}} -->
+					开台时间 {{$dateFormat(item.open_time*1000,'datetime')}}
 					<text>商品&nbsp;&nbsp;x{{item.goods_number}}</text>
 				</view>
 				<view class="option flex alignCenter spaceBetween">
@@ -93,9 +94,12 @@
 					</u-radio-group>
 
 					<view class="order_list" v-show="help_user_order === 'help_user_coupon'">
-						<view class="item" :class="typeValue === item?'active':''" v-for="(item,index) in coupons"
+						<!-- <view class="item" :class="typeValue === item?'active':''" v-for="(item,index) in coupons"
 							:key="index" @click="selOrder(item)">
 							{{item}}
+						</view> -->
+						<view style="margin-top:20rpx;background-color: #f5f5f5;padding: 10rpx 20rpx;border-radius: 10rpx;font-size: 26rpx;">
+							<input type="text" :value="typeValue" placeholder="请输入代金券金额" @input="e => typeValue = e.detail.value.replace(/[^\d.]/g, '').replace(/^0+(\d)/, '$1').replace(/\.{2,}/g, '.').replace(/^(\d+)\.(\d{0,2}).*$/, '$1.$2')" />
 						</view>
 					</view>
 
@@ -160,7 +164,7 @@
 		},
 		methods: {
 			// 结束用餐
-			_overOrder(obj){
+			_overOrder(obj) {
 				uni.showLoading({
 					title: "请稍后"
 				})
@@ -168,7 +172,7 @@
 					handle_type: 'a',
 					order_id: obj.order_id
 				}).then(res => {
-					console.log('res',res);
+					console.log('res', res);
 					uni.hideLoading()
 					uni.showToast({
 						title: "用餐结束",
@@ -245,10 +249,10 @@
 				this.typeValue = item;
 			},
 			orderConfirm() {
-				if (this.help_user_order === 'help_user_coupon' && !this.coupons.includes(this.typeValue)) {
+				if (this.help_user_order === 'help_user_coupon' && !this.typeValue) {
 					uni.showToast({
 						icon: "none",
-						title: "请选择代金券金额",
+						title: "请输入代金券金额",
 					})
 					return;
 				}
@@ -410,6 +414,7 @@
 							font-size: 4vw;
 							color: #000000;
 						}
+
 						>.jsdd {
 							width: 120rpx;
 							height: 8vw;
@@ -422,7 +427,7 @@
 							color: #ff0000;
 							margin-left: 16rpx;
 						}
-						
+
 					}
 
 					>.left {

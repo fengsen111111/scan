@@ -24,6 +24,80 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.discount_checkbox {
+  background: #FFFFFF;
+  margin: -10vw auto 0;
+  border-radius: 5.33vw;
+  width: calc(100% - 10vw);
+  height: 8vw;
+  display: flex;
+  align-items: center;
+  padding: 0 5vw;
+}
+.discountContent {
+  padding: 5.33vw 4vw 0;
+}
+.discountContent > .title {
+  font-weight: bold;
+  font-size: 4.27vw;
+  color: #000000;
+  margin-bottom: 5.33vw;
+}
+.discountContent .item_box {
+  padding: 2.67vw;
+  background: #FBFBFB;
+  border-radius: 1.33vw;
+  border: 0.27vw solid #ED1805;
+  margin-bottom: 4vw;
+}
+.discountContent .item_box > .get > .charge {
+  width: 21.33vw;
+  height: 8vw;
+  background: #000000;
+  border-radius: 4vw;
+  font-weight: 400;
+  font-size: 4vw;
+  color: #f5e8ae;
+}
+.discountContent .item_box > .type {
+  font-weight: 400;
+  font-size: 2.67vw;
+  color: #666666;
+  margin: 1.33vw 0;
+}
+.discountContent .item_box > .item {
+  padding-bottom: 2.67vw;
+  border-bottom: solid 1px #F5F5F5;
+}
+.discountContent .item_box > .item > .content {
+  font-weight: bold;
+  font-size: 4vw;
+  color: #ED1805;
+  flex: auto;
+  align-items: flex-end;
+}
+.discountContent .item_box > .item > .content > text {
+  font-weight: 500;
+  font-size: 2.67vw;
+  color: #666666;
+}
+.discountContent .item_box > .item > .title {
+  font-weight: 400;
+  font-size: 3.73vw;
+  color: #000000;
+  flex: auto;
+}
+.discountContent .item_box > .item > .title > text {
+  font-weight: 500;
+  font-size: 2.67vw;
+  color: #666666;
+}
+.discountContent .item_box > .item > image {
+  width: 9.6vw;
+  height: 9.6vw;
+  border-radius: 1.33vw;
+  margin-right: 2.67vw;
+}
 .nav-bar {
   background-color: #ffffff;
   width: 100%;
@@ -53,14 +127,14 @@
 .payContent {
   padding: 4.93vw 4vw;
 }
-.payContent > .confirm {
+.payContent > .confirm_two {
   width: 80vw;
   height: 12vw;
   line-height: 12vw;
   text-align: center;
   background: #EFA246;
   border-radius: 6vw;
-  margin: 10vw auto 0;
+  margin: 0 auto 0;
   font-weight: bold;
   font-size: 4vw;
   color: #FFFFFF;
@@ -94,8 +168,6 @@
 }
 .container > .bottom {
   width: calc(100% - 2px - 8vw);
-  position: fixed;
-  bottom: 0;
   padding: 2.13vw 4vw 0;
   padding-bottom: constant(safe-area-inset-bottom);
   /*兼容 IOS&gt;11.2*/
@@ -104,7 +176,6 @@
   background: #FFFFFF;
   box-shadow: 0 0.4vw 0.8vw 0.13vw rgba(0, 0, 0, 0.16);
   border-radius: 1.33vw 1.33vw 0 0;
-  border: 1px solid #666666;
 }
 .container > .bottom > .right {
   align-items: flex-end;

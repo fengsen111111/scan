@@ -590,7 +590,7 @@ var _default = {
             goods_id: item.info.id,
             number: item.num,
             choice_des: item.choice_des
-          }, item.info.group_goods ? 'group_goods' : '', item.info.group_goods);
+          }, item.group_goods ? 'group_goods' : '', item.group_goods);
         });
       }
       this.$request("/food/Coupon/getOrderCoupon", {
@@ -665,12 +665,13 @@ var _default = {
             console.log('经度：' + res.longitude);
             console.log('纬度：' + res.latitude);
             orderForm.location = res.longitude + ',' + res.latitude;
-            // orderForm.location = '91.129157,29.653201'//测试用经纬度写死，测完注释
-
+            orderForm.location = '91.129157,29.653201'; //测试用经纬度写死，测完注释
+            orderForm.help_user_coupon = orderForm.help_user_coupon ? orderForm.help_user_coupon * 1 : 0;
             that.$request("/food/Order/createOrder", orderForm).then(function (res) {
               uni.hideLoading();
               if (res.result === 1) {
                 uni.removeStorageSync("shop" + that.store_id);
+                uni.removeStorageSync("workerOrder"); //下单结束后清除代金卷
                 uni.showToast({
                   title: "下单成功",
                   icon: "success",

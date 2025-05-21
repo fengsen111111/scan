@@ -912,6 +912,7 @@
 				})
 			},
 			addShopCar(type) {
+				console.log('goodsObj',this.goodsObj,type);
 				let getAllgoods = uni.getStorageSync("shop" + this.shopInfo.id);
 				let flag = true;
 				if (getAllgoods) {

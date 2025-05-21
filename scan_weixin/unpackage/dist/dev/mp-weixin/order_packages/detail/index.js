@@ -106,6 +106,15 @@ try {
     uIcon: function () {
       return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 387))
     },
+    uCheckboxGroup: function () {
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-checkbox-group/u-checkbox-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-checkbox-group/u-checkbox-group")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-checkbox-group/u-checkbox-group.vue */ 444))
+    },
+    uCheckbox: function () {
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-checkbox/u-checkbox */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-checkbox/u-checkbox")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-checkbox/u-checkbox.vue */ 452))
+    },
+    uEmpty: function () {
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-empty/u-empty */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-empty/u-empty")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-empty/u-empty.vue */ 403))
+    },
   }
 } catch (e) {
   if (
@@ -128,14 +137,45 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
+  var g0 = _vm.discountList.length
+  var g1 = !_vm.discountList || _vm.discountList.length === 0
+  var g2 = !_vm.discountList || _vm.discountList.length === 0
+  var l0 = _vm.__map(_vm.discountList, function (item, __i0__) {
+    var $orig = _vm.__get_orig(item)
+    var g3 =
+      item.discount_type === "a" ? item.top_price.replace(".00", "") : null
+    var g4 = item.discount_type === "a" ? item.data.replace(".00", "") : null
+    return {
+      $orig: $orig,
+      g3: g3,
+      g4: g4,
+    }
+  })
   if (!_vm._isMounted) {
     _vm.e0 = function ($event) {
-      _vm.payShow = false
+      _vm.discountShow = true
     }
     _vm.e1 = function ($event) {
       _vm.payShow = false
     }
+    _vm.e2 = function ($event) {
+      _vm.payShow = false
+    }
+    _vm.e3 = function ($event) {
+      _vm.discountShow = false
+    }
   }
+  _vm.$mp.data = Object.assign(
+    {},
+    {
+      $root: {
+        g0: g0,
+        g1: g1,
+        g2: g2,
+        l0: l0,
+      },
+    }
+  )
 }
 var recyclableRender = false
 var staticRenderFns = []
@@ -290,6 +330,52 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
@@ -300,7 +386,17 @@ var _default = {
       payFlag: true,
       time_status: 'a',
       pay_status: 'a',
-      statusBarHeight: '20'
+      statusBarHeight: '20',
+      // 优惠卷
+      discountList: [],
+      discountShow: false,
+      checkValue: [],
+      //是否积分折扣
+      shopInfo: {},
+      //门店信息
+      coupon_obj: {},
+      //选择的优惠卷
+      moneyObj: {} //优惠金额
     };
   },
   onLoad: function onLoad(options) {
@@ -311,9 +407,9 @@ var _default = {
       order_id: options.id
     }).then(function (res) {
       _this.orderInfo = res;
-      var goodsList = uni.getStorageSync("shop" + options.id) || [];
-      console.log('goodsList', goodsList);
+      _this.selectCount(); //所有可用优惠卷
     });
+
     var that = this;
     // 头部高度
     uni.getSystemInfo({
@@ -323,6 +419,67 @@ var _default = {
     });
   },
   methods: {
+    // 计算优惠金额
+    changePayData: function changePayData() {
+      var _this2 = this;
+      var goods_list = [];
+      if (this.orderInfo.goods_list.length) {
+        goods_list = this.orderInfo.goods_list.map(function (item) {
+          return (0, _defineProperty2.default)({
+            goods_type: item.is_group === 'Y' ? 'b' : 'a',
+            goods_id: item.goods_id,
+            number: item.number,
+            choice_des: item.choice_des
+          }, item.group_goods ? 'group_goods' : '', item.group_goods);
+        });
+      }
+      this.$request("/food/Order/computePayData", {
+        goods_list: goods_list,
+        //商品
+        coupon_id: this.coupon_obj.id,
+        //优惠卷id
+        pay_type: this.checkValue[0] === 1 ? 'b' : 'a' //是否积分折扣
+      }).then(function (result) {
+        _this2.moneyObj = result;
+      });
+    },
+    // 使用优惠卷
+    useCouponEven: function useCouponEven(item) {
+      this.coupon_obj = item;
+      this.discountShow = false; //关闭弹窗
+      this.changePayData();
+    },
+    // 领取优惠卷
+    getCoupon: function getCoupon(item) {
+      var _this3 = this;
+      this.$request("/food/Coupon/hasCoupon", {
+        coupon_id: item.id
+      }).then(function () {
+        _this3.selectCount();
+      });
+    },
+    // 获取订单可用优惠卷
+    selectCount: function selectCount() {
+      var _this4 = this;
+      console.log('订单详情', this.orderInfo);
+      var goods_list = [];
+      if (this.orderInfo.goods_list.length) {
+        goods_list = this.orderInfo.goods_list.map(function (item) {
+          return (0, _defineProperty2.default)({
+            goods_type: item.is_group === 'Y' ? 'b' : 'a',
+            goods_id: item.goods_id,
+            number: item.number,
+            choice_des: item.choice_des
+          }, item.group_goods ? 'group_goods' : '', item.group_goods);
+        });
+      }
+      this.$request("/food/Coupon/getOrderCoupon", {
+        store_id: this.orderInfo.store_id,
+        goods_list: goods_list
+      }).then(function (res) {
+        _this4.discountList = res.list;
+      });
+    },
     // 去订单列表
     goBack: function goBack() {
       uni.switchTab({
@@ -341,25 +498,33 @@ var _default = {
       });
     },
     goPay: function goPay() {
-      var _this2 = this;
+      var _this5 = this;
       this.$request("/food/User/getUserInfo").then(function (res) {
-        _this2.userMoney = res.money;
+        _this5.userMoney = res.money;
       });
       this.payShow = true;
     },
     confirm: function confirm() {
-      var _this3 = this;
+      var _this6 = this;
       if (!this.payFlag) return;
       this.payFlag = false;
       var pay_type = "";
       if (this.payType === 1) {
-        pay_type = 'c';
+        if (this.checkValue[0] === 1) {
+          pay_type = 'd';
+        } else {
+          pay_type = 'c';
+        }
       } else if (this.payType === 2) {
-        pay_type = 'a';
+        if (this.checkValue[0] === 1) {
+          pay_type = 'b';
+        } else {
+          pay_type = 'a';
+        }
       }
       this.$request("/food/Order/payOrder", {
         order_id: this.orderInfo.id,
-        coupon_id: "",
+        coupon_id: this.coupon_obj.id,
         pay_type: pay_type
       }).then(function (res) {
         if (res.result === 1) {
@@ -368,39 +533,39 @@ var _default = {
             icon: "success",
             duration: 2000
           });
-          _this3.payShow = false;
-          _this3.$request("/food/Order/userGetOrderDetail", {
-            order_id: _this3.orderInfo.id
+          _this6.payShow = false;
+          _this6.$request("/food/Order/userGetOrderDetail", {
+            order_id: _this6.orderInfo.id
           }).then(function (res) {
-            _this3.orderInfo = res;
+            _this6.orderInfo = res;
           });
-          _this3.payFlag = true;
+          _this6.payFlag = true;
         } else if (res.result === 3) {
           uni.requestPayment(_objectSpread(_objectSpread({
             provider: "wxpay"
           }, res.pay_data), {}, {
             success: function success(res) {
-              _this3.payShow = false;
-              _this3.$request("/food/Order/userGetOrderDetail", {
-                order_id: _this3.orderInfo.id
+              _this6.payShow = false;
+              _this6.$request("/food/Order/userGetOrderDetail", {
+                order_id: _this6.orderInfo.id
               }).then(function (res) {
-                _this3.orderInfo = res;
+                _this6.orderInfo = res;
               });
-              _this3.payFlag = true;
+              _this6.payFlag = true;
             },
             fail: function fail() {
               uni.showToast({
                 title: "用户取消支付",
                 icon: "error"
               });
-              _this3.payFlag = true;
+              _this6.payFlag = true;
             }
           }));
         } else {
-          _this3.payFlag = true;
+          _this6.payFlag = true;
         }
       }).catch(function () {
-        _this3.payFlag = true;
+        _this6.payFlag = true;
       });
     }
   }
