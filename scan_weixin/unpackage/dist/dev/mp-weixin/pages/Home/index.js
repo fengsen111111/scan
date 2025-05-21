@@ -242,27 +242,54 @@ var _default = {
   methods: {
     scanCode: function scanCode() {
       var _this2 = this;
-      uni.scanCode({
-        scanType: ["qrCode"],
-        success: function success(res) {
-          var str = res.result.split("?")[1];
-          var obj = {};
-          var arr = str.split('&');
-          for (var i = 0; i < arr.length; i++) {
-            obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                uni.scanCode({
+                  scanType: ["qrCode"],
+                  success: function success(res) {
+                    console.log('res', res);
+                    var str = res.result.split("?")[1];
+                    var obj = {};
+                    var arr = str.split('&');
+                    for (var i = 0; i < arr.length; i++) {
+                      obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
+                    }
+                    _this2.$request("/food/Order/userGetOrderDetailByTableID", {
+                      // id: obj.id
+                      table_id: obj.seat_id
+                    }).then(function (resule) {
+                      // 有订单号就跳转订单详情
+                      if (resule.order_id) {
+                        _this2.$nav('/order_packages/detail/index', {
+                          id: resule.order_id,
+                          time_status: '',
+                          pay_status: ''
+                        });
+                      } else {
+                        if (obj.store_id) {
+                          uni.setStorageSync("scanInfo", {
+                            seat_code: obj.seat_code,
+                            seat_id: obj.seat_id,
+                            store_id: obj.store_id,
+                            type: "scan"
+                          });
+                          _this2.$nav("/home_packages/shop_detail/index");
+                        }
+                        console.log(obj);
+                      }
+                    });
+                  }
+                });
+              case 1:
+              case "end":
+                return _context.stop();
+            }
           }
-          if (obj.store_id) {
-            uni.setStorageSync("scanInfo", {
-              seat_code: obj.seat_code,
-              seat_id: obj.seat_id,
-              store_id: obj.store_id,
-              type: "scan"
-            });
-            _this2.$nav("/home_packages/shop_detail/index");
-          }
-          console.log(obj);
-        }
-      });
+        }, _callee);
+      }))();
     },
     search: function search() {
       this.$nav("/home_packages/search/index", {
@@ -315,10 +342,10 @@ var _default = {
     },
     refresh: function refresh() {
       var _this4 = this;
-      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-        return _regenerator.default.wrap(function _callee$(_context) {
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
+        return _regenerator.default.wrap(function _callee2$(_context2) {
           while (1) {
-            switch (_context.prev = _context.next) {
+            switch (_context2.prev = _context2.next) {
               case 0:
                 _this4.formData = {
                   distance: "",
@@ -331,10 +358,10 @@ var _default = {
                 _this4.netWork();
               case 3:
               case "end":
-                return _context.stop();
+                return _context2.stop();
             }
           }
-        }, _callee);
+        }, _callee2);
       }))();
     },
     reachBottom: function reachBottom() {

@@ -67,17 +67,17 @@
 				<view class="top flex alignCenter spaceBetween">
 					<view class="left flex alignCenter">
 						总计￥{{moneyObj.price||0}}
-						<text v-if="moneyObj.discount_price">已优惠 ￥{{moneyObj.discount_price||0}}</text>
+						<!-- <text v-if="moneyObj.discount_price">已优惠 ￥{{moneyObj.discount_price||0}}</text> -->
 					</view>
-					<view class="right" v-if="useCoupon===false&&!workerType" @click="selectCount()">选择优惠卷</view>
+					<!-- <view class="right" v-if="useCoupon===false&&!workerType" @click="selectCount()">选择优惠卷</view> -->
 				</view>
 				<view class="bottom flex alignCenter spaceBetween" v-if="!workerType">
 					获得积分:{{moneyObj.reward_integral||0}}
-					<u-checkbox-group v-model="checkValue" shape="circle" @change="checkboxChange">
+					<!-- <u-checkbox-group v-model="checkValue" shape="circle" @change="checkboxChange">
 						<u-checkbox activeColor="#EFA246" labelSize="2.67vw" labelColor="#999999"
 							:label="'使用积分抵扣:￥'+(moneyObj.integral_price||0)" :name="1">
 						</u-checkbox>
-					</u-checkbox-group>
+					</u-checkbox-group> -->
 				</view>
 			</view>
 			<view class="right flex alignCenter">
@@ -266,6 +266,7 @@
 				uni.scanCode({
 					scanType: ["qrCode"],
 					success: res => {
+						console.log('res',res);
 						let str = res.result.split("?")[1];
 						let obj = {};
 						let arr = str.split('&');
@@ -274,6 +275,16 @@
 						}
 						this.orderForm.table_id = obj.seat_id;
 						this.table_code = obj.seat_code
+						
+						this.$request("/food/Order/userGetOrderDetailByTableID", {
+							// id: obj.id
+							table_id:obj.seat_id
+						}).then((resule)=>{
+							// 有订单号就跳转订单详情
+							if(resule.order_id){
+								this.$nav('/order_packages/detail/index',{id:resule.order_id,time_status:'',pay_status:''})
+							}
+						})
 					}
 				})
 			},
@@ -430,7 +441,7 @@
 							console.log('经度：' + res.longitude);
 							console.log('纬度：' + res.latitude);
 							orderForm.location = res.longitude + ',' + res.latitude
-							orderForm.location = '91.181062,29.656868'//测试用经纬度写死，测完注释
+							// orderForm.location = '91.129157,29.653201'//测试用经纬度写死，测完注释
 							
 							that.$request("/food/Order/createOrder", orderForm).then(res => {
 								uni.hideLoading();

@@ -132,6 +132,8 @@
 				order_id: options.id
 			}).then(res => {
 				this.orderInfo = res
+				let goodsList = uni.getStorageSync("shop" + options.id) || [];
+				console.log('goodsList',goodsList);
 			})
 			const that = this
 			// 头部高度
@@ -140,6 +142,8 @@
 					that.statusBarHeight = res.statusBarHeight || 20
 				}
 			})
+			
+			
 		},
 		methods: {
 			// 去订单列表

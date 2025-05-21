@@ -331,6 +331,7 @@ var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/run
 //
 //
 //
+//
 var _default = {
   data: function data() {
     return {
@@ -376,14 +377,33 @@ var _default = {
     this.netWork();
   },
   methods: {
-    netWork: function netWork() {
+    // 结束用餐
+    _overOrder: function _overOrder(obj) {
       var _this2 = this;
+      uni.showLoading({
+        title: "请稍后"
+      });
+      this.$request("/food/Order/overOrder", {
+        handle_type: 'a',
+        order_id: obj.order_id
+      }).then(function (res) {
+        console.log('res', res);
+        uni.hideLoading();
+        uni.showToast({
+          title: "用餐结束",
+          icon: "success"
+        });
+        _this2.netWork();
+      });
+    },
+    netWork: function netWork() {
+      var _this3 = this;
       this.$request("/food/Seat/geSeatList", this.formData).then(function (res) {
-        _this2.total = res.count;
-        if (_this2.formData.currentPage === 1) {
-          _this2.list = res.list;
+        _this3.total = res.count;
+        if (_this3.formData.currentPage === 1) {
+          _this3.list = res.list;
         } else {
-          _this2.list = _this2.list.concat(res.list);
+          _this3.list = _this3.list.concat(res.list);
         }
       });
     },
@@ -425,7 +445,7 @@ var _default = {
       this.seatObj = obj;
     },
     confirm: function confirm() {
-      var _this3 = this;
+      var _this4 = this;
       this.show = false;
       uni.showLoading({
         title: "请稍后"
@@ -434,9 +454,9 @@ var _default = {
         seat_id: this.seatObj.id,
         order_id: this.orderObj.order_id
       }).then(function (res) {
-        _this3.formData.currentPage = 1;
+        _this4.formData.currentPage = 1;
         uni.hideLoading();
-        _this3.netWork();
+        _this4.netWork();
       }).catch(function () {
         uni.hideLoading();
       });

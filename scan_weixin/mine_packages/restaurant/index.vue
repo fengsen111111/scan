@@ -41,7 +41,8 @@
 						v-if="item.remaining_number>0&&item.status==='Y'&&refund&&Number(item.refund_number)<Number(item.number)">退款</text>
 				</view>
 				<view class="info flex spaceBetween">
-					<image :src="item.image" mode=""></image>
+					<image v-if="item.image" :src="item.image" mode=""></image>
+					<image v-else src="../../static/cpmrt.png" mode=""></image>
 					<view class="concat">
 						{{item.introduce}}
 					</view>
@@ -56,6 +57,7 @@
 		<view class="bottom flex alignCenter spaceBetween">
 			<view class="add" @click="print()">补打</view>
 			<view class="pay" @click="end()">转台</view>
+			<view class="jsdd" @click="_overOrder()">结束</view>
 		</view>
 
 		<u-popup :show="payShow" mode="bottom" @close="payShow=false" round="5.33vw">
@@ -125,30 +127,71 @@
 				refundOne: true,
 				show: false,
 				seatObj: {},
-				seatList: []
+				seatList: [],
+				option:{}
 			};
 		},
 		onLoad(options) {
-			this.$request("/food/Order/userGetOrderDetail", {
-				order_id: options.id
-			}).then(res => {
-				this.orderInfo = res;
-				this.openTime = options.time;
-				this.refundAll = options.refundFlag === 'Y'
-				this.refund = res.refund_all === 'N'
-				res.goods_list.map(item => {
-					if (Number(item.refund_number) >= Number(item.number)) {
-						this.refundOne = false
-					}
-				})
-				this.$request("/food/Seat/geSeatListNew", {
-					store_id: this.orderInfo.store_id
-				}).then(result => {
-					this.seatList = result.list
-				})
-			})
+			// this.$request("/food/Order/userGetOrderDetail", {
+			// 	order_id: options.id
+			// }).then(res => {
+			// 	this.orderInfo = res;
+			// 	this.openTime = options.time;
+			// 	this.refundAll = options.refundFlag === 'Y'
+			// 	this.refund = res.refund_all === 'N'
+			// 	res.goods_list.map(item => {
+			// 		if (Number(item.refund_number) >= Number(item.number)) {
+			// 			this.refundOne = false
+			// 		}
+			// 	})
+			// 	this.$request("/food/Seat/geSeatListNew", {
+			// 		store_id: this.orderInfo.store_id
+			// 	}).then(result => {
+			// 		this.seatList = result.list
+			// 	})
+			// })
+			this.option = options
+			this._userGetOrderDetail()
 		},
 		methods: {
+			_userGetOrderDetail(){
+				this.$request("/food/Order/userGetOrderDetail", {
+					order_id: this.option.id
+				}).then(res => {
+					this.orderInfo = res;
+					this.openTime = options.time;
+					this.refundAll = options.refundFlag === 'Y'
+					this.refund = res.refund_all === 'N'
+					res.goods_list.map(item => {
+						if (Number(item.refund_number) >= Number(item.number)) {
+							this.refundOne = false
+						}
+					})
+					this.$request("/food/Seat/geSeatListNew", {
+						store_id: this.orderInfo.store_id
+					}).then(result => {
+						this.seatList = result.list
+					})
+				})
+			},
+			// 结束用餐
+			_overOrder(obj){
+				uni.showLoading({
+					title: "请稍后"
+				})
+				this.$request("/food/Order/overOrder", {
+					handle_type: 'a',
+					order_id: this.orderInfo.id
+				}).then(res => {
+					console.log('res',res);
+					uni.hideLoading()
+					uni.showToast({
+						title: "用餐结束",
+						icon: "success"
+					})
+					this._userGetOrderDetail()
+				})
+			},
 			refuse(obj) {
 				this.goodInfo = obj;
 				this.$request("/food/Order/computerGoods", {
@@ -466,7 +509,7 @@
 			border: 1px solid #666666;
 
 			>.pay {
-				width: 41.33vw;
+				width: 30%;
 				height: 8vw;
 				line-height: 8vw;
 				text-align: center;
@@ -479,7 +522,7 @@
 			}
 
 			>.add {
-				width: 41.33vw;
+				width: 30%;
 				height: 8vw;
 				line-height: 8vw;
 				text-align: center;
@@ -488,6 +531,18 @@
 				font-weight: bold;
 				font-size: 4vw;
 				color: #000000;
+			}
+			>.jsdd {
+				width: 30%;
+				height: 8vw;
+				line-height: 8vw;
+				text-align: center;
+				border-radius: 6vw;
+				border: 0.27vw solid #ff0000;
+				font-weight: bold;
+				font-size: 4vw;
+				color: #ff0000;
+				margin-left: 16rpx;
 			}
 		}
 

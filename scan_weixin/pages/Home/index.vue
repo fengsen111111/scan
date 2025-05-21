@@ -104,26 +104,39 @@
 			this.netWork();
 		},
 		methods: {
-			scanCode() {
+			async scanCode() {
 				uni.scanCode({
 					scanType: ["qrCode"],
 					success: res => {
+						console.log('res',res);
 						let str = res.result.split("?")[1];
 						let obj = {};
 						let arr = str.split('&');
 						for (let i = 0; i < arr.length; i++) {
 							obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
 						}
-						if (obj.store_id) {
-							uni.setStorageSync("scanInfo", {
-								seat_code: obj.seat_code,
-								seat_id: obj.seat_id,
-								store_id: obj.store_id,
-								type: "scan"
-							})
-							this.$nav("/home_packages/shop_detail/index")
-						}
-						console.log(obj)
+						
+						this.$request("/food/Order/userGetOrderDetailByTableID", {
+							// id: obj.id
+							table_id:obj.seat_id
+						}).then((resule)=>{
+							// 有订单号就跳转订单详情
+							if(resule.order_id){
+								this.$nav('/order_packages/detail/index',{id:resule.order_id,time_status:'',pay_status:''})
+							}else{
+								if (obj.store_id) {
+									uni.setStorageSync("scanInfo", {
+										seat_code: obj.seat_code,
+										seat_id: obj.seat_id,
+										store_id: obj.store_id,
+										type: "scan"
+									})
+									this.$nav("/home_packages/shop_detail/index")
+								}
+								console.log(obj)
+							}
+						})
+						
 					}
 				})
 			},

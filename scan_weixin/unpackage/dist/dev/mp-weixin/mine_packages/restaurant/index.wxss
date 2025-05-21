@@ -157,7 +157,7 @@
   border: 1px solid #666666;
 }
 .container > .bottom > .pay {
-  width: 41.33vw;
+  width: 30%;
   height: 8vw;
   line-height: 8vw;
   text-align: center;
@@ -169,7 +169,7 @@
   margin-left: 2.93vw;
 }
 .container > .bottom > .add {
-  width: 41.33vw;
+  width: 30%;
   height: 8vw;
   line-height: 8vw;
   text-align: center;
@@ -178,6 +178,18 @@
   font-weight: bold;
   font-size: 4vw;
   color: #000000;
+}
+.container > .bottom > .jsdd {
+  width: 30%;
+  height: 8vw;
+  line-height: 8vw;
+  text-align: center;
+  border-radius: 6vw;
+  border: 0.27vw solid #ff0000;
+  font-weight: bold;
+  font-size: 4vw;
+  color: #ff0000;
+  margin-left: 16rpx;
 }
 .container > .list {
   margin-top: 1.87vw;

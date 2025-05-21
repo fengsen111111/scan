@@ -311,6 +311,8 @@ var _default = {
       order_id: options.id
     }).then(function (res) {
       _this.orderInfo = res;
+      var goodsList = uni.getStorageSync("shop" + options.id) || [];
+      console.log('goodsList', goodsList);
     });
     var that = this;
     // 头部高度

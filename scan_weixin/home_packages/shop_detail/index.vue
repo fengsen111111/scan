@@ -629,9 +629,24 @@
 				for (let i = 0; i < arr.length; i++) {
 					obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
 				}
+				
 				option = await this.$request("/food/Seat/miniCodeMsg", {
 					id: obj.id
 				})
+				console.log('option',option);
+				let resule = await this.$request("/food/Order/userGetOrderDetailByTableID", {
+					// id: obj.id
+					table_id:option.seat_id
+				})
+				console.log('resule',resule);
+				// 有订单号就跳转订单详情
+				if(resule.order_id){
+					this.$nav('/order_packages/detail/index',{id:resule.order_id,time_status:'',pay_status:''})
+				}
+				
+				
+				// 扫码进入
+				
 			}
 			if (uni.getStorageSync("scanInfo") && !option.id) {
 				option.id = uni.getStorageSync("scanInfo").store_id;

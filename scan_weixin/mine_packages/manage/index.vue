@@ -57,6 +57,7 @@
 					<view class="right flex alignCenter">
 						<view class="patchwork" @click="print(item)">补打</view>
 						<view class="end" @click="end(item)">转台</view>
+						<view class="jsdd" @click="_overOrder(item)">结束</view>
 					</view>
 				</view>
 			</view>
@@ -158,6 +159,24 @@
 			this.netWork();
 		},
 		methods: {
+			// 结束用餐
+			_overOrder(obj){
+				uni.showLoading({
+					title: "请稍后"
+				})
+				this.$request("/food/Order/overOrder", {
+					handle_type: 'a',
+					order_id: obj.order_id
+				}).then(res => {
+					console.log('res',res);
+					uni.hideLoading()
+					uni.showToast({
+						title: "用餐结束",
+						icon: "success"
+					})
+					this.netWork()
+				})
+			},
 			netWork() {
 				this.$request("/food/Seat/geSeatList", this.formData).then(res => {
 					this.total = res.count;
@@ -368,7 +387,7 @@
 				>.option {
 					>.right {
 						>.end {
-							width: 21.33vw;
+							width: 120rpx;
 							height: 8vw;
 							line-height: 8vw;
 							text-align: center;
@@ -377,11 +396,11 @@
 							font-weight: bold;
 							font-size: 4vw;
 							color: rgb(245, 232, 174);
-							margin-left: 2.93vw;
+							margin-left: 16rpx;
 						}
 
 						>.patchwork {
-							width: 21.33vw;
+							width: 120rpx;
 							height: 8vw;
 							line-height: 8vw;
 							text-align: center;
@@ -391,6 +410,19 @@
 							font-size: 4vw;
 							color: #000000;
 						}
+						>.jsdd {
+							width: 120rpx;
+							height: 8vw;
+							line-height: 8vw;
+							text-align: center;
+							border-radius: 6vw;
+							border: 0.27vw solid #ff0000;
+							font-weight: bold;
+							font-size: 4vw;
+							color: #ff0000;
+							margin-left: 16rpx;
+						}
+						
 					}
 
 					>.left {

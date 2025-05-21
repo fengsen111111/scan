@@ -318,6 +318,8 @@ exports.default = void 0;
 //
 //
 //
+//
+//
 var _default = {
   data: function data() {
     return {
@@ -335,33 +337,75 @@ var _default = {
       refundOne: true,
       show: false,
       seatObj: {},
-      seatList: []
+      seatList: [],
+      option: {}
     };
   },
   onLoad: function onLoad(options) {
-    var _this = this;
-    this.$request("/food/Order/userGetOrderDetail", {
-      order_id: options.id
-    }).then(function (res) {
-      _this.orderInfo = res;
-      _this.openTime = options.time;
-      _this.refundAll = options.refundFlag === 'Y';
-      _this.refund = res.refund_all === 'N';
-      res.goods_list.map(function (item) {
-        if (Number(item.refund_number) >= Number(item.number)) {
-          _this.refundOne = false;
-        }
-      });
-      _this.$request("/food/Seat/geSeatListNew", {
-        store_id: _this.orderInfo.store_id
-      }).then(function (result) {
-        _this.seatList = result.list;
-      });
-    });
+    // this.$request("/food/Order/userGetOrderDetail", {
+    // 	order_id: options.id
+    // }).then(res => {
+    // 	this.orderInfo = res;
+    // 	this.openTime = options.time;
+    // 	this.refundAll = options.refundFlag === 'Y'
+    // 	this.refund = res.refund_all === 'N'
+    // 	res.goods_list.map(item => {
+    // 		if (Number(item.refund_number) >= Number(item.number)) {
+    // 			this.refundOne = false
+    // 		}
+    // 	})
+    // 	this.$request("/food/Seat/geSeatListNew", {
+    // 		store_id: this.orderInfo.store_id
+    // 	}).then(result => {
+    // 		this.seatList = result.list
+    // 	})
+    // })
+    this.option = options;
+    this._userGetOrderDetail();
   },
   methods: {
-    refuse: function refuse(obj) {
+    _userGetOrderDetail: function _userGetOrderDetail() {
+      var _this = this;
+      this.$request("/food/Order/userGetOrderDetail", {
+        order_id: this.option.id
+      }).then(function (res) {
+        _this.orderInfo = res;
+        _this.openTime = options.time;
+        _this.refundAll = options.refundFlag === 'Y';
+        _this.refund = res.refund_all === 'N';
+        res.goods_list.map(function (item) {
+          if (Number(item.refund_number) >= Number(item.number)) {
+            _this.refundOne = false;
+          }
+        });
+        _this.$request("/food/Seat/geSeatListNew", {
+          store_id: _this.orderInfo.store_id
+        }).then(function (result) {
+          _this.seatList = result.list;
+        });
+      });
+    },
+    // 结束用餐
+    _overOrder: function _overOrder(obj) {
       var _this2 = this;
+      uni.showLoading({
+        title: "请稍后"
+      });
+      this.$request("/food/Order/overOrder", {
+        handle_type: 'a',
+        order_id: this.orderInfo.id
+      }).then(function (res) {
+        console.log('res', res);
+        uni.hideLoading();
+        uni.showToast({
+          title: "用餐结束",
+          icon: "success"
+        });
+        _this2._userGetOrderDetail();
+      });
+    },
+    refuse: function refuse(obj) {
+      var _this3 = this;
       this.goodInfo = obj;
       this.$request("/food/Order/computerGoods", {
         goods_list: [{
@@ -370,12 +414,12 @@ var _default = {
           number: 1
         }]
       }).then(function (res) {
-        _this2.price = res.price;
+        _this3.price = res.price;
       });
       this.payShow = true;
     },
     allRefund: function allRefund() {
-      var _this3 = this;
+      var _this4 = this;
       uni.showModal({
         title: "温馨提示",
         content: "确认全部退款？",
@@ -387,21 +431,21 @@ var _default = {
             var formData = {
               handle_type: 'a',
               type: 'a',
-              order_id: _this3.orderInfo.id
+              order_id: _this4.orderInfo.id
             };
-            _this3.$request("/food/Order/refundOrder", formData).then(function (res) {
+            _this4.$request("/food/Order/refundOrder", formData).then(function (res) {
               uni.hideLoading();
               uni.showToast({
                 title: "退款成功",
                 icon: "success"
               });
-              _this3.$request("/food/Order/userGetOrderDetail", {
-                order_id: _this3.orderInfo.id
+              _this4.$request("/food/Order/userGetOrderDetail", {
+                order_id: _this4.orderInfo.id
               }).then(function (res) {
-                _this3.orderInfo = res;
+                _this4.orderInfo = res;
                 res.goods_list.map(function (item) {
                   if (Number(item.refund_number) >= Number(item.number)) {
-                    _this3.refundOne = false;
+                    _this4.refundOne = false;
                   }
                 });
               });
@@ -413,7 +457,7 @@ var _default = {
       });
     },
     confirm: function confirm() {
-      var _this4 = this;
+      var _this5 = this;
       uni.showLoading({
         title: "请稍后"
       });
@@ -425,31 +469,31 @@ var _default = {
       };
       this.$request("/food/Order/refundOrder", formData).then(function (res) {
         uni.hideLoading();
-        _this4.payShow = false;
+        _this5.payShow = false;
         uni.showToast({
           title: "退款成功",
           icon: "success"
         });
-        _this4.$request("/food/Order/userGetOrderDetail", {
-          order_id: _this4.orderInfo.id
+        _this5.$request("/food/Order/userGetOrderDetail", {
+          order_id: _this5.orderInfo.id
         }).then(function (res) {
-          _this4.orderInfo = res;
+          _this5.orderInfo = res;
           res.goods_list.map(function (item) {
             if (Number(item.refund_number) >= Number(item.number)) {
-              _this4.refundOne = false;
+              _this5.refundOne = false;
             }
           });
         });
       }).catch(function (err) {
         uni.hideLoading();
-        _this4.payShow = false;
-        _this4.$request("/food/Order/userGetOrderDetail", {
-          order_id: _this4.orderInfo.id
+        _this5.payShow = false;
+        _this5.$request("/food/Order/userGetOrderDetail", {
+          order_id: _this5.orderInfo.id
         }).then(function (res) {
-          _this4.orderInfo = res;
+          _this5.orderInfo = res;
           res.goods_list.map(function (item) {
             if (Number(item.refund_number) >= Number(item.number)) {
-              _this4.refundOne = false;
+              _this5.refundOne = false;
             }
           });
         });
@@ -459,7 +503,7 @@ var _default = {
       this.payType = type;
     },
     changeNum: function changeNum(type) {
-      var _this5 = this;
+      var _this6 = this;
       if (type === "add") {
         if (this.goodsNum === Number(this.goodInfo.remaining_number)) return;
         this.goodsNum++;
@@ -470,7 +514,7 @@ var _default = {
             number: this.goodsNum
           }]
         }).then(function (res) {
-          _this5.price = res.price;
+          _this6.price = res.price;
         });
       } else {
         if (this.goodsNum === 1) return;
@@ -482,7 +526,7 @@ var _default = {
             number: this.goodsNum
           }]
         }).then(function (res) {
-          _this5.price = res.price;
+          _this6.price = res.price;
         });
       }
     },
@@ -504,7 +548,7 @@ var _default = {
       this.seatObj = obj;
     },
     seatConfirm: function seatConfirm() {
-      var _this6 = this;
+      var _this7 = this;
       this.show = false;
       uni.showLoading({
         title: "请稍后"
@@ -514,10 +558,10 @@ var _default = {
         order_id: this.orderInfo.id
       }).then(function (res) {
         uni.hideLoading();
-        _this6.$request("/food/Order/userGetOrderDetail", {
-          order_id: _this6.orderInfo.id
+        _this7.$request("/food/Order/userGetOrderDetail", {
+          order_id: _this7.orderInfo.id
         }).then(function (res) {
-          _this6.orderInfo = res;
+          _this7.orderInfo = res;
         });
       }).catch(function () {
         uni.hideLoading();

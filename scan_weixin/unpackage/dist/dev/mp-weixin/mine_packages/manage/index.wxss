@@ -116,7 +116,7 @@
   padding: 2.67vw 4vw 4vw;
 }
 .container > .list > .busy > .option > .right > .end {
-  width: 21.33vw;
+  width: 120rpx;
   height: 8vw;
   line-height: 8vw;
   text-align: center;
@@ -125,10 +125,10 @@
   font-weight: bold;
   font-size: 4vw;
   color: #f5e8ae;
-  margin-left: 2.93vw;
+  margin-left: 16rpx;
 }
 .container > .list > .busy > .option > .right > .patchwork {
-  width: 21.33vw;
+  width: 120rpx;
   height: 8vw;
   line-height: 8vw;
   text-align: center;
@@ -137,6 +137,18 @@
   font-weight: bold;
   font-size: 4vw;
   color: #000000;
+}
+.container > .list > .busy > .option > .right > .jsdd {
+  width: 120rpx;
+  height: 8vw;
+  line-height: 8vw;
+  text-align: center;
+  border-radius: 6vw;
+  border: 0.27vw solid #ff0000;
+  font-weight: bold;
+  font-size: 4vw;
+  color: #ff0000;
+  margin-left: 16rpx;
 }
 .container > .list > .busy > .option > .left {
   font-weight: 400;

@@ -1143,7 +1143,7 @@ var _default = {
   onLoad: function onLoad(option) {
     var _this = this;
     return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
-      var param, str, obj, arr, i;
+      var param, str, obj, arr, i, resule;
       return _regenerator.default.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
@@ -1154,7 +1154,7 @@ var _default = {
               }
               console.log(option);
               if (!option.scene) {
-                _context2.next = 12;
+                _context2.next = 18;
                 break;
               }
               param = decodeURIComponent(option.scene);
@@ -1170,7 +1170,26 @@ var _default = {
               });
             case 11:
               option = _context2.sent;
-            case 12:
+              console.log('option', option);
+              _context2.next = 15;
+              return _this.$request("/food/Order/userGetOrderDetailByTableID", {
+                // id: obj.id
+                table_id: option.seat_id
+              });
+            case 15:
+              resule = _context2.sent;
+              console.log('resule', resule);
+              // 有订单号就跳转订单详情
+              if (resule.order_id) {
+                _this.$nav('/order_packages/detail/index', {
+                  id: resule.order_id,
+                  time_status: '',
+                  pay_status: ''
+                });
+              }
+
+              // 扫码进入
+            case 18:
               if (uni.getStorageSync("scanInfo") && !option.id) {
                 option.id = uni.getStorageSync("scanInfo").store_id;
                 _this.scanInfo = uni.getStorageSync("scanInfo");
@@ -1283,7 +1302,7 @@ var _default = {
                   }).exec();
                 }, 1000);
               });
-            case 19:
+            case 25:
             case "end":
               return _context2.stop();
           }

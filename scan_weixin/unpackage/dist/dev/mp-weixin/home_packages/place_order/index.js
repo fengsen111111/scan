@@ -103,14 +103,14 @@ try {
     uIcon: function () {
       return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 387))
     },
+    uPopup: function () {
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 411))
+    },
     uCheckboxGroup: function () {
       return Promise.all(/*! import() | node-modules/uview-ui/components/u-checkbox-group/u-checkbox-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-checkbox-group/u-checkbox-group")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-checkbox-group/u-checkbox-group.vue */ 444))
     },
     uCheckbox: function () {
       return Promise.all(/*! import() | node-modules/uview-ui/components/u-checkbox/u-checkbox */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-checkbox/u-checkbox")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-checkbox/u-checkbox.vue */ 452))
-    },
-    uPopup: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 411))
     },
     uEmpty: function () {
       return Promise.all(/*! import() | node-modules/uview-ui/components/u-empty/u-empty */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-empty/u-empty")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-empty/u-empty.vue */ 403))
@@ -487,6 +487,7 @@ var _default = {
       uni.scanCode({
         scanType: ["qrCode"],
         success: function success(res) {
+          console.log('res', res);
           var str = res.result.split("?")[1];
           var obj = {};
           var arr = str.split('&');
@@ -495,6 +496,19 @@ var _default = {
           }
           _this2.orderForm.table_id = obj.seat_id;
           _this2.table_code = obj.seat_code;
+          _this2.$request("/food/Order/userGetOrderDetailByTableID", {
+            // id: obj.id
+            table_id: obj.seat_id
+          }).then(function (resule) {
+            // 有订单号就跳转订单详情
+            if (resule.order_id) {
+              _this2.$nav('/order_packages/detail/index', {
+                id: resule.order_id,
+                time_status: '',
+                pay_status: ''
+              });
+            }
+          });
         }
       });
     },
@@ -651,7 +665,7 @@ var _default = {
             console.log('经度：' + res.longitude);
             console.log('纬度：' + res.latitude);
             orderForm.location = res.longitude + ',' + res.latitude;
-            orderForm.location = '91.181062,29.656868'; //测试用经纬度写死，测完注释
+            // orderForm.location = '91.129157,29.653201'//测试用经纬度写死，测完注释
 
             that.$request("/food/Order/createOrder", orderForm).then(function (res) {
               uni.hideLoading();
