@@ -640,39 +640,54 @@ var _default = {
         uni.showLoading({
           title: "请稍后……"
         });
-        var orderForm = _objectSpread(_objectSpread(_objectSpread({}, this.orderForm), this.formData), uni.getStorageSync("workerOrder"));
-
-        // console.log('orderForm', orderForm);
-        // return false
-        this.$request("/food/Order/createOrder", orderForm).then(function (res) {
-          uni.hideLoading();
-          if (res.result === 1) {
-            uni.removeStorageSync("shop" + _this7.store_id);
-            uni.showToast({
-              title: "下单成功",
-              icon: "success",
-              duration: 2000
-            });
-            // 跳转打单界面
-            setTimeout(function () {
-              _this7.$nav('/order_packages/cpxdz/index', {
-                order: res.order_id
-              });
-            }, 2000);
-            // uni.navigateBack({
-            // 	delta: 2
-            // })
-          } else {
-            uni.showToast({
-              title: "下单失败",
-              icon: "error",
-              duration: 2000
-            });
-          }
-        }).catch(function () {
-          uni.hideLoading();
+        var orderForm = _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, this.orderForm), this.formData), uni.getStorageSync("workerOrder")), {}, {
+          location: ''
         });
-        return;
+        var that = this;
+        uni.getLocation({
+          type: 'wgs84',
+          // 返回 GPS 坐标，也可以使用 'gcj02'（适用于高德、微信地图）
+          success: function success(res) {
+            console.log('经度：' + res.longitude);
+            console.log('纬度：' + res.latitude);
+            orderForm.location = res.longitude + ',' + res.latitude;
+            orderForm.location = '91.181062,29.656868'; //测试用经纬度写死，测完注释
+
+            that.$request("/food/Order/createOrder", orderForm).then(function (res) {
+              uni.hideLoading();
+              if (res.result === 1) {
+                uni.removeStorageSync("shop" + that.store_id);
+                uni.showToast({
+                  title: "下单成功",
+                  icon: "success",
+                  duration: 2000
+                });
+                // 跳转打单界面
+                setTimeout(function () {
+                  that.$nav('/order_packages/cpxdz/index', {
+                    order: res.order_id
+                  });
+                }, 2000);
+                // uni.navigateBack({
+                // 	delta: 2
+                // })
+              } else {
+                uni.showToast({
+                  title: "下单失败",
+                  icon: "error",
+                  duration: 2000
+                });
+              }
+            }).catch(function () {
+              uni.hideLoading();
+            });
+            return;
+          },
+          fail: function fail(err) {
+            console.log('获取位置失败：', err);
+          }
+        });
+        return false;
       }
       this.$request("/food/User/getUserInfo").then(function (res) {
         _this7.userMoney = res.money;
@@ -697,7 +712,9 @@ var _default = {
           pay_type = 'a';
         }
       }
-      var orderForm = _objectSpread(_objectSpread({}, this.orderForm), this.formData);
+      var orderForm = _objectSpread(_objectSpread(_objectSpread({}, this.orderForm), this.formData), {}, {
+        location: ''
+      });
       console.log(orderForm);
 
       // if (this.addType) {

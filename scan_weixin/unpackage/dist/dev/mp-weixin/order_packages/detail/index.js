@@ -279,6 +279,17 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 var _default = {
   data: function data() {
     return {
@@ -288,7 +299,8 @@ var _default = {
       userMoney: 0,
       payFlag: true,
       time_status: 'a',
-      pay_status: 'a'
+      pay_status: 'a',
+      statusBarHeight: '20'
     };
   },
   onLoad: function onLoad(options) {
@@ -300,8 +312,21 @@ var _default = {
     }).then(function (res) {
       _this.orderInfo = res;
     });
+    var that = this;
+    // 头部高度
+    uni.getSystemInfo({
+      success: function success(res) {
+        that.statusBarHeight = res.statusBarHeight || 20;
+      }
+    });
   },
   methods: {
+    // 去订单列表
+    goBack: function goBack() {
+      uni.switchTab({
+        url: "/pages/Order/index"
+      });
+    },
     changePayType: function changePayType(type) {
       this.payType = type;
     },

@@ -31,7 +31,8 @@
 			"pages": [{
 				"path": "detail/index",
 				"style": {
-					"navigationBarTitleText": "订单详情"
+					"navigationBarTitleText": "订单详情",
+					"navigationStyle": "custom"  // ✅ 隐藏原生导航栏
 				}
 			},
 			{

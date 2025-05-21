@@ -9,7 +9,7 @@
 				菜品下单中（{{countdown}}S）
 			</view>
 			<view v-else style="font-size: 36rpx;font-weight: bold;text-align: center;">
-				菜品制作中
+				菜品制作中（{{countdown}}S）
 			</view>
 			<view style="color: #999999;font-size: 24rpx;margin: 20rpx 0rpx 80rpx 0rpx;">
 				请耐心等候~
@@ -38,24 +38,35 @@
 			};
 		},
 		onLoad(options) {
-			if (this.option.order_id) {
-				this.clearTimer();
-			} else {
-				this.startCountdown();
-			}
-			console.log('options', options);
+			this.clearTimer(); //清除定时器
+			this.startCountdown();//重新定时器
+			console.log('订单号', options.order);//订单号
 			this.option = options
+			this._checkOrderPrint()
 		},
 		methods: {
+			// 查询当前状态
+			_checkOrderPrint(){
+				this.$request("/food/Printer/checkOrderPrint", {
+					order_id: this.option.order_id
+				}).then(res => {
+					console.log('结果',res);
+					if(res.code=='success'){
+						// 成功打印
+						this.type = 2
+					}else{
+						this.type = 1
+					}
+				})
+			},
 			// 计时器
 			startCountdown() {
 				this.clearTimer(); // 先清一次防止重复
 				this.countdown = 10;
 				this.timer = setInterval(() => {
 					this.countdown--;
-					if (this.countdown <= 7) {
-						this.clearTimer()
-						this.type = 2
+					if(this.countdown<=0){
+						this.toOrder()
 					}
 				}, 1000);
 			},
@@ -69,11 +80,10 @@
 			// 跳转订单详情
 			toOrder() {
 				this.clearTimer();
-				uni.switchTab({
-					url: "/pages/Order/index"
-				})
-				// this.$nav('/pages/Order/index', {
-				// 	order: this.option.order_id
+				// 跳转订单详情  
+				this.$nav('/order_packages/detail/index',{id:this.option.order,time_status:'',pay_status:''})
+				// uni.switchTab({
+				// 	url: "/pages/Order/index"
 				// })
 			}
 		},

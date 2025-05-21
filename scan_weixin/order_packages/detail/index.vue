@@ -1,10 +1,20 @@
 <template>
 	<view class="container">
-		<view style="height: 1.33vw;"></view>
+		<view :style="{ paddingTop: statusBarHeight + 'px' }" class="nav-bar">
+			<view style="display: flex;justify-content: space-between;padding: 10rpx;align-items: center;">
+				<view @click="goBack">
+					<image src="../../static/fh.png" style="width: 40rpx;height: 40rpx;margin-top: 18rpx;" mode=""></image>
+				</view>
+				<view style="font-size: 24rpx;">订单详情</view>
+				<view class=""></view>
+			</view>
+		</view>
+		<view style="height: 185rpx;"></view>
 		<view class="content">
 			<view style="text-align: center;">
 				<view style="font-size: 36rpx;font-weight: bold;">下单成功</view>
-				<view style="color: #999999;font-size: 22rpx;margin-top: 10rpx;margin-bottom: 40rpx;">为保证您的用餐体验，建议用餐结束后再支付哦~</view>
+				<view style="color: #999999;font-size: 22rpx;margin-top: 10rpx;margin-bottom: 40rpx;">
+					为保证您的用餐体验，建议用餐结束后再支付哦~</view>
 			</view>
 			<view class="order_num">订单编号:{{orderInfo.id}}</view>
 			<view class="label flex alignCenter spaceBetween">
@@ -53,9 +63,10 @@
 					x{{item.number}}
 				</view>
 			</view>
+			<view style="height: 100rpx;"></view>
 		</view>
 		<!-- <view style="height: 12.8vw;" v-if="time_status==='a'"></view> -->
-		<view class="bottom flex alignCenter spaceBetween" >
+		<view class="bottom flex alignCenter spaceBetween">
 			<view class="left flex alignCenter">
 				实付￥{{orderInfo.price}}
 				<view class="price flex alignCenter flexColumn">
@@ -109,7 +120,9 @@
 				payFlag: true,
 
 				time_status: 'a',
-				pay_status: 'a'
+				pay_status: 'a',
+
+				statusBarHeight: '20'
 			};
 		},
 		onLoad(options) {
@@ -120,8 +133,21 @@
 			}).then(res => {
 				this.orderInfo = res
 			})
+			const that = this
+			// 头部高度
+			uni.getSystemInfo({
+				success(res) {
+					that.statusBarHeight = res.statusBarHeight || 20
+				}
+			})
 		},
 		methods: {
+			// 去订单列表
+			goBack() {
+				uni.switchTab({
+					url: "/pages/Order/index"
+				})
+			},
 			changePayType(type) {
 				this.payType = type;
 			},
@@ -199,6 +225,33 @@
 </script>
 
 <style lang="scss">
+	
+	.nav-bar {
+	  background-color: #ffffff;
+	  width: 100%;
+	  position: fixed;
+	  top: 0;
+	  left: 0;
+	  z-index: 1000;
+	}
+	.nav-content {
+	  height: 44px;
+	  display: flex;
+	  align-items: center;
+	  padding: 0 15px;
+	  border-bottom: 1px solid #eee;
+	}
+	.back-btn {
+	  width: 30px;
+	  text-align: center;
+	  font-size: 20px;
+	}
+	.title {
+	  flex: 1;
+	  text-align: center;
+	  font-size: 18px;
+	  font-weight: bold;
+	}
 	.payContent {
 		padding: 4.93vw 4vw;
 

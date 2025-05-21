@@ -421,39 +421,52 @@
 						...this.orderForm,
 						...this.formData,
 						...uni.getStorageSync("workerOrder"),
+						location: ''
 					}
-
-					// console.log('orderForm', orderForm);
-					// return false
-					this.$request("/food/Order/createOrder", orderForm).then(res => {
-						uni.hideLoading();
-						if (res.result === 1) {
-							uni.removeStorageSync("shop" + this.store_id);
-							uni.showToast({
-								title: "下单成功",
-								icon: "success",
-								duration: 2000
+					const that = this
+					uni.getLocation({
+						type: 'wgs84', // 返回 GPS 坐标，也可以使用 'gcj02'（适用于高德、微信地图）
+						success: function(res) {
+							console.log('经度：' + res.longitude);
+							console.log('纬度：' + res.latitude);
+							orderForm.location = res.longitude + ',' + res.latitude
+							orderForm.location = '91.181062,29.656868'//测试用经纬度写死，测完注释
+							
+							that.$request("/food/Order/createOrder", orderForm).then(res => {
+								uni.hideLoading();
+								if (res.result === 1) {
+									uni.removeStorageSync("shop" + that.store_id);
+									uni.showToast({
+										title: "下单成功",
+										icon: "success",
+										duration: 2000
+									})
+									// 跳转打单界面
+									setTimeout(() => {
+										that.$nav('/order_packages/cpxdz/index', {
+											order: res.order_id
+										})
+									}, 2000)
+									// uni.navigateBack({
+									// 	delta: 2
+									// })
+								} else {
+									uni.showToast({
+										title: "下单失败",
+										icon: "error",
+										duration: 2000
+									})
+								}
+							}).catch(() => {
+								uni.hideLoading();
 							})
-							// 跳转打单界面
-							setTimeout(() => {
-								this.$nav('/order_packages/cpxdz/index', {
-									order: res.order_id
-								})
-							}, 2000)
-							// uni.navigateBack({
-							// 	delta: 2
-							// })
-						} else {
-							uni.showToast({
-								title: "下单失败",
-								icon: "error",
-								duration: 2000
-							})
+							return;
+						},
+						fail: function(err) {
+							console.log('获取位置失败：', err);
 						}
-					}).catch(() => {
-						uni.hideLoading();
-					})
-					return;
+					});
+					return false
 				}
 				this.$request("/food/User/getUserInfo").then(res => {
 					this.userMoney = res.money;
@@ -480,6 +493,7 @@
 				let orderForm = {
 					...this.orderForm,
 					...this.formData,
+					location: ''
 				}
 				console.log(orderForm)
 
