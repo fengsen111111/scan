@@ -78,9 +78,11 @@
 					</view>
 				</view>
 				<view class="right flex alignCenter">
-					<view class="add" @click="addMenu()">加菜</view>
 					<view class="pay" v-if="orderInfo.price*1==orderInfo.total_price*1&&orderInfo.price>0">已支付</view>
-					<view class="pay" v-else @click="goPay()">去结账</view>
+					<view class="" v-else style="display: flex;">
+						<view class="addA" @click="addMenu()">加菜</view>
+						<view class="payA" @click="goPay()">去结账</view>
+					</view>
 				</view>
 			</view>
 		</view>
@@ -346,6 +348,32 @@
 </script>
 
 <style lang="scss">
+	
+	.payA {
+		width: 21.33vw;
+		height: 8vw;
+		line-height: 8vw;
+		text-align: center;
+		background: #EFA246;
+		border-radius: 6vw;
+		font-weight: bold;
+		font-size: 4vw;
+		color: #FFFFFF;
+		margin-left: 2.93vw;
+	}
+	
+	.addA {
+		width: 21.33vw;
+		height: 8vw;
+		line-height: 8vw;
+		text-align: center;
+		border-radius: 6vw;
+		border: 1px solid #EFA246;
+		font-weight: bold;
+		font-size: 4vw;
+		color: #EFA246;
+	}
+	
 	.discount_checkbox {
 		background: #FFFFFF;
 		margin: -10vw auto 0;

@@ -233,7 +233,7 @@
 			</view>
 			<view><text style="font-size: 2.67vw;">￥</text>{{moneyObj.price||0}}</view>
 			<view class="gotIt" @click.stop="scanTableCode()">
-				{{option.type=='add'?'加菜':'去结算'}}
+				{{option.type=='add'?'加菜':'去下单'}}
 			</view>
 		</view>
 		<!-- 套餐 -->

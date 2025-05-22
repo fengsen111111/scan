@@ -24,6 +24,29 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.payA {
+  width: 21.33vw;
+  height: 8vw;
+  line-height: 8vw;
+  text-align: center;
+  background: #EFA246;
+  border-radius: 6vw;
+  font-weight: bold;
+  font-size: 4vw;
+  color: #FFFFFF;
+  margin-left: 2.93vw;
+}
+.addA {
+  width: 21.33vw;
+  height: 8vw;
+  line-height: 8vw;
+  text-align: center;
+  border-radius: 6vw;
+  border: 1px solid #EFA246;
+  font-weight: bold;
+  font-size: 4vw;
+  color: #EFA246;
+}
 .discount_checkbox {
   background: #FFFFFF;
   margin: -10vw auto 0;

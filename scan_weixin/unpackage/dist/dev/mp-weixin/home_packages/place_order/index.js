@@ -665,10 +665,13 @@ var _default = {
             console.log('经度：' + res.longitude);
             console.log('纬度：' + res.latitude);
             orderForm.location = res.longitude + ',' + res.latitude;
-            orderForm.location = '91.129157,29.653201'; //测试用经纬度写死，测完注释
+            // orderForm.location = '91.129157,29.653201'//测试用经纬度写死，测完注释
             orderForm.help_user_coupon = orderForm.help_user_coupon ? orderForm.help_user_coupon * 1 : 0;
             that.$request("/food/Order/createOrder", orderForm).then(function (res) {
-              uni.hideLoading();
+              console.log('结果', res);
+              setTimeout(function () {
+                uni.hideLoading();
+              }, 2000);
               if (res.result === 1) {
                 uni.removeStorageSync("shop" + that.store_id);
                 uni.removeStorageSync("workerOrder"); //下单结束后清除代金卷
@@ -693,8 +696,6 @@ var _default = {
                   duration: 2000
                 });
               }
-            }).catch(function () {
-              uni.hideLoading();
             });
             return;
           },
