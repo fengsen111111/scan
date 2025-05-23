@@ -107,10 +107,10 @@ try {
       return Promise.all(/*! import() | node-modules/uview-ui/components/u-popup/u-popup */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-popup/u-popup")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-popup/u-popup.vue */ 411))
     },
     uRadioGroup: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-radio-group/u-radio-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-radio-group/u-radio-group")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-radio-group/u-radio-group.vue */ 468))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-radio-group/u-radio-group */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-radio-group/u-radio-group")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-radio-group/u-radio-group.vue */ 467))
     },
     uRadio: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-radio/u-radio */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-radio/u-radio")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-radio/u-radio.vue */ 476))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-radio/u-radio */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-radio/u-radio")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-radio/u-radio.vue */ 475))
     },
   }
 } catch (e) {
@@ -225,6 +225,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+//
 //
 //
 //
@@ -491,13 +492,15 @@ var _default = {
         });
         return;
       }
-      uni.setStorageSync("workerOrder", (0, _defineProperty2.default)({
+      // uni.setStorageSync("workerOrder", {
+      // 	help_user_order: "Y",
+      // 	[this.help_user_order]: this.typeValue
+      // })
+      this.$nav("/home_packages/shop_detail/index", (0, _defineProperty2.default)({
+        id: this.store_id,
+        type: "workerOrder",
         help_user_order: "Y"
       }, this.help_user_order, this.typeValue));
-      this.$nav("/home_packages/shop_detail/index", {
-        id: this.store_id,
-        type: "workerOrder"
-      });
       this.orderShow = false;
     }
   },

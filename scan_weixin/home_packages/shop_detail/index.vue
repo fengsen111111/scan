@@ -643,10 +643,7 @@
 				if(resule.order_id){
 					this.$nav('/order_packages/detail/index',{id:resule.order_id,time_status:'',pay_status:''})
 				}
-				
-				
 				// 扫码进入
-				
 			}
 			if (uni.getStorageSync("scanInfo") && !option.id) {
 				option.id = uni.getStorageSync("scanInfo").store_id;
@@ -657,7 +654,7 @@
 			if (option.type === "scan") {
 				option.id = option.store_id;
 				this.scanInfo = {
-					seat_code: option.seat_code.split("#")[0],
+					seat_code: decodeURIComponent(option.seat_code.split("#")[0]),
 					seat_id: option.seat_id
 				};
 				this.scanType = true;
@@ -1001,21 +998,26 @@
 						addType: true,
 						useCoupon: this.useCoupon,
 						orderId: this.orderId,
-						canwei: this.option.canwei
+						canwei: this.option.canwei,
+                          
 					})
 				} else if (this.scanType) { //正常下单
 					this.$nav('/home_packages/place_order/index', {
 						id: this.shopInfo.id,
 						scanType: true,
 						table_code: this.scanInfo.seat_code,
-						seat_id: this.scanInfo.seat_id
+						seat_id: this.scanInfo.seat_id,
+						
 					})
 				} else if (this.workerType) {
 					this.$nav('/home_packages/place_order/index', {
 						id: this.shopInfo.id,
 						workerType: true,
 						table_code: "",
-						seat_id: ""
+						seat_id: "",
+						help_user_coupon:this.option.help_user_coupon?this.option.help_user_coupon:'',
+						help_user_order:this.option.help_user_order?this.option.help_user_order:'',
+						help_user_platform: this.option.help_user_platform?this.option.help_user_platform:''
 					})
 				} else {
 					// uni.scanCode({

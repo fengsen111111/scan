@@ -6,6 +6,6 @@
     "u-checkbox-group": "/node-modules/uview-ui/components/u-checkbox-group/u-checkbox-group",
     "u-checkbox": "/node-modules/uview-ui/components/u-checkbox/u-checkbox",
     "u-empty": "/node-modules/uview-ui/components/u-empty/u-empty",
-    "u-picker": "/node-modules/uview-ui/components/u-picker/u-picker"
+    "city-picker": "/uni_modules/piaoyi-cityPicker/components/piaoyi-cityPicker/piaoyi-cityPicker"
   }
 }

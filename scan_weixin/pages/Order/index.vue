@@ -79,14 +79,16 @@
 					{{formData.time_status==='a'&&formData.pay_status==='a'?'已支付':formData.time_status==='a'&&formData.pay_status==='b'?'未支付':formData.time_status==='a'&&formData.pay_status==='c'?'部分支付':'支付时间 '+item.pay_time}}
 				</text> -->
 				
-				<text v-if="item.price>0">
-					<!-- {{item.price<item.total_price?'部分已付':'已支付'}} -->
-					<text style="color:#80CF40" v-if="item.price==item.total_price">已支付</text>
-					<text style="color:#80CF40" v-if="item.price<item.total_price">部分已付</text>
-				</text>
-				<text v-else style="color:'#ff0000'">
-					未支付
-				</text>
+				<view v-if="item.help_user_order != 'Y'" style="font-size: 24rpx;">
+					<text v-if="item.price>0">
+						<!-- {{item.price<item.total_price?'部分已付':'已支付'}} -->
+						<text style="color:#80CF40" v-if="item.price==item.total_price">已支付</text>
+						<text style="color:#80CF40" v-if="item.price<item.total_price">部分已付</text>
+					</text>
+					<text v-else style="color:'#ff0000'">
+						未支付
+					</text>
+				</view>
 			</view>
 
 			<view class="pay flex alignCenter" v-if="formData.time_status==='a'">

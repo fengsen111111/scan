@@ -5,7 +5,8 @@
 			<view class="label">基本信息</view>
 			<view class="option flex alignCenter spaceBetween">
 				<view class="left flex alignCenter" @click="selectTable()">
-					餐位<text>{{table_code||"请选择"}}</text>
+					餐位
+					<text>{{table_code||"请选择"}}</text>
 					<view class="scanCode" @click.stop="scanCode()">扫桌码</view>
 				</view>
 				<view class="right flex alignCenter">
@@ -151,15 +152,22 @@
 				<view class="confirm" @click="confirm()">{{addType?'加菜':'菜品下单'}}</view>
 			</view>
 		</u-popup>
-		<u-picker :show="tableShow" :columns="[tableList]" keyName="code" @confirm="tableConfirm" title="餐位"
-			@cancel="tableShow=false" closeOnClickOverlay @close="tableShow=false"></u-picker>
+		<cityPicker :mask-close-able="true" @confirm="tableConfirm()" @cancel="tableShow=false" :visible="tableShow" :dataList="tableList" />
+		<!-- <u-picker :show="tableShow" :columns="[tableList]" keyName="code" @confirm="tableConfirm" title="餐位"
+			@cancel="tableShow=false" closeOnClickOverlay @close="tableShow=false"></u-picker> -->
 	</view>
 </template>
 
 <script>
+	import cityPicker from '@/uni_modules/piaoyi-cityPicker/components/piaoyi-cityPicker/piaoyi-cityPicker'
 	export default {
+		components: {
+			cityPicker
+		},
 		data() {
 			return {
+				defaultValue: '',
+
 				store_id: "",
 				table_code: "",
 				tableList: [],
@@ -256,6 +264,7 @@
 			this.selectCount("first");
 		},
 		methods: {
+			// 优惠卷
 			discountClose() {
 				this.discountShow = false;
 				if (this.checkValue1[0] !== 1) {
@@ -266,7 +275,7 @@
 				uni.scanCode({
 					scanType: ["qrCode"],
 					success: res => {
-						console.log('res',res);
+						console.log('res', res);
 						let str = res.result.split("?")[1];
 						let obj = {};
 						let arr = str.split('&');
@@ -275,14 +284,18 @@
 						}
 						this.orderForm.table_id = obj.seat_id;
 						this.table_code = obj.seat_code
-						
+
 						this.$request("/food/Order/userGetOrderDetailByTableID", {
 							// id: obj.id
-							table_id:obj.seat_id
-						}).then((resule)=>{
+							table_id: obj.seat_id
+						}).then((resule) => {
 							// 有订单号就跳转订单详情
-							if(resule.order_id){
-								this.$nav('/order_packages/detail/index',{id:resule.order_id,time_status:'',pay_status:''})
+							if (resule.order_id) {
+								this.$nav('/order_packages/detail/index', {
+									id: resule.order_id,
+									time_status: '',
+									pay_status: ''
+								})
 							}
 						})
 					}
@@ -292,7 +305,10 @@
 				this.tableShow = true;
 			},
 			tableConfirm(e) {
-				const info = e.value[0];
+				// return false
+				// const info = e.value[0];
+				const info = this.tableList[e]
+				console.log('确定',info.code);
 				if (info) {
 					this.orderForm.table_id = info.id;
 					this.table_code = info.code;
@@ -431,9 +447,20 @@
 					let orderForm = {
 						...this.orderForm,
 						...this.formData,
-						...uni.getStorageSync("workerOrder"),
-						location: ''
+						// ...uni.getStorageSync("workerOrder"),
+						location: '',
 					}
+					if (this.option.help_user_order) {
+						orderForm.help_user_order = this.option.help_user_order
+					}
+					if (this.option.help_user_coupon) {
+						orderForm.help_user_coupon = this.option.help_user_coupon
+					}
+					if (this.option.help_user_platform) {
+						orderForm.help_user_platform = this.option.help_user_platform
+					}
+
+					// console.log('orderForm', orderForm);
 					const that = this
 					uni.getLocation({
 						type: 'wgs84', // 返回 GPS 坐标，也可以使用 'gcj02'（适用于高德、微信地图）
@@ -442,15 +469,15 @@
 							console.log('纬度：' + res.latitude);
 							orderForm.location = res.longitude + ',' + res.latitude
 							// orderForm.location = '91.129157,29.653201'//测试用经纬度写死，测完注释
-							orderForm.help_user_coupon = orderForm.help_user_coupon?orderForm.help_user_coupon*1:0
+							// orderForm.help_user_coupon = orderForm.help_user_coupon ? orderForm.help_user_coupon * 1 : 0
 							that.$request("/food/Order/createOrder", orderForm).then(res => {
-								console.log('结果',res);
-								setTimeout(()=>{
+								console.log('结果', res);
+								setTimeout(() => {
 									uni.hideLoading();
-								},2000)
+								}, 2000)
 								if (res.result === 1) {
 									uni.removeStorageSync("shop" + that.store_id);
-									uni.removeStorageSync("workerOrder");//下单结束后清除代金卷
+									uni.removeStorageSync("workerOrder"); //下单结束后清除代金卷
 									uni.showToast({
 										title: "下单成功",
 										icon: "success",

@@ -115,9 +115,6 @@ try {
     uEmpty: function () {
       return Promise.all(/*! import() | node-modules/uview-ui/components/u-empty/u-empty */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-empty/u-empty")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-empty/u-empty.vue */ 403))
     },
-    uPicker: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-picker/u-picker */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-picker/u-picker")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-picker/u-picker.vue */ 460))
-    },
   }
 } catch (e) {
   if (
@@ -161,9 +158,6 @@ var render = function () {
       _vm.payShow = false
     }
     _vm.e2 = function ($event) {
-      _vm.tableShow = false
-    }
-    _vm.e3 = function ($event) {
       _vm.tableShow = false
     }
   }
@@ -220,167 +214,18 @@ exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
+var cityPicker = function cityPicker() {
+  __webpack_require__.e(/*! require.ensure | uni_modules/piaoyi-cityPicker/components/piaoyi-cityPicker/piaoyi-cityPicker */ "uni_modules/piaoyi-cityPicker/components/piaoyi-cityPicker/piaoyi-cityPicker").then((function () {
+    return resolve(__webpack_require__(/*! @/uni_modules/piaoyi-cityPicker/components/piaoyi-cityPicker/piaoyi-cityPicker */ 460));
+  }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
+};
 var _default = {
+  components: {
+    cityPicker: cityPicker
+  },
   data: function data() {
     return {
+      defaultValue: '',
       store_id: "",
       table_code: "",
       tableList: [],
@@ -476,6 +321,7 @@ var _default = {
     this.selectCount("first");
   },
   methods: {
+    // 优惠卷
     discountClose: function discountClose() {
       this.discountShow = false;
       if (this.checkValue1[0] !== 1) {
@@ -516,7 +362,10 @@ var _default = {
       this.tableShow = true;
     },
     tableConfirm: function tableConfirm(e) {
-      var info = e.value[0];
+      // return false
+      // const info = e.value[0];
+      var info = this.tableList[e];
+      console.log('确定', info.code);
       if (info) {
         this.orderForm.table_id = info.id;
         this.table_code = info.code;
@@ -654,9 +503,21 @@ var _default = {
         uni.showLoading({
           title: "请稍后……"
         });
-        var orderForm = _objectSpread(_objectSpread(_objectSpread(_objectSpread({}, this.orderForm), this.formData), uni.getStorageSync("workerOrder")), {}, {
+        var orderForm = _objectSpread(_objectSpread(_objectSpread({}, this.orderForm), this.formData), {}, {
+          // ...uni.getStorageSync("workerOrder"),
           location: ''
         });
+        if (this.option.help_user_order) {
+          orderForm.help_user_order = this.option.help_user_order;
+        }
+        if (this.option.help_user_coupon) {
+          orderForm.help_user_coupon = this.option.help_user_coupon;
+        }
+        if (this.option.help_user_platform) {
+          orderForm.help_user_platform = this.option.help_user_platform;
+        }
+
+        // console.log('orderForm', orderForm);
         var that = this;
         uni.getLocation({
           type: 'wgs84',
@@ -666,7 +527,7 @@ var _default = {
             console.log('纬度：' + res.latitude);
             orderForm.location = res.longitude + ',' + res.latitude;
             // orderForm.location = '91.129157,29.653201'//测试用经纬度写死，测完注释
-            orderForm.help_user_coupon = orderForm.help_user_coupon ? orderForm.help_user_coupon * 1 : 0;
+            // orderForm.help_user_coupon = orderForm.help_user_coupon ? orderForm.help_user_coupon * 1 : 0
             that.$request("/food/Order/createOrder", orderForm).then(function (res) {
               console.log('结果', res);
               setTimeout(function () {

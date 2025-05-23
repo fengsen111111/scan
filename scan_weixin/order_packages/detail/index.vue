@@ -77,7 +77,7 @@
 						<text v-if="discountList.length" @click="discountShow=true" :style="{color: moneyObj.id?'':'#ff0000'}">{{moneyObj.id?item.name:'选择优惠卷'}}</text>
 					</view>
 				</view>
-				<view class="right flex alignCenter">
+				<view class="right flex alignCenter" v-if="orderInfo.help_user_order !='Y'">
 					<view class="pay" v-if="orderInfo.price*1==orderInfo.total_price*1&&orderInfo.price>0">已支付</view>
 					<view class="" v-else style="display: flex;">
 						<view class="addA" @click="addMenu()">加菜</view>

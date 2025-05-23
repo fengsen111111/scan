@@ -128,19 +128,19 @@ var render = function () {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  var m0 = _vm.$dateFormat(_vm.openTime * 1000, "date")
   var g0 = _vm.orderInfo.goods_list.length
   var l0 = g0
     ? _vm.__map(_vm.orderInfo.goods_list, function (item, __i0__) {
         var $orig = _vm.__get_orig(item)
-        var m1 =
+        var m0 =
           item.remaining_number > 0 &&
-          item.status === "Y" &&
           _vm.refund &&
-          Number(item.refund_number) < Number(item.number)
+          Number(item.refund_number) < Number(item.number) &&
+          _vm.orderInfo.help_user_order != "Y" &&
+          _vm.orderInfo.pay_status != "Y"
         return {
           $orig: $orig,
-          m1: m1,
+          m0: m0,
         }
       })
     : null
@@ -164,7 +164,6 @@ var render = function () {
     {},
     {
       $root: {
-        m0: m0,
         g0: g0,
         l0: l0,
       },
@@ -209,6 +208,14 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+//
+//
+//
+//
+//
+//
+//
+//
 //
 //
 //
@@ -422,7 +429,7 @@ var _default = {
       var _this4 = this;
       uni.showModal({
         title: "温馨提示",
-        content: "确认全部退款？",
+        content: "确认全部退菜？",
         success: function success(result) {
           if (result.confirm) {
             uni.showLoading({
@@ -436,7 +443,7 @@ var _default = {
             _this4.$request("/food/Order/refundOrder", formData).then(function (res) {
               uni.hideLoading();
               uni.showToast({
-                title: "退款成功",
+                title: "退菜成功",
                 icon: "success"
               });
               _this4.$request("/food/Order/userGetOrderDetail", {
@@ -471,7 +478,7 @@ var _default = {
         uni.hideLoading();
         _this5.payShow = false;
         uni.showToast({
-          title: "退款成功",
+          title: "退菜成功",
           icon: "success"
         });
         _this5.$request("/food/Order/userGetOrderDetail", {

@@ -1187,7 +1187,6 @@ var _default = {
                   pay_status: ''
                 });
               }
-
               // 扫码进入
             case 18:
               if (uni.getStorageSync("scanInfo") && !option.id) {
@@ -1199,7 +1198,7 @@ var _default = {
               if (option.type === "scan") {
                 option.id = option.store_id;
                 _this.scanInfo = {
-                  seat_code: option.seat_code.split("#")[0],
+                  seat_code: decodeURIComponent(option.seat_code.split("#")[0]),
                   seat_id: option.seat_id
                 };
                 _this.scanType = true;
@@ -1641,7 +1640,10 @@ var _default = {
           id: this.shopInfo.id,
           workerType: true,
           table_code: "",
-          seat_id: ""
+          seat_id: "",
+          help_user_coupon: this.option.help_user_coupon ? this.option.help_user_coupon : '',
+          help_user_order: this.option.help_user_order ? this.option.help_user_order : '',
+          help_user_platform: this.option.help_user_platform ? this.option.help_user_platform : ''
         });
       } else {
         // uni.scanCode({

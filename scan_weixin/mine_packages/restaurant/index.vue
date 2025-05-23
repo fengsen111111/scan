@@ -8,7 +8,8 @@
 			</view>
 			<view class="label flex alignCenter spaceBetween">
 				开台时间
-				<text>{{$dateFormat(openTime*1000,'date')}}</text>
+				<!-- <text>{{$dateFormat(openTime*1000,'date')}}</text> -->
+				<text>{{orderInfo.create_time}}</text>
 			</view>
 			<view class="label flex alignCenter spaceBetween">
 				总价
@@ -28,7 +29,7 @@
 		<view class="list" v-if="orderInfo.goods_list.length">
 			<view class="label flex alignCenter spaceBetween">
 				商品信息
-				<text v-if="refundAll&&refund&&refundOne" @click="allRefund()">全部退款</text>
+				<text v-if="refundAll&&refund&&refundOne&&orderInfo.help_user_order!='Y'&&orderInfo.pay_status!='Y'" @click="allRefund()">全部退菜</text>
 			</view>
 			<view class="item" v-for="(item) in orderInfo.goods_list" :key="item.detail_id">
 				<view class="title flex alignCenter spaceBetween">
@@ -37,8 +38,15 @@
 						<text style="font-size: 3vw;color: #999999;font-weight: normal;"
 							v-if="item.choice_des">（{{item.choice_des}}）</text>
 					</view>
+					<!-- <view class="">
+						<view class="">remaining_number:{{item.remaining_number}}</view>
+						<view class="">refund:{{refund}}</view>
+						<view class="">refund_number:{{item.refund_number}}</view>
+						<view class="">number:{{item.number}}</view>
+						<view class="">help_user_order:{{orderInfo.help_user_order}}</view>
+					</view> -->
 					<text @click="refuse(item)"
-						v-if="item.remaining_number>0&&item.status==='Y'&&refund&&Number(item.refund_number)<Number(item.number)">退款</text>
+						v-if="item.remaining_number>0&&refund&&Number(item.refund_number)<Number(item.number)&&orderInfo.help_user_order!='Y'&&orderInfo.pay_status!='Y'">退菜</text>
 				</view>
 				<view class="info flex spaceBetween">
 					<image v-if="item.image" :src="item.image" mode=""></image>
@@ -54,16 +62,16 @@
 			</view>
 		</view>
 		<view style="height: 12.8vw;"></view>
-		<view class="bottom flex alignCenter spaceBetween">
+		<view class="bottom flex alignCenter spaceAround">
 			<view class="add" @click="print()">补打</view>
 			<view class="pay" @click="end()">转台</view>
-			<view class="jsdd" @click="_overOrder()">结束</view>
+			<view v-if="orderInfo.pay_status !='Y'" class="jsdd" @click="_overOrder()">结束</view>
 		</view>
 
 		<u-popup :show="payShow" mode="bottom" @close="payShow=false" round="5.33vw">
 			<view class="payContent">
 				<view class="title flex alignCenter spaceBetween">
-					退款
+					退菜
 					<u-icon name="close" size="25" color="#000000" @click="payShow=false"></u-icon>
 				</view>
 				<view class="content flex alignCentecr spaceBetween">
@@ -88,7 +96,7 @@
 						</view>
 					</view>
 				</view>
-				<view class="confirm" @click="confirm()">确认退款</view>
+				<view class="confirm" @click="confirm()">确认退菜</view>
 			</view>
 		</u-popup>
 		<u-popup :show="show" mode="center" @close="show = false;seatObj = {}" closeOnClickOverlay round="3vw">
@@ -208,7 +216,7 @@
 			allRefund() {
 				uni.showModal({
 					title: "温馨提示",
-					content: "确认全部退款？",
+					content: "确认全部退菜？",
 					success: result => {
 						if (result.confirm) {
 							uni.showLoading({
@@ -222,7 +230,7 @@
 							this.$request("/food/Order/refundOrder", formData).then(res => {
 								uni.hideLoading();
 								uni.showToast({
-									title: "退款成功",
+									title: "退菜成功",
 									icon: "success"
 								})
 								this.$request("/food/Order/userGetOrderDetail", {
@@ -258,7 +266,7 @@
 					uni.hideLoading();
 					this.payShow = false;
 					uni.showToast({
-						title: "退款成功",
+						title: "退菜成功",
 						icon: "success"
 					})
 					this.$request("/food/Order/userGetOrderDetail", {

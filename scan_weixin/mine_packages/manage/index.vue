@@ -51,14 +51,15 @@
 					<text>商品&nbsp;&nbsp;x{{item.goods_number}}</text>
 				</view>
 				<view class="option flex alignCenter spaceBetween">
-					<view class="left">
+					<view class="left" v-if="item.help_user_order!='Y'">
 						下单金额
-						<text>{{item.price}}</text>
+						<text>{{item.all_price}}</text>
 					</view>
+					<view class="left" v-else></view>
 					<view class="right flex alignCenter">
 						<view class="patchwork" @click="print(item)">补打</view>
 						<view class="end" @click="end(item)">转台</view>
-						<view class="jsdd" @click="_overOrder(item)">结束</view>
+						<view v-if="item.pay_status !='Y'" class="jsdd" @click="_overOrder(item)">结束</view>
 					</view>
 				</view>
 			</view>
@@ -263,13 +264,15 @@
 					})
 					return;
 				}
-				uni.setStorageSync("workerOrder", {
-					help_user_order: "Y",
-					[this.help_user_order]: this.typeValue
-				})
+				// uni.setStorageSync("workerOrder", {
+				// 	help_user_order: "Y",
+				// 	[this.help_user_order]: this.typeValue
+				// })
 				this.$nav("/home_packages/shop_detail/index", {
 					id: this.store_id,
-					type: "workerOrder"
+					type: "workerOrder",
+					help_user_order: "Y",
+					[this.help_user_order]: this.typeValue
 				})
 				this.orderShow = false
 			}
