@@ -173,7 +173,8 @@
 								</view>
 								<view class="center">￥{{obj.price}}</view>
 								<view class="price flex">
-									<view class="optionNum" @click.stop="" v-if="!obj.group_list||!obj.group_list.length">
+									<view class="optionNum" @click.stop=""
+										v-if="!obj.group_list||!obj.group_list.length">
 										<u-icon name="minus-circle" color="rgb(245,232,174)" size="7.67vw"
 											v-if="carIdList.findIndex(item=>item.id === obj.id) != -1"
 											@click.stop="addCar(obj.is_group==='Y'?1:2,obj,'min')"></u-icon>
@@ -191,7 +192,8 @@
 								</view>
 							</view>
 							<view v-if="item.list.length>3">
-								<view v-if="j==item.list.length-1" @click="is_zksq = !is_zksq" style="color: #999999;font-size: 24rpx;">
+								<view v-if="j==item.list.length-1" @click="is_zksq = !is_zksq"
+									style="color: #999999;font-size: 24rpx;">
 									{{is_zksq?'收起':'展开'}}
 								</view>
 							</view>
@@ -609,10 +611,10 @@
 				groupContain: [],
 				groupGoods: [],
 				groupGoodsId: [],
-				
-				is_zksq:false,
-				
-				option:{}
+
+				is_zksq: false,
+
+				option: {}
 			};
 		},
 		async onLoad(option) {
@@ -620,31 +622,23 @@
 			if (!uni.getStorageSync("token")) {
 				this.loginShow = true;
 			}
-			console.log(option)
+			console.log('1店铺详情传参', option)
 			if (option.scene) {
-				let param = decodeURIComponent(option.scene)
+				let param = option.scene
 				let str = param.split("?")[1];
 				let obj = {};
 				let arr = str.split('&');
 				for (let i = 0; i < arr.length; i++) {
 					obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
 				}
-				
+				console.log('???', obj);
+				// 更具餐位获取小程序码内容
 				option = await this.$request("/food/Seat/miniCodeMsg", {
 					id: obj.id
 				})
-				console.log('option',option);
-				let resule = await this.$request("/food/Order/userGetOrderDetailByTableID", {
-					// id: obj.id
-					table_id:option.seat_id
-				})
-				console.log('resule',resule);
-				// 有订单号就跳转订单详情
-				if(resule.order_id){
-					this.$nav('/order_packages/detail/index',{id:resule.order_id,time_status:'',pay_status:''})
-				}
-				// 扫码进入
+				console.log('option.scene下面的option', option);
 			}
+			// 餐位信息 且  无id
 			if (uni.getStorageSync("scanInfo") && !option.id) {
 				option.id = uni.getStorageSync("scanInfo").store_id;
 				this.scanInfo = uni.getStorageSync("scanInfo")
@@ -652,39 +646,42 @@
 				uni.removeStorageSync("scanInfo");
 			}
 			if (option.type === "scan") {
+				// 扫码进入的
+				console.log('扫码进入',option);
 				option.id = option.store_id;
 				this.scanInfo = {
-					seat_code: decodeURIComponent(option.seat_code.split("#")[0]),
+					seat_code: decodeURIComponent(option.seat_code).split("#")[0],
 					seat_id: option.seat_id
 				};
 				this.scanType = true;
 			}
+			// 公众号进入,不管什么进入，有id就执行
+			// if(option.id){
+			// 	// 获取餐桌小程序码内容
+			// 	this.$request("/food/Seat/miniCodeMsg", {
+			// 		id: option.id
+			// 	}).then((res)=>{
+			// 		console.log('获取餐桌小程序码内容', res);
+			// 		this.$request("/food/Order/userGetOrderDetailByTableID", {
+			// 			table_id: res.seat_id
+			// 		}).then((resule)=>{
+			// 			console.log('resule', resule);
+			// 			// 有订单号就跳转订单详情
+			// 			if (resule.order_id) {
+			// 				this.$nav('/order_packages/detail/index', {
+			// 					id: resule.order_id,
+			// 					time_status: '',
+			// 					pay_status: ''
+			// 				})
+			// 			}
+			// 		})
+			// 	})
+			// }
+			// 代金卷
 			if (option.type === "workerOrder") {
 				this.workerType = true;
 			}
-			// if (!uni.getStorageSync("person_number")) {
-			// 	this.peopleShow = true;
-			// } else {
-			// 	const timestamp1 = uni.getStorageSync("person_number").timestamp;
-			// 	const timestamp2 = new Date().getTime();
-			// 	let differenceInMilliseconds = Math.abs(timestamp2 - timestamp1);
-			// 	// 将毫秒转换为小时
-			// 	let differenceInHours = Math.floor(differenceInMilliseconds / (60 * 60 * 1000));
-			// 	if (differenceInHours >= 2) {
-			// 		this.peopleShow = true;
-			// 	}
-			// }
-			// let result = await this.$request("/food/Order/hasUsingOrder", {
-			// 	store_id: option.id
-			// })
-			// if (result.order_id) {
-			// 	option.type = "add"
-			// }
-			// if (option.type === "add") {
-			// 	this.addType = true;
-			// 	this.useCoupon = option.useCoupon || result.useCoupon
-			// 	this.orderId = option.orderId || result.order_id
-			// }
+			// 加菜
 			if (option.type === "add") {
 				this.addType = true;
 				this.useCoupon = option.useCoupon
@@ -739,6 +736,10 @@
 					}).exec()
 				}, 1000)
 			})
+			const _this = thiss
+			setTimeout(()=>{
+				_this.orderTo()//晚1秒执行订单查询，等餐位id这些东西先处理
+			},2000)
 		},
 		onShow() {
 			this.shopCarList = uni.getStorageSync("shop" + this.shopInfo.id);
@@ -752,8 +753,35 @@
 				})
 				this.changePrice()
 			}
+			
+			// const _this = this
+			// setTimeout(()=>{
+			// 	_this.orderTo()//晚1秒执行订单查询，等餐位id这些东西先处理
+			// },1000)
 		},
 		methods: {
+			// 跳转订单详情
+			orderTo(){
+				//this.addType true 加菜  // 加菜就不跳转订单详情，其余但凡查出订单号，一律去订单详情
+				if(this.addType){
+					return false
+				}else{
+					console.log('当前餐位信息', this.scanInfo);
+					this.$request("/food/Order/userGetOrderDetailByTableID", {
+						table_id: this.scanInfo.seat_id
+					}).then((resule) => {
+						console.log('当前座位是否有订单号', resule);
+						// 有订单号就跳转订单详情
+						if (resule.order_id) {
+							this.$nav('/order_packages/detail/index', {
+								id: resule.order_id,
+								time_status: '',
+								pay_status: ''
+							})
+						}
+					})
+				}
+			},
 			async login() {
 				uni.showLoading({
 					title: "请稍后"
@@ -909,7 +937,7 @@
 				})
 			},
 			addShopCar(type) {
-				console.log('goodsObj',this.goodsObj,type);
+				console.log('goodsObj', this.goodsObj, type);
 				let getAllgoods = uni.getStorageSync("shop" + this.shopInfo.id);
 				let flag = true;
 				if (getAllgoods) {
@@ -999,7 +1027,7 @@
 						useCoupon: this.useCoupon,
 						orderId: this.orderId,
 						canwei: this.option.canwei,
-                          
+
 					})
 				} else if (this.scanType) { //正常下单
 					this.$nav('/home_packages/place_order/index', {
@@ -1007,17 +1035,17 @@
 						scanType: true,
 						table_code: this.scanInfo.seat_code,
 						seat_id: this.scanInfo.seat_id,
-						
-					})
+
+					})   
 				} else if (this.workerType) {
 					this.$nav('/home_packages/place_order/index', {
 						id: this.shopInfo.id,
 						workerType: true,
 						table_code: "",
 						seat_id: "",
-						help_user_coupon:this.option.help_user_coupon?this.option.help_user_coupon:'',
-						help_user_order:this.option.help_user_order?this.option.help_user_order:'',
-						help_user_platform: this.option.help_user_platform?this.option.help_user_platform:''
+						help_user_coupon: this.option.help_user_coupon ? this.option.help_user_coupon : '',
+						help_user_order: this.option.help_user_order ? this.option.help_user_order : '',
+						help_user_platform: this.option.help_user_platform ? this.option.help_user_platform : ''
 					})
 				} else {
 					// uni.scanCode({
@@ -1201,7 +1229,7 @@
 			groupAddCar() {
 				let number = 0;
 				this.groupDetail.group_list.map(item => {
-					if(item.type=="check"){
+					if (item.type == "check") {
 						number += Number(item.check_number)
 					}
 				})

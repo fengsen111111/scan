@@ -183,7 +183,15 @@
 				})
 			},
 			netWork() {
+				if(this.formData.currentPage>1){
+					uni.showLoading({
+						title: "请稍后"
+					})
+				}
 				this.$request("/food/Seat/geSeatList", this.formData).then(res => {
+					if(this.formData.currentPage>1){
+						uni.hideLoading()
+					}
 					this.total = res.count;
 					if (this.formData.currentPage === 1) {
 						this.list = res.list;
@@ -278,6 +286,7 @@
 			}
 		},
 		onReachBottom() {
+			console.log('执行，滚动到底部了');
 			if (this.formData.currentPage < Math.ceil(this.total / this.formData.perPage)) {
 				this.formData.currentPage++;
 				this.netWork();
@@ -365,7 +374,7 @@
 
 	.container {
 		height: 100%;
-		min-height: 100vh;
+		// min-height: 100vh;
 		background: #F5F5F5;
 
 		>.orderBox {

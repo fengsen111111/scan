@@ -152,7 +152,8 @@
 				<view class="confirm" @click="confirm()">{{addType?'加菜':'菜品下单'}}</view>
 			</view>
 		</u-popup>
-		<cityPicker :mask-close-able="true" @confirm="tableConfirm()" @cancel="tableShow=false" :visible="tableShow" :dataList="tableList" />
+		<cityPicker :mask-close-able="true" @confirm="tableConfirm()" @cancel="tableShow=false" :visible="tableShow"
+			:dataList="tableList" />
 		<!-- <u-picker :show="tableShow" :columns="[tableList]" keyName="code" @confirm="tableConfirm" title="餐位"
 			@cancel="tableShow=false" closeOnClickOverlay @close="tableShow=false"></u-picker> -->
 	</view>
@@ -216,7 +217,9 @@
 
 				workerType: false,
 
-				option: {}
+				option: {},
+
+				is_request_ok: true //是否请求完了
 			};
 		},
 		onLoad(options) {
@@ -250,18 +253,28 @@
 				store_id: options.id
 			}).then(res => {
 				this.tableList = res.list;
-				if (options.scanType) {
-					this.orderForm.table_id = options.seat_id;
-					this.table_code = options.table_code
-				}
+				// if (options.scanType) {
+				// 	this.orderForm.table_id = options.seat_id;
+				// 	this.table_code = options.table_code
+				// }
 				//  else {
 				// 	this.orderForm.table_id = options.seat_id;
 				// 	this.table_code = options.table_code
 				// }
+				// 传了餐位id就匹配出来对应餐位
+				if(options.seat_id){
+					let obj = res.list.filter((item)=>item.id==options.seat_id)
+					this.orderForm.table_id = obj[0].id;
+					this.table_code = obj[0].code
+					console.log('obj',obj);
+				}
 			})
 			this.store_id = options.id;
 			this.changePayData();
 			this.selectCount("first");
+			// 
+			
+			
 		},
 		methods: {
 			// 优惠卷
@@ -302,13 +315,14 @@
 				})
 			},
 			selectTable() {
+				return false
 				this.tableShow = true;
 			},
 			tableConfirm(e) {
 				// return false
 				// const info = e.value[0];
 				const info = this.tableList[e]
-				console.log('确定',info.code);
+				console.log('确定', info.code);
 				if (info) {
 					this.orderForm.table_id = info.id;
 					this.table_code = info.code;
@@ -440,6 +454,7 @@
 					})
 					return;
 				}
+
 				if (this.workerType) {
 					uni.showLoading({
 						title: "请稍后……"
@@ -468,8 +483,15 @@
 							console.log('经度：' + res.longitude);
 							console.log('纬度：' + res.latitude);
 							orderForm.location = res.longitude + ',' + res.latitude
-							// orderForm.location = '91.129157,29.653201'//测试用经纬度写死，测完注释
+							orderForm.location = '91.129157,29.653201'//测试用经纬度写死，测完注释
 							// orderForm.help_user_coupon = orderForm.help_user_coupon ? orderForm.help_user_coupon * 1 : 0
+
+							if (that.is_request_ok) {
+								that.is_request_ok = false //不可以请求了
+							} else {
+								return false //阻止请求
+							}
+
 							that.$request("/food/Order/createOrder", orderForm).then(res => {
 								console.log('结果', res);
 								setTimeout(() => {
@@ -499,6 +521,9 @@
 										duration: 2000
 									})
 								}
+								setTimeout(()=>{
+									that.is_request_ok = true //请求结束了
+								},2000)
 							})
 							return;
 						},
