@@ -736,7 +736,7 @@
 					}).exec()
 				}, 1000)
 			})
-			const _this = thiss
+			const _this = this
 			setTimeout(()=>{
 				_this.orderTo()//晚1秒执行订单查询，等餐位id这些东西先处理
 			},2000)
