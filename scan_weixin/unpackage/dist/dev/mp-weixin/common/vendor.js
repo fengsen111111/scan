@@ -1557,7 +1557,7 @@ function initData(vueOptions, context) {
     try {
       data = data.call(context); // 支持 Vue.prototype 上挂的数据
     } catch (e) {
-      if (Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"scan_order","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"scan_order","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.warn('根据 Vue 的 data 函数初始化小程序 data 失败，请尽量确保 data 函数中不访问 vm 对象，否则可能影响首次数据渲染速度。', data);
       }
     }
@@ -8923,7 +8923,7 @@ function type(obj) {
 
 function flushCallbacks$1(vm) {
     if (vm.__next_tick_callbacks && vm.__next_tick_callbacks.length) {
-        if (Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"scan_order","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+        if (Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"scan_order","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:flushCallbacks[' + vm.__next_tick_callbacks.length + ']');
@@ -8944,14 +8944,14 @@ function nextTick$1(vm, cb) {
     //1.nextTick 之前 已 setData 且 setData 还未回调完成
     //2.nextTick 之前存在 render watcher
     if (!vm.__next_tick_pending && !hasRenderWatcher(vm)) {
-        if(Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"scan_order","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"scan_order","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + vm._uid +
                 ']:nextVueTick');
         }
         return nextTick(cb, vm)
     }else{
-        if(Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"scan_order","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG){
+        if(Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"scan_order","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG){
             var mpInstance$1 = vm.$scope;
             console.log('[' + (+new Date) + '][' + (mpInstance$1.is || mpInstance$1.route) + '][' + vm._uid +
                 ']:nextMPTick');
@@ -9047,7 +9047,7 @@ var patch = function(oldVnode, vnode) {
     });
     var diffData = this.$shouldDiffData === false ? data : diff(data, mpData);
     if (Object.keys(diffData).length) {
-      if (Object({"VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"scan_order","VUE_APP_PLATFORM":"mp-weixin","NODE_ENV":"development","BASE_URL":"/"}).VUE_APP_DEBUG) {
+      if (Object({"NODE_ENV":"development","VUE_APP_DARK_MODE":"false","VUE_APP_NAME":"scan_order","VUE_APP_PLATFORM":"mp-weixin","BASE_URL":"/"}).VUE_APP_DEBUG) {
         console.log('[' + (+new Date) + '][' + (mpInstance.is || mpInstance.route) + '][' + this._uid +
           ']差量更新',
           JSON.stringify(diffData));
@@ -9466,9 +9466,9 @@ internalMixin(Vue);
 
 /***/ }),
 /* 26 */
-/*!*****************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/pages.json ***!
-  \*****************************************************/
+/*!****************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/pages.json ***!
+  \****************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -9612,9 +9612,9 @@ function normalizeComponent (
 
 /***/ }),
 /* 33 */
-/*!***********************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/utils/request.js ***!
-  \***********************************************************/
+/*!**********************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/utils/request.js ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10163,9 +10163,9 @@ module.exports = _asyncToGenerator, module.exports.__esModule = true, module.exp
 
 /***/ }),
 /* 37 */
-/*!**********************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/utils/config.js ***!
-  \**********************************************************/
+/*!*********************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/utils/config.js ***!
+  \*********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10183,9 +10183,9 @@ exports.baseUrl = baseUrl;
 
 /***/ }),
 /* 38 */
-/*!**************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/index.js ***!
-  \**************************************************************************/
+/*!*************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/index.js ***!
+  \*************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10208,9 +10208,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 39 */
-/*!*************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/core.js ***!
-  \*************************************************************************/
+/*!************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/core.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -10970,7 +10970,7 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
   }(Math);
   return CryptoJS;
 });
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! (webpack)/buildin/global.js */ 3)))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../HBuilderX/plugins/uniapp-cli/node_modules/webpack/buildin/global.js */ 3)))
 
 /***/ }),
 /* 40 */
@@ -10984,9 +10984,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 41 */
-/*!*****************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/x64-core.js ***!
-  \*****************************************************************************/
+/*!****************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/x64-core.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11288,9 +11288,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 42 */
-/*!************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/lib-typedarrays.js ***!
-  \************************************************************************************/
+/*!***********************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/lib-typedarrays.js ***!
+  \***********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11359,9 +11359,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 43 */
-/*!******************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/enc-utf16.js ***!
-  \******************************************************************************/
+/*!*****************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/enc-utf16.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11506,9 +11506,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 44 */
-/*!*******************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/enc-base64.js ***!
-  \*******************************************************************************/
+/*!******************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/enc-base64.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11639,9 +11639,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 45 */
-/*!**********************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/enc-base64url.js ***!
-  \**********************************************************************************/
+/*!*********************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/enc-base64url.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -11784,9 +11784,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 46 */
-/*!************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/md5.js ***!
-  \************************************************************************/
+/*!***********************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/md5.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12027,9 +12027,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 47 */
-/*!*************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/sha1.js ***!
-  \*************************************************************************/
+/*!************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/sha1.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12171,9 +12171,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 48 */
-/*!***************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/sha256.js ***!
-  \***************************************************************************/
+/*!**************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/sha256.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12355,9 +12355,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 49 */
-/*!***************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/sha224.js ***!
-  \***************************************************************************/
+/*!**************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/sha224.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12434,9 +12434,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 50 */
-/*!***************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/sha512.js ***!
-  \***************************************************************************/
+/*!**************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/sha512.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12704,9 +12704,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 51 */
-/*!***************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/sha384.js ***!
-  \***************************************************************************/
+/*!**************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/sha384.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -12784,9 +12784,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 52 */
-/*!*************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/sha3.js ***!
-  \*************************************************************************/
+/*!************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/sha3.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13095,9 +13095,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 53 */
-/*!******************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/ripemd160.js ***!
-  \******************************************************************************/
+/*!*****************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/ripemd160.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13320,9 +13320,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 54 */
-/*!*************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/hmac.js ***!
-  \*************************************************************************/
+/*!************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/hmac.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13465,9 +13465,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 55 */
-/*!***************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/pbkdf2.js ***!
-  \***************************************************************************/
+/*!**************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/pbkdf2.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13611,9 +13611,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 56 */
-/*!***************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/evpkdf.js ***!
-  \***************************************************************************/
+/*!**************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/evpkdf.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -13746,9 +13746,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 57 */
-/*!********************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/cipher-core.js ***!
-  \********************************************************************************/
+/*!*******************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/cipher-core.js ***!
+  \*******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14619,9 +14619,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 58 */
-/*!*****************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/mode-cfb.js ***!
-  \*****************************************************************************/
+/*!****************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/mode-cfb.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14698,9 +14698,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 59 */
-/*!*****************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/mode-ctr.js ***!
-  \*****************************************************************************/
+/*!****************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/mode-ctr.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14758,9 +14758,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 60 */
-/*!*************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/mode-ctr-gladman.js ***!
-  \*************************************************************************************/
+/*!************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/mode-ctr-gladman.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14857,9 +14857,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 61 */
-/*!*****************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/mode-ofb.js ***!
-  \*****************************************************************************/
+/*!****************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/mode-ofb.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14913,9 +14913,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 62 */
-/*!*****************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/mode-ecb.js ***!
-  \*****************************************************************************/
+/*!****************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/mode-ecb.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -14955,9 +14955,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 63 */
-/*!*********************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/pad-ansix923.js ***!
-  \*********************************************************************************/
+/*!********************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/pad-ansix923.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15008,9 +15008,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 64 */
-/*!*********************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/pad-iso10126.js ***!
-  \*********************************************************************************/
+/*!********************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/pad-iso10126.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15055,9 +15055,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 65 */
-/*!*********************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/pad-iso97971.js ***!
-  \*********************************************************************************/
+/*!********************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/pad-iso97971.js ***!
+  \********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15099,9 +15099,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 66 */
-/*!************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/pad-zeropadding.js ***!
-  \************************************************************************************/
+/*!***********************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/pad-zeropadding.js ***!
+  \***********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15150,9 +15150,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 67 */
-/*!**********************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/pad-nopadding.js ***!
-  \**********************************************************************************/
+/*!*********************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/pad-nopadding.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15182,9 +15182,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 68 */
-/*!*******************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/format-hex.js ***!
-  \*******************************************************************************/
+/*!******************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/format-hex.js ***!
+  \******************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15253,9 +15253,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 69 */
-/*!************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/aes.js ***!
-  \************************************************************************/
+/*!***********************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/aes.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -15482,9 +15482,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 70 */
-/*!******************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/tripledes.js ***!
-  \******************************************************************************/
+/*!*****************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/tripledes.js ***!
+  \*****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16225,9 +16225,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 71 */
-/*!************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/rc4.js ***!
-  \************************************************************************/
+/*!***********************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/rc4.js ***!
+  \***********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16361,9 +16361,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 72 */
-/*!***************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/rabbit.js ***!
-  \***************************************************************************/
+/*!**************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/rabbit.js ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16541,9 +16541,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 73 */
-/*!**********************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/rabbit-legacy.js ***!
-  \**********************************************************************************/
+/*!*********************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/rabbit-legacy.js ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16720,9 +16720,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 74 */
-/*!*****************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/crypto-js/blowfish.js ***!
-  \*****************************************************************************/
+/*!****************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/crypto-js/blowfish.js ***!
+  \****************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -16904,9 +16904,9 @@ var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_
 
 /***/ }),
 /* 75 */
-/*!****************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/js-base64/base64.mjs ***!
-  \****************************************************************************/
+/*!***************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/js-base64/base64.mjs ***!
+  \***************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -17244,7 +17244,7 @@ var gBase64 = {
 };
 // makecjs:CUT //
 exports.Base64 = gBase64;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/buffer/index.js */ 76).Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../HBuilderX/plugins/uniapp-cli/node_modules/buffer/index.js */ 76).Buffer))
 
 /***/ }),
 /* 76 */
@@ -19320,9 +19320,9 @@ module.exports = Array.isArray || function (arr) {
 
 /***/ }),
 /* 80 */
-/*!********************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/utils/jump.js ***!
-  \********************************************************/
+/*!*******************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/utils/jump.js ***!
+  \*******************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19363,9 +19363,9 @@ function getObjectKeys(obj) {
 
 /***/ }),
 /* 81 */
-/*!**************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/utils/dateFormat.js ***!
-  \**************************************************************/
+/*!*************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/utils/dateFormat.js ***!
+  \*************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19432,9 +19432,9 @@ function formatNormalize(formatter) {
 
 /***/ }),
 /* 82 */
-/*!*********************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/utils/share.js ***!
-  \*********************************************************/
+/*!********************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/utils/share.js ***!
+  \********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19470,9 +19470,9 @@ exports.default = _default;
 
 /***/ }),
 /* 83 */
-/*!*******************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/uni.promisify.adaptor.js ***!
-  \*******************************************************************/
+/*!******************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/uni.promisify.adaptor.js ***!
+  \******************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19494,9 +19494,9 @@ uni.addInterceptor({
 
 /***/ }),
 /* 84 */
-/*!*************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/index.js ***!
-  \*************************************************************************/
+/*!************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/index.js ***!
+  \************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19583,9 +19583,9 @@ exports.default = _default;
 
 /***/ }),
 /* 85 */
-/*!************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/mixin/mixin.js ***!
-  \************************************************************************************/
+/*!***********************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/mixin/mixin.js ***!
+  \***********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19751,9 +19751,9 @@ exports.default = _default;
 
 /***/ }),
 /* 86 */
-/*!**************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/mixin/mpMixin.js ***!
-  \**************************************************************************************/
+/*!*************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/mixin/mpMixin.js ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19774,9 +19774,9 @@ exports.default = _default;
 
 /***/ }),
 /* 87 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/luch-request/index.js ***!
-  \*******************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/luch-request/index.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -19794,9 +19794,9 @@ exports.default = _default;
 
 /***/ }),
 /* 88 */
-/*!**************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/luch-request/core/Request.js ***!
-  \**************************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/luch-request/core/Request.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20000,9 +20000,9 @@ exports.default = Request;
 
 /***/ }),
 /* 89 */
-/*!**********************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/luch-request/core/dispatchRequest.js ***!
-  \**********************************************************************************************************/
+/*!*********************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/luch-request/core/dispatchRequest.js ***!
+  \*********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20022,9 +20022,9 @@ exports.default = _default;
 
 /***/ }),
 /* 90 */
-/*!****************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/luch-request/adapters/index.js ***!
-  \****************************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/luch-request/adapters/index.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20103,9 +20103,9 @@ exports.default = _default;
 
 /***/ }),
 /* 91 */
-/*!******************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/luch-request/helpers/buildURL.js ***!
-  \******************************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/luch-request/helpers/buildURL.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20173,9 +20173,9 @@ function buildURL(url, params) {
 
 /***/ }),
 /* 92 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/luch-request/utils.js ***!
-  \*******************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/luch-request/utils.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20326,9 +20326,9 @@ function isUndefined(val) {
 
 /***/ }),
 /* 93 */
-/*!********************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/luch-request/core/buildFullPath.js ***!
-  \********************************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/luch-request/core/buildFullPath.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20360,9 +20360,9 @@ function buildFullPath(baseURL, requestedURL) {
 
 /***/ }),
 /* 94 */
-/*!***********************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/luch-request/helpers/isAbsoluteURL.js ***!
-  \***********************************************************************************************************/
+/*!**********************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/luch-request/helpers/isAbsoluteURL.js ***!
+  \**********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20388,9 +20388,9 @@ function isAbsoluteURL(url) {
 
 /***/ }),
 /* 95 */
-/*!*********************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/luch-request/helpers/combineURLs.js ***!
-  \*********************************************************************************************************/
+/*!********************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/luch-request/helpers/combineURLs.js ***!
+  \********************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20414,9 +20414,9 @@ function combineURLs(baseURL, relativeURL) {
 
 /***/ }),
 /* 96 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/luch-request/core/settle.js ***!
-  \*************************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/luch-request/core/settle.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20446,9 +20446,9 @@ function settle(resolve, reject, response) {
 
 /***/ }),
 /* 97 */
-/*!*************************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/luch-request/core/InterceptorManager.js ***!
-  \*************************************************************************************************************/
+/*!************************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/luch-request/core/InterceptorManager.js ***!
+  \************************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20510,9 +20510,9 @@ exports.default = _default;
 
 /***/ }),
 /* 98 */
-/*!******************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/luch-request/core/mergeConfig.js ***!
-  \******************************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/luch-request/core/mergeConfig.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20586,9 +20586,9 @@ exports.default = _default;
 
 /***/ }),
 /* 99 */
-/*!***************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/luch-request/core/defaults.js ***!
-  \***************************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/luch-request/core/defaults.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20618,9 +20618,9 @@ exports.default = _default;
 
 /***/ }),
 /* 100 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/luch-request/utils/clone.js ***!
-  \*************************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/luch-request/utils/clone.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -20866,13 +20866,13 @@ var clone = function () {
 }();
 var _default = clone;
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/buffer/index.js */ 76).Buffer))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../../../../../../HBuilderX/plugins/uniapp-cli/node_modules/buffer/index.js */ 76).Buffer))
 
 /***/ }),
 /* 101 */
-/*!***********************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/util/route.js ***!
-  \***********************************************************************************/
+/*!**********************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/util/route.js ***!
+  \**********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21058,9 +21058,9 @@ exports.default = _default;
 
 /***/ }),
 /* 102 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/function/colorGradient.js ***!
-  \***********************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/function/colorGradient.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21213,9 +21213,9 @@ exports.default = _default;
 
 /***/ }),
 /* 103 */
-/*!**************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/function/test.js ***!
-  \**************************************************************************************/
+/*!*************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/function/test.js ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21518,9 +21518,9 @@ exports.default = _default;
 
 /***/ }),
 /* 104 */
-/*!******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/function/debounce.js ***!
-  \******************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/function/debounce.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21565,9 +21565,9 @@ exports.default = _default;
 
 /***/ }),
 /* 105 */
-/*!******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/function/throttle.js ***!
-  \******************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/function/throttle.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -21614,9 +21614,9 @@ exports.default = _default;
 
 /***/ }),
 /* 106 */
-/*!***************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/function/index.js ***!
-  \***************************************************************************************/
+/*!**************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/function/index.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22415,9 +22415,9 @@ exports.default = _default;
 
 /***/ }),
 /* 107 */
-/*!***************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/function/digit.js ***!
-  \***************************************************************************************/
+/*!**************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/function/digit.js ***!
+  \**************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22634,9 +22634,9 @@ module.exports = _toArray, module.exports.__esModule = true, module.exports["def
 
 /***/ }),
 /* 109 */
-/*!**************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/config.js ***!
-  \**************************************************************************************/
+/*!*************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/config.js ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22678,9 +22678,9 @@ exports.default = _default;
 
 /***/ }),
 /* 110 */
-/*!*************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props.js ***!
-  \*************************************************************************************/
+/*!************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22790,9 +22790,9 @@ exports.default = _default;
 
 /***/ }),
 /* 111 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/actionSheet.js ***!
-  \*************************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/actionSheet.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22834,9 +22834,9 @@ exports.default = _default;
 
 /***/ }),
 /* 112 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/album.js ***!
-  \*******************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/album.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22878,9 +22878,9 @@ exports.default = _default;
 
 /***/ }),
 /* 113 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/alert.js ***!
-  \*******************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/alert.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22917,9 +22917,9 @@ exports.default = _default;
 
 /***/ }),
 /* 114 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/avatar.js ***!
-  \********************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/avatar.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -22962,9 +22962,9 @@ exports.default = _default;
 
 /***/ }),
 /* 115 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/avatarGroup.js ***!
-  \*************************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/avatarGroup.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23004,9 +23004,9 @@ exports.default = _default;
 
 /***/ }),
 /* 116 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/backtop.js ***!
-  \*********************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/backtop.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23050,9 +23050,9 @@ exports.default = _default;
 
 /***/ }),
 /* 117 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/badge.js ***!
-  \*******************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/badge.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23096,9 +23096,9 @@ exports.default = _default;
 
 /***/ }),
 /* 118 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/button.js ***!
-  \********************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/button.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23155,9 +23155,9 @@ exports.default = _default;
 
 /***/ }),
 /* 119 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/calendar.js ***!
-  \**********************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/calendar.js ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23218,9 +23218,9 @@ exports.default = _default;
 
 /***/ }),
 /* 120 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/carKeyboard.js ***!
-  \*************************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/carKeyboard.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23250,9 +23250,9 @@ exports.default = _default;
 
 /***/ }),
 /* 121 */
-/*!******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/cell.js ***!
-  \******************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/cell.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23302,9 +23302,9 @@ exports.default = _default;
 
 /***/ }),
 /* 122 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/cellGroup.js ***!
-  \***********************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/cellGroup.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23336,9 +23336,9 @@ exports.default = _default;
 
 /***/ }),
 /* 123 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/checkbox.js ***!
-  \**********************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/checkbox.js ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23380,9 +23380,9 @@ exports.default = _default;
 
 /***/ }),
 /* 124 */
-/*!***************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/checkboxGroup.js ***!
-  \***************************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/checkboxGroup.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23428,9 +23428,9 @@ exports.default = _default;
 
 /***/ }),
 /* 125 */
-/*!****************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/circleProgress.js ***!
-  \****************************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/circleProgress.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23460,9 +23460,9 @@ exports.default = _default;
 
 /***/ }),
 /* 126 */
-/*!******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/code.js ***!
-  \******************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/code.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23497,9 +23497,9 @@ exports.default = _default;
 
 /***/ }),
 /* 127 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/codeInput.js ***!
-  \***********************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/codeInput.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23543,9 +23543,9 @@ exports.default = _default;
 
 /***/ }),
 /* 128 */
-/*!*****************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/col.js ***!
-  \*****************************************************************************************/
+/*!****************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/col.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23579,9 +23579,9 @@ exports.default = _default;
 
 /***/ }),
 /* 129 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/collapse.js ***!
-  \**********************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/collapse.js ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23613,9 +23613,9 @@ exports.default = _default;
 
 /***/ }),
 /* 130 */
-/*!**************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/collapseItem.js ***!
-  \**************************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/collapseItem.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23655,9 +23655,9 @@ exports.default = _default;
 
 /***/ }),
 /* 131 */
-/*!**************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/columnNotice.js ***!
-  \**************************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/columnNotice.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23696,9 +23696,9 @@ exports.default = _default;
 
 /***/ }),
 /* 132 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/countDown.js ***!
-  \***********************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/countDown.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23731,9 +23731,9 @@ exports.default = _default;
 
 /***/ }),
 /* 133 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/countTo.js ***!
-  \*********************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/countTo.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23773,9 +23773,9 @@ exports.default = _default;
 
 /***/ }),
 /* 134 */
-/*!****************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/datetimePicker.js ***!
-  \****************************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/datetimePicker.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23829,9 +23829,9 @@ exports.default = _default;
 
 /***/ }),
 /* 135 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/divider.js ***!
-  \*********************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/divider.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23868,9 +23868,9 @@ exports.default = _default;
 
 /***/ }),
 /* 136 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/empty.js ***!
-  \*******************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/empty.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23910,9 +23910,9 @@ exports.default = _default;
 
 /***/ }),
 /* 137 */
-/*!******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/form.js ***!
-  \******************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/form.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23955,9 +23955,9 @@ exports.default = _default;
 
 /***/ }),
 /* 138 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/formItem.js ***!
-  \**********************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/formItem.js ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -23995,9 +23995,9 @@ exports.default = _default;
 
 /***/ }),
 /* 139 */
-/*!*****************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/gap.js ***!
-  \*****************************************************************************************/
+/*!****************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/gap.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24031,9 +24031,9 @@ exports.default = _default;
 
 /***/ }),
 /* 140 */
-/*!******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/grid.js ***!
-  \******************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/grid.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24065,9 +24065,9 @@ exports.default = _default;
 
 /***/ }),
 /* 141 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/gridItem.js ***!
-  \**********************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/gridItem.js ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24098,9 +24098,9 @@ exports.default = _default;
 
 /***/ }),
 /* 142 */
-/*!******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/icon.js ***!
-  \******************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/icon.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24150,9 +24150,9 @@ exports.default = _default;
 
 /***/ }),
 /* 143 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/image.js ***!
-  \*******************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/image.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24197,9 +24197,9 @@ exports.default = _default;
 
 /***/ }),
 /* 144 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/indexAnchor.js ***!
-  \*************************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/indexAnchor.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24233,9 +24233,9 @@ exports.default = _default;
 
 /***/ }),
 /* 145 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/indexList.js ***!
-  \***********************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/indexList.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24271,9 +24271,9 @@ exports.default = _default;
 
 /***/ }),
 /* 146 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/input.js ***!
-  \*******************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/input.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24336,9 +24336,9 @@ exports.default = _default;
 
 /***/ }),
 /* 147 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/keyboard.js ***!
-  \**********************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/keyboard.js ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24383,9 +24383,9 @@ exports.default = _default;
 
 /***/ }),
 /* 148 */
-/*!******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/line.js ***!
-  \******************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/line.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24420,9 +24420,9 @@ exports.default = _default;
 
 /***/ }),
 /* 149 */
-/*!**************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/lineProgress.js ***!
-  \**************************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/lineProgress.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24456,9 +24456,9 @@ exports.default = _default;
 
 /***/ }),
 /* 150 */
-/*!******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/link.js ***!
-  \******************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/link.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24498,9 +24498,9 @@ exports.default = _default;
 
 /***/ }),
 /* 151 */
-/*!******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/list.js ***!
-  \******************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/list.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24543,9 +24543,9 @@ exports.default = _default;
 
 /***/ }),
 /* 152 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/listItem.js ***!
-  \**********************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/listItem.js ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24575,9 +24575,9 @@ exports.default = _default;
 
 /***/ }),
 /* 153 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/loadingIcon.js ***!
-  \*************************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/loadingIcon.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24621,9 +24621,9 @@ exports.default = _default;
 
 /***/ }),
 /* 154 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/loadingPage.js ***!
-  \*************************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/loadingPage.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24661,9 +24661,9 @@ exports.default = _default;
 
 /***/ }),
 /* 155 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/loadmore.js ***!
-  \**********************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/loadmore.js ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24710,9 +24710,9 @@ exports.default = _default;
 
 /***/ }),
 /* 156 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/modal.js ***!
-  \*******************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/modal.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24758,9 +24758,9 @@ exports.default = _default;
 
 /***/ }),
 /* 157 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/navbar.js ***!
-  \********************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/navbar.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24807,9 +24807,9 @@ exports.default = _default;
 
 /***/ }),
 /* 158 */
-/*!*************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/color.js ***!
-  \*************************************************************************************/
+/*!************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/color.js ***!
+  \************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24840,9 +24840,9 @@ exports.default = _default;
 
 /***/ }),
 /* 159 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/noNetwork.js ***!
-  \***********************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/noNetwork.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24874,9 +24874,9 @@ exports.default = _default;
 
 /***/ }),
 /* 160 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/noticeBar.js ***!
-  \***********************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/noticeBar.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24920,9 +24920,9 @@ exports.default = _default;
 
 /***/ }),
 /* 161 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/notify.js ***!
-  \********************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/notify.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -24959,9 +24959,9 @@ exports.default = _default;
 
 /***/ }),
 /* 162 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/numberBox.js ***!
-  \***********************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/numberBox.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25011,9 +25011,9 @@ exports.default = _default;
 
 /***/ }),
 /* 163 */
-/*!****************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/numberKeyboard.js ***!
-  \****************************************************************************************************/
+/*!***************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/numberKeyboard.js ***!
+  \***************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25045,9 +25045,9 @@ exports.default = _default;
 
 /***/ }),
 /* 164 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/overlay.js ***!
-  \*********************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/overlay.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25080,9 +25080,9 @@ exports.default = _default;
 
 /***/ }),
 /* 165 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/parse.js ***!
-  \*******************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/parse.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25119,9 +25119,9 @@ exports.default = _default;
 
 /***/ }),
 /* 166 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/picker.js ***!
-  \********************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/picker.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25169,9 +25169,9 @@ exports.default = _default;
 
 /***/ }),
 /* 167 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/popup.js ***!
-  \*******************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/popup.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25215,9 +25215,9 @@ exports.default = _default;
 
 /***/ }),
 /* 168 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/radio.js ***!
-  \*******************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/radio.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25259,9 +25259,9 @@ exports.default = _default;
 
 /***/ }),
 /* 169 */
-/*!************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/radioGroup.js ***!
-  \************************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/radioGroup.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25306,9 +25306,9 @@ exports.default = _default;
 
 /***/ }),
 /* 170 */
-/*!******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/rate.js ***!
-  \******************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/rate.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25349,9 +25349,9 @@ exports.default = _default;
 
 /***/ }),
 /* 171 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/readMore.js ***!
-  \**********************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/readMore.js ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25388,9 +25388,9 @@ exports.default = _default;
 
 /***/ }),
 /* 172 */
-/*!*****************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/row.js ***!
-  \*****************************************************************************************/
+/*!****************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/row.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25422,9 +25422,9 @@ exports.default = _default;
 
 /***/ }),
 /* 173 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/rowNotice.js ***!
-  \***********************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/rowNotice.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25460,9 +25460,9 @@ exports.default = _default;
 
 /***/ }),
 /* 174 */
-/*!************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/scrollList.js ***!
-  \************************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/scrollList.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25497,9 +25497,9 @@ exports.default = _default;
 
 /***/ }),
 /* 175 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/search.js ***!
-  \********************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/search.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25555,9 +25555,9 @@ exports.default = _default;
 
 /***/ }),
 /* 176 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/section.js ***!
-  \*********************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/section.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25596,9 +25596,9 @@ exports.default = _default;
 
 /***/ }),
 /* 177 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/skeleton.js ***!
-  \**********************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/skeleton.js ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25638,9 +25638,9 @@ exports.default = _default;
 
 /***/ }),
 /* 178 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/slider.js ***!
-  \********************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/slider.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25680,9 +25680,9 @@ exports.default = _default;
 
 /***/ }),
 /* 179 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/statusBar.js ***!
-  \***********************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/statusBar.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25712,9 +25712,9 @@ exports.default = _default;
 
 /***/ }),
 /* 180 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/steps.js ***!
-  \*******************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/steps.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25750,9 +25750,9 @@ exports.default = _default;
 
 /***/ }),
 /* 181 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/stepsItem.js ***!
-  \***********************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/stepsItem.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25785,9 +25785,9 @@ exports.default = _default;
 
 /***/ }),
 /* 182 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/sticky.js ***!
-  \********************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/sticky.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25822,9 +25822,9 @@ exports.default = _default;
 
 /***/ }),
 /* 183 */
-/*!************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/subsection.js ***!
-  \************************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/subsection.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25862,9 +25862,9 @@ exports.default = _default;
 
 /***/ }),
 /* 184 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/swipeAction.js ***!
-  \*************************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/swipeAction.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25894,9 +25894,9 @@ exports.default = _default;
 
 /***/ }),
 /* 185 */
-/*!*****************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/swipeActionItem.js ***!
-  \*****************************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/swipeActionItem.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25932,9 +25932,9 @@ exports.default = _default;
 
 /***/ }),
 /* 186 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/swiper.js ***!
-  \********************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/swiper.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -25989,9 +25989,9 @@ exports.default = _default;
 
 /***/ }),
 /* 187 */
-/*!******************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/swipterIndicator.js ***!
-  \******************************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/swipterIndicator.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26025,9 +26025,9 @@ exports.default = _default;
 
 /***/ }),
 /* 188 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/switch.js ***!
-  \********************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/switch.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26066,9 +26066,9 @@ exports.default = _default;
 
 /***/ }),
 /* 189 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/tabbar.js ***!
-  \********************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/tabbar.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26105,9 +26105,9 @@ exports.default = _default;
 
 /***/ }),
 /* 190 */
-/*!************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/tabbarItem.js ***!
-  \************************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/tabbarItem.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26142,9 +26142,9 @@ exports.default = _default;
 
 /***/ }),
 /* 191 */
-/*!******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/tabs.js ***!
-  \******************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/tabs.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26199,9 +26199,9 @@ exports.default = _default;
 
 /***/ }),
 /* 192 */
-/*!*****************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/tag.js ***!
-  \*****************************************************************************************/
+/*!****************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/tag.js ***!
+  \****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26245,9 +26245,9 @@ exports.default = _default;
 
 /***/ }),
 /* 193 */
-/*!******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/text.js ***!
-  \******************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/text.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26301,9 +26301,9 @@ exports.default = _default;
 
 /***/ }),
 /* 194 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/textarea.js ***!
-  \**********************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/textarea.js ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26354,9 +26354,9 @@ exports.default = _default;
 
 /***/ }),
 /* 195 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/toast.js ***!
-  \*******************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/toast.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26400,9 +26400,9 @@ exports.default = _default;
 
 /***/ }),
 /* 196 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/toolbar.js ***!
-  \*********************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/toolbar.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26437,9 +26437,9 @@ exports.default = _default;
 
 /***/ }),
 /* 197 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/tooltip.js ***!
-  \*********************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/tooltip.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26481,9 +26481,9 @@ exports.default = _default;
 
 /***/ }),
 /* 198 */
-/*!************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/transition.js ***!
-  \************************************************************************************************/
+/*!***********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/transition.js ***!
+  \***********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26516,9 +26516,9 @@ exports.default = _default;
 
 /***/ }),
 /* 199 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/props/upload.js ***!
-  \********************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/props/upload.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26575,9 +26575,9 @@ exports.default = _default;
 
 /***/ }),
 /* 200 */
-/*!**************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/config/zIndex.js ***!
-  \**************************************************************************************/
+/*!*************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/config/zIndex.js ***!
+  \*************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26611,9 +26611,9 @@ exports.default = _default;
 
 /***/ }),
 /* 201 */
-/*!******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/libs/function/platform.js ***!
-  \******************************************************************************************/
+/*!*****************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/libs/function/platform.js ***!
+  \*****************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26645,9 +26645,9 @@ exports.default = _default;
 /* 204 */,
 /* 205 */,
 /* 206 */
-/*!******************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/static/icon1_active.png ***!
-  \******************************************************************/
+/*!*****************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/static/icon1_active.png ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -26655,9 +26655,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACt
 
 /***/ }),
 /* 207 */
-/*!***********************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/static/icon1.png ***!
-  \***********************************************************/
+/*!**********************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/static/icon1.png ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -26665,9 +26665,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACt
 
 /***/ }),
 /* 208 */
-/*!******************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/static/icon2_active.png ***!
-  \******************************************************************/
+/*!*****************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/static/icon2_active.png ***!
+  \*****************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -26675,9 +26675,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACt
 
 /***/ }),
 /* 209 */
-/*!***********************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/static/icon2.png ***!
-  \***********************************************************/
+/*!**********************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/static/icon2.png ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -26693,9 +26693,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACt
 /* 216 */,
 /* 217 */,
 /* 218 */
-/*!***********************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/static/empty.jpg ***!
-  \***********************************************************/
+/*!**********************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/static/empty.jpg ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -26711,9 +26711,9 @@ module.exports = "data:image/jpeg;base64,iVBORw0KGgoAAAANSUhEUgAAASwAAAEsCAYAAAB
 /* 225 */,
 /* 226 */,
 /* 227 */
-/*!************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/static/avatar.png ***!
-  \************************************************************/
+/*!***********************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/static/avatar.png ***!
+  \***********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -26753,9 +26753,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9
 /* 258 */,
 /* 259 */,
 /* 260 */
-/*!***************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/home_packages/static/collect.png ***!
-  \***************************************************************************/
+/*!**************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/home_packages/static/collect.png ***!
+  \**************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -26763,9 +26763,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACt
 
 /***/ }),
 /* 261 */
-/*!**********************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/home_packages/static/collect_active.png ***!
-  \**********************************************************************************/
+/*!*********************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/home_packages/static/collect_active.png ***!
+  \*********************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -26775,9 +26775,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMgAAADICAYAAACt
 /* 262 */,
 /* 263 */,
 /* 264 */
-/*!***********************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/static/logo1.png ***!
-  \***********************************************************/
+/*!**********************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/static/logo1.png ***!
+  \**********************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -26821,9 +26821,9 @@ module.exports = __webpack_require__.p + "static/logo1.png";
 /* 299 */,
 /* 300 */,
 /* 301 */
-/*!***********************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/mine_packages/static/add.png ***!
-  \***********************************************************************/
+/*!**********************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/mine_packages/static/add.png ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -26831,9 +26831,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACO
 
 /***/ }),
 /* 302 */
-/*!***********************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/mine_packages/static/min.png ***!
-  \***********************************************************************/
+/*!**********************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/mine_packages/static/min.png ***!
+  \**********************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports) {
 
@@ -26930,9 +26930,9 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACO
 /* 390 */,
 /* 391 */,
 /* 392 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/components/u-icon/icons.js ***!
-  \*******************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-icon/icons.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27161,9 +27161,9 @@ exports.default = _default;
 
 /***/ }),
 /* 393 */
-/*!*******************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/components/u-icon/props.js ***!
-  \*******************************************************************************************/
+/*!******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-icon/props.js ***!
+  \******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27282,9 +27282,9 @@ exports.default = _default;
 /* 406 */,
 /* 407 */,
 /* 408 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/components/u-empty/props.js ***!
-  \********************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-empty/props.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27366,9 +27366,9 @@ exports.default = _default;
 /* 414 */,
 /* 415 */,
 /* 416 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/components/u-popup/props.js ***!
-  \********************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-popup/props.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27470,9 +27470,9 @@ exports.default = _default;
 /* 422 */,
 /* 423 */,
 /* 424 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/components/u-switch/props.js ***!
-  \*********************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-switch/props.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27549,9 +27549,9 @@ exports.default = _default;
 /* 430 */,
 /* 431 */,
 /* 432 */
-/*!***************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/static/canvas_bg.jpg ***!
-  \***************************************************************/
+/*!**************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/static/canvas_bg.jpg ***!
+  \**************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27566,9 +27566,9 @@ module.exports = __webpack_require__.p + "static/canvas_bg.jpg";
 /* 438 */,
 /* 439 */,
 /* 440 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/components/u-parse/props.js ***!
-  \********************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-parse/props.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -27626,9 +27626,9 @@ exports.default = _default;
 
 /***/ }),
 /* 441 */
-/*!*********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/components/u-parse/parser.js ***!
-  \*********************************************************************************************/
+/*!********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-parse/parser.js ***!
+  \********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28564,9 +28564,9 @@ module.exports = parser;
 /* 447 */,
 /* 448 */,
 /* 449 */
-/*!*****************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/components/u-checkbox-group/props.js ***!
-  \*****************************************************************************************************/
+/*!****************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-checkbox-group/props.js ***!
+  \****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28668,9 +28668,9 @@ exports.default = _default;
 /* 455 */,
 /* 456 */,
 /* 457 */
-/*!***********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/components/u-checkbox/props.js ***!
-  \***********************************************************************************************/
+/*!**********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-checkbox/props.js ***!
+  \**********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28769,9 +28769,9 @@ exports.default = _default;
 /* 470 */,
 /* 471 */,
 /* 472 */
-/*!**************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/components/u-radio-group/props.js ***!
-  \**************************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-radio-group/props.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28878,9 +28878,9 @@ exports.default = _default;
 /* 478 */,
 /* 479 */,
 /* 480 */
-/*!********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/components/u-radio/props.js ***!
-  \********************************************************************************************/
+/*!*******************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-radio/props.js ***!
+  \*******************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -28967,9 +28967,9 @@ exports.default = _default;
 /* 486 */,
 /* 487 */,
 /* 488 */
-/*!**********************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/components/u-overlay/props.js ***!
-  \**********************************************************************************************/
+/*!*********************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-overlay/props.js ***!
+  \*********************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -29016,9 +29016,9 @@ exports.default = _default;
 /* 494 */,
 /* 495 */,
 /* 496 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/components/u-transition/props.js ***!
-  \*************************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-transition/props.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -29058,9 +29058,9 @@ exports.default = _default;
 
 /***/ }),
 /* 497 */
-/*!******************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/components/u-transition/transition.js ***!
-  \******************************************************************************************************/
+/*!*****************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-transition/transition.js ***!
+  \*****************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -29167,9 +29167,9 @@ exports.default = _default;
 
 /***/ }),
 /* 498 */
-/*!********************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/components/u-transition/nvue.ani-map.js ***!
-  \********************************************************************************************************/
+/*!*******************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-transition/nvue.ani-map.js ***!
+  \*******************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -29367,9 +29367,9 @@ exports.default = _default;
 /* 504 */,
 /* 505 */,
 /* 506 */
-/*!*************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/components/u-status-bar/props.js ***!
-  \*************************************************************************************************/
+/*!************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-status-bar/props.js ***!
+  \************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -29400,9 +29400,9 @@ exports.default = _default;
 /* 512 */,
 /* 513 */,
 /* 514 */
-/*!**************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/components/u-safe-bottom/props.js ***!
-  \**************************************************************************************************/
+/*!*************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-safe-bottom/props.js ***!
+  \*************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -29427,9 +29427,9 @@ exports.default = _default;
 /* 520 */,
 /* 521 */,
 /* 522 */
-/*!***************************************************************************************************!*\
-  !*** C:/Users/admin/Desktop/scan_weixin/node_modules/uview-ui/components/u-loading-icon/props.js ***!
-  \***************************************************************************************************/
+/*!**************************************************************************************************!*\
+  !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-loading-icon/props.js ***!
+  \**************************************************************************************************/
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 

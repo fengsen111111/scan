@@ -619,9 +619,9 @@
 		},
 		async onLoad(option) {
 			this.option = option
-			if (!uni.getStorageSync("token")) {
-				this.loginShow = true;
-			}
+			// if (!uni.getStorageSync("token")) {
+			// 	this.loginShow = true;
+			// }
 			console.log('1店铺详情传参', option)
 			if (option.scene) {
 				let param = option.scene
@@ -762,6 +762,9 @@
 		methods: {
 			// 跳转订单详情
 			orderTo(){
+				if (!uni.getStorageSync("token")) {
+					return false
+				}
 				//this.addType true 加菜  // 加菜就不跳转订单详情，其余但凡查出订单号，一律去订单详情
 				if(this.addType){
 					return false
@@ -804,6 +807,7 @@
 				uni.setStorageSync("token", token);
 				uni.hideLoading();
 				this.loginShow = false
+				this.orderTo() //登录了之后，重新查询是否有订单
 			},
 			changeRemark(index) {
 				this.remarkIndex = index;
@@ -1011,6 +1015,10 @@
 				}
 			},
 			scanTableCode() {
+				if (!uni.getStorageSync("token")) {
+					this.loginShow = true;
+					return false
+				}
 				this.shopCarList = uni.getStorageSync("shop" + this.shopInfo.id);
 				if (!this.shopCarList || this.shopCarList.length === 0) {
 					uni.showToast({
