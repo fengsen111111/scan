@@ -65,7 +65,7 @@
 .title-tip.data-v-5817911e {
   color: #666666;
   text-align: center;
-  margin-bottom: 30rpx;
+  margin-bottom: 50rpx;
   font-size: 24rpx;
   font-weight: bold;
 }
@@ -81,11 +81,11 @@
 .submit-btn.data-v-5817911e {
   text-align: center;
   background: #000000;
-  font-weight: bold;
   color: #f5e8ae;
   padding: 20rpx;
   border-radius: 10rpx;
   margin-top: 30rpx;
+  font-size: 24rpx;
 }
 .tips.data-v-5817911e {
   font-size: 24rpx;

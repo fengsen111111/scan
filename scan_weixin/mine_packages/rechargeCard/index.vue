@@ -17,9 +17,9 @@
 					输入兑换码或扫描二维码兑换
 				</view>
 				<view class="input-box">
-					<input type="text" v-model="dh_code" placeholder="请输入兑换码" />
+					<input type="text" v-model="dh_code" placeholder="请输入兑换码" style="width: 100%;" />
 					<view @click="scanCode">
-						<image src="@/static/scan.png" style="width: 40rpx;height: 40rpx;" />
+						<image src="@/static/czsm.png" style="width: 40rpx;height: 40rpx;" />
 					</view>
 				</view>
 				<view class="submit-btn">立即兑换</view>
@@ -123,7 +123,7 @@
 		color: #666666;
 		text-align: center;
 		// margin: 60rpx 0;
-		margin-bottom: 30rpx;
+		margin-bottom: 50rpx;
 		font-size: 24rpx;
 		font-weight: bold;
 	}
@@ -141,11 +141,12 @@
 	.submit-btn {
 		text-align: center;
 		background: #000000;
-		font-weight: bold;
+		// font-weight: bold;
 		color: rgb(245, 232, 174);
 		padding: 20rpx;
 		border-radius: 10rpx;
 		margin-top: 30rpx;
+		font-size: 24rpx;
 	}
 
 	.tips {
