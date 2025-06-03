@@ -36,7 +36,8 @@
         "restaurant/index",
         "points/index",
         "point_detail/index",
-        "distribute/index"
+        "distribute/index",
+        "rechargeCard/index"
       ]
     }
   ],
