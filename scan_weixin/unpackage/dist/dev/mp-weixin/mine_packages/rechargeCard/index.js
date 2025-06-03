@@ -199,11 +199,36 @@ var _default = {
       });
     },
     scanCode: function scanCode() {
+      var _this = this;
       uni.scanCode({
         scanType: ["qrCode"],
         success: function success(res) {
-          console.log('扫码结果', res);
+          console.log('扫码结果', res.result);
+          _this.dh_code = res.result;
+          _this._exchangeCardPassword();
         }
+      });
+    },
+    _exchangeCardPassword: function _exchangeCardPassword() {
+      if (!this.dh_code) {
+        uni.showToast({
+          title: "请输入兑换码",
+          icon: "error"
+        });
+        return false;
+      }
+      uni.showLoading({
+        title: "兑换中，请稍后……"
+      });
+      this.$request("/food/CardPassword/exchangeCardPassword", {
+        password: this.dh_code
+      }).then(function (resule) {
+        uni.hideLoading();
+        console.log('结果', resule);
+        uni.showToast({
+          title: "兑换成功",
+          icon: "success"
+        });
       });
     }
   }

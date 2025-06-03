@@ -17,12 +17,12 @@
 					输入兑换码或扫描二维码兑换
 				</view>
 				<view class="input-box">
-					<input type="text" v-model="dh_code" placeholder="请输入兑换码" style="width: 100%;" />
+					<input type="text" v-model="dh_code" placeholder="请输入兑换码" style="width: 90%;" />
 					<view @click="scanCode">
 						<image src="@/static/czsm.png" style="width: 40rpx;height: 40rpx;" />
 					</view>
 				</view>
-				<view class="submit-btn">立即兑换</view>
+				<view class="submit-btn" @click="_exchangeCardPassword()">立即兑换</view>
 
 				<view class="tips">
 					<view class="tip-title">温馨提示：</view>
@@ -60,10 +60,34 @@
 				uni.scanCode({
 					scanType: ["qrCode"],
 					success: res => {
-						console.log('扫码结果', res);
+						console.log('扫码结果', res.result);
+						this.dh_code = res.result
+						this._exchangeCardPassword()
 					}
 				})
 			},
+			_exchangeCardPassword() {
+				if (!this.dh_code) {
+					uni.showToast({
+						title: "请输入兑换码",
+						icon: "error" 
+					})
+					return false
+				}
+				uni.showLoading({
+					title: "兑换中，请稍后……"
+				})
+				this.$request("/food/CardPassword/exchangeCardPassword", {
+					password: this.dh_code
+				}).then((resule) => {
+					uni.hideLoading()
+					console.log('结果', resule);
+					uni.showToast({
+						title: "兑换成功",
+						icon: "success"
+					})
+				})
+			}
 		}
 	}
 </script>
