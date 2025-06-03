@@ -69,6 +69,14 @@
 			</view>
 			<u-icon name="arrow-right"></u-icon>
 		</view>
+		<view class="option flex alignCenter spaceBetween"
+			@click="$nav('/mine_packages/rechargeCard/index')">
+			<view class="left flex alignCenter">
+				<image src="@/static/czk.png" mode=""></image>
+				兑换充值卡
+			</view>
+			<u-icon name="arrow-right"></u-icon>
+		</view>
 
 		<view class="option flex alignCenter spaceBetween">
 			<view class="left flex alignCenter">

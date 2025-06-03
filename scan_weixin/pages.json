@@ -29,18 +29,18 @@
 		}, {
 			"root": "order_packages",
 			"pages": [{
-				"path": "detail/index",
-				"style": {
-					"navigationBarTitleText": "订单详情",
-					"navigationStyle": "custom"  // ✅ 隐藏原生导航栏
+					"path": "detail/index",
+					"style": {
+						"navigationBarTitleText": "订单详情",
+						"navigationStyle": "custom" // ✅ 隐藏原生导航栏
+					}
+				},
+				{
+					"path": "cpxdz/index",
+					"style": {
+						"navigationBarTitleText": ""
+					}
 				}
-			},
-			{
-				"path": "cpxdz/index",
-				"style": {
-					"navigationBarTitleText": ""
-				}
-			}
 			]
 		},
 		{
@@ -109,6 +109,13 @@
 					"path": "distribute/index",
 					"style": {
 						"navigationBarTitleText": "二级分销"
+					}
+				},
+				{
+					"path": "rechargeCard/index",
+					"style": {
+						"navigationBarTitleText": "兑换充值卡",
+						"navigationStyle": "custom"
 					}
 				}
 			]
