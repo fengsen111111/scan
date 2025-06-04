@@ -483,7 +483,7 @@
 							console.log('经度：' + res.longitude);
 							console.log('纬度：' + res.latitude);
 							orderForm.location = res.longitude + ',' + res.latitude
-							orderForm.location = '91.129157,29.653201'//测试用经纬度写死，测完注释
+							// orderForm.location = '91.129157,29.653201'//测试用经纬度写死，测完注释
 							// orderForm.help_user_coupon = orderForm.help_user_coupon ? orderForm.help_user_coupon * 1 : 0
 
 							if (that.is_request_ok) {
