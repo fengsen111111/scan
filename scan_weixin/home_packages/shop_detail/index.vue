@@ -1168,72 +1168,62 @@
 				this.remarkIndex = null;
 				this.changePrice()
 			},
+			// 选规格
 			selectGood(id, obj, checkNumber) {
-				if (!this.groupGoods.length) {
-					this.groupGoods.push({
-						goods_id: obj.id,
-						has_number: obj.has_number,
-						parent_id: id,
-						name: obj.name,
-						cover_image: obj.cover_image,
-					})
-					this.groupGoodsId.push(obj.id);
-					return;
-				}
-				let flag = false;
-				let number = 0;
-				this.groupGoodsId = [];
-				let delFlag = false;
-				let delIndex = null;
-				let replaceIndex = null;
-				this.groupGoods.map((item, index) => {
-					if (item.goods_id === obj.id) {
-						delFlag = true;
-						delIndex = index;
-					}
-					if (item.parent_id === id) {
-						number++;
-					}
-				})
-				this.groupGoods.map((item, index) => {
-					if (!delFlag) {
-						if (number > 0) {
-							if (Number(checkNumber) === 1) {
-								replaceIndex = index;
-							} else if (number < checkNumber) {
-								flag = true;
-							}
-						} else {
-							flag = true;
-						}
-					}
-					this.groupGoodsId.push(item.goods_id);
-				})
-				if (replaceIndex !== null) {
-					this.groupGoods[replaceIndex] = {
-						goods_id: obj.id,
-						has_number: obj.has_number,
-						parent_id: id,
-						name: obj.name,
-						cover_image: obj.cover_image,
-					}
-					this.groupGoodsId[replaceIndex] = obj.id
-				}
-				if (delFlag) {
-					this.groupGoods.splice(delIndex, 1);
-					this.groupGoodsId.splice(delIndex, 1);
-				}
-				if (flag) {
-					this.groupGoodsId.push(obj.id);
-					this.groupGoods.push({
-						goods_id: obj.id,
-						has_number: obj.has_number,
-						parent_id: id,
-						name: obj.name,
-						cover_image: obj.cover_image,
-					})
-				}
+			  // console.log('id, obj, checkNumber', id, obj, checkNumber);
+			  // console.log('this.groupGoods', this.groupGoods);
+			  // 找是否已存在当前 goods_id（点击的是已选中的，等于取消选择）
+			  const existingIndex = this.groupGoods.findIndex(item => item.goods_id === obj.id);
+			  if (existingIndex !== -1) {
+			    this.groupGoods.splice(existingIndex, 1);
+			    this.groupGoodsId.splice(existingIndex, 1);
+			    return;
+			  }
+			
+			  // 查找是否有相同 parent_id 的项
+			  const parentIndex = this.groupGoods.findIndex(item => item.parent_id === id);
+			
+			  if (parentIndex !== -1) {
+			    // 如果只允许选一个（checkNumber === 1），则替换
+			    if (Number(checkNumber) === 1) {
+			      this.groupGoods.splice(parentIndex, 1, {
+			        goods_id: obj.id,
+			        has_number: obj.has_number,
+			        parent_id: id,
+			        name: obj.name,
+			        cover_image: obj.cover_image
+			      });
+			      this.groupGoodsId.splice(parentIndex, 1, obj.id);
+			    } else {
+			      // 如果 checkNumber > 1，且没超数量限制
+			      const count = this.groupGoods.filter(item => item.parent_id === id).length;
+			      if (count < checkNumber) {
+			        this.groupGoods.push({
+			          goods_id: obj.id,
+			          has_number: obj.has_number,
+			          parent_id: id,
+			          name: obj.name,
+			          cover_image: obj.cover_image
+			        });
+			        this.groupGoodsId.push(obj.id);
+			      } else {
+			        // 数量已满，不操作（也可以加提示）
+			        uni.showToast({ title: `最多选择 ${checkNumber} 个`, icon: 'none' });
+			      }
+			    }
+			  } else {
+			    // parent_id 没有出现过，直接添加
+			    this.groupGoods.push({
+			      goods_id: obj.id,
+			      has_number: obj.has_number,
+			      parent_id: id,
+			      name: obj.name,
+			      cover_image: obj.cover_image
+			    });
+			    this.groupGoodsId.push(obj.id);
+			  }
 			},
+
 			groupAddCar() {
 				let number = 0;
 				this.groupDetail.group_list.map(item => {
