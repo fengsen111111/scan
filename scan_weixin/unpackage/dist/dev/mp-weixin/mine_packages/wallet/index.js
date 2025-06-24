@@ -206,13 +206,15 @@ var _default = {
         a: "add",
         b: "add",
         c: "min",
-        d: "add"
+        d: "add",
+        e: "add"
       },
       obj: {
         a: "充值",
         b: "赠送",
         c: "消费",
-        d: "退款"
+        d: "退款",
+        e: "充值卡兑换"
       },
       total: 0,
       list: [],

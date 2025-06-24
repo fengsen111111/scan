@@ -85,7 +85,7 @@
 				<u-icon name="arrow-down" size="16"></u-icon>
 			</view>
 		</view>
-		<view class="recommend">
+		<!-- <view class="recommend">
 			<view class="title flex alignCenter">
 				<image src="@/home_packages/static/recommend.png" mode=""></image>
 				网友推荐
@@ -120,7 +120,7 @@
 					</view>
 				</view>
 			</scroll-view>
-		</view>
+		</view> -->
 		<view class="goods_list flex spaceBetween">
 			<scroll-view :scroll-with-animation="true" scroll-y="true" :scroll-into-view="rightInto" class="leftScroll">
 				<view class="item flex alignCenter justifyCenter flexColumn" v-for="(item,index) in leftList"

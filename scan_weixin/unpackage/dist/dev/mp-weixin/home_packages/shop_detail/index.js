@@ -167,138 +167,113 @@ var render = function () {
     _vm.shopInfo.id && g2 && g5 - 1 && g6 > 1
       ? _vm.shopInfo.coupon_list.length
       : null
-  var g8 = _vm.shopInfo.id ? _vm.recommendList.length : null
-  var l1 = _vm.shopInfo.id
-    ? _vm.__map(_vm.recommendList, function (obj, index) {
-        var $orig = _vm.__get_orig(obj)
-        var g9 = !obj.group_list || !obj.group_list.length
-        var g10 = g9
-          ? _vm.carIdList.findIndex(function (item) {
-              return item.id === obj.id
-            })
-          : null
-        var g11 = g9
-          ? _vm.carIdList.findIndex(function (item) {
-              return item.id === obj.id
-            })
-          : null
-        var g12 =
-          g9 && g11 != -1
-            ? _vm.carIdList.find(function (item) {
-                return item.id === obj.id
-              })
-            : null
-        return {
-          $orig: $orig,
-          g9: g9,
-          g10: g10,
-          g11: g11,
-          g12: g12,
-        }
-      })
-    : null
-  var l3 = _vm.shopInfo.id
+  var l2 = _vm.shopInfo.id
     ? _vm.__map(_vm.rightList, function (item, index) {
         var $orig = _vm.__get_orig(item)
-        var l2 = _vm.__map(item.list, function (obj, j) {
+        var l1 = _vm.__map(item.list, function (obj, j) {
           var $orig = _vm.__get_orig(obj)
-          var g13 =
+          var g8 =
             obj.is_group === "Y" && !item.is_buyed
               ? obj.group_list.length
               : null
-          var g14 =
-            obj.is_group === "Y" && !item.is_buyed && !g13
+          var g9 =
+            obj.is_group === "Y" && !item.is_buyed && !g8
               ? _vm.carIdList.findIndex(function (item) {
                   return item.id === obj.id
                 })
               : null
-          var g15 =
-            obj.is_group === "Y" && !item.is_buyed && !g13
+          var g10 =
+            obj.is_group === "Y" && !item.is_buyed && !g8
               ? _vm.carIdList.findIndex(function (item) {
                   return item.id === obj.id
                 })
               : null
-          var g16 =
-            obj.is_group === "Y" && !item.is_buyed && !g13 && g15 != -1
+          var g11 =
+            obj.is_group === "Y" && !item.is_buyed && !g8 && g10 != -1
               ? _vm.carIdList.find(function (item) {
                   return item.id === obj.id
                 })
               : null
-          var g17 =
+          var g12 =
             !(obj.is_group === "Y" && !item.is_buyed) &&
             item.is_buyed &&
             item.is_buyed === "Y" &&
             (j < 3 || _vm.is_zksq)
               ? !obj.group_list || !obj.group_list.length
               : null
-          var g18 =
+          var g13 =
             !(obj.is_group === "Y" && !item.is_buyed) &&
             item.is_buyed &&
             item.is_buyed === "Y" &&
             (j < 3 || _vm.is_zksq) &&
-            g17
+            g12
+              ? _vm.carIdList.findIndex(function (item) {
+                  return item.id === obj.id
+                })
+              : null
+          var g14 =
+            !(obj.is_group === "Y" && !item.is_buyed) &&
+            item.is_buyed &&
+            item.is_buyed === "Y" &&
+            (j < 3 || _vm.is_zksq) &&
+            g12
+              ? _vm.carIdList.findIndex(function (item) {
+                  return item.id === obj.id
+                })
+              : null
+          var g15 =
+            !(obj.is_group === "Y" && !item.is_buyed) &&
+            item.is_buyed &&
+            item.is_buyed === "Y" &&
+            (j < 3 || _vm.is_zksq) &&
+            g12 &&
+            g14 != -1
+              ? _vm.carIdList.find(function (item) {
+                  return item.id === obj.id
+                })
+              : null
+          var g16 =
+            !(obj.is_group === "Y" && !item.is_buyed) &&
+            item.is_buyed &&
+            item.is_buyed === "Y"
+              ? item.list.length
+              : null
+          var g17 =
+            !(obj.is_group === "Y" && !item.is_buyed) &&
+            item.is_buyed &&
+            item.is_buyed === "Y" &&
+            g16 > 3
+              ? item.list.length
+              : null
+          var g18 =
+            !(obj.is_group === "Y" && !item.is_buyed) &&
+            !(item.is_buyed && item.is_buyed === "Y")
               ? _vm.carIdList.findIndex(function (item) {
                   return item.id === obj.id
                 })
               : null
           var g19 =
             !(obj.is_group === "Y" && !item.is_buyed) &&
-            item.is_buyed &&
-            item.is_buyed === "Y" &&
-            (j < 3 || _vm.is_zksq) &&
-            g17
+            !(item.is_buyed && item.is_buyed === "Y")
               ? _vm.carIdList.findIndex(function (item) {
                   return item.id === obj.id
                 })
               : null
           var g20 =
             !(obj.is_group === "Y" && !item.is_buyed) &&
-            item.is_buyed &&
-            item.is_buyed === "Y" &&
-            (j < 3 || _vm.is_zksq) &&
-            g17 &&
-            g19 != -1
-              ? _vm.carIdList.find(function (item) {
-                  return item.id === obj.id
-                })
-              : null
-          var g21 =
-            !(obj.is_group === "Y" && !item.is_buyed) &&
-            item.is_buyed &&
-            item.is_buyed === "Y"
-              ? item.list.length
-              : null
-          var g22 =
-            !(obj.is_group === "Y" && !item.is_buyed) &&
-            item.is_buyed &&
-            item.is_buyed === "Y" &&
-            g21 > 3
-              ? item.list.length
-              : null
-          var g23 =
-            !(obj.is_group === "Y" && !item.is_buyed) &&
-            !(item.is_buyed && item.is_buyed === "Y")
-              ? _vm.carIdList.findIndex(function (item) {
-                  return item.id === obj.id
-                })
-              : null
-          var g24 =
-            !(obj.is_group === "Y" && !item.is_buyed) &&
-            !(item.is_buyed && item.is_buyed === "Y")
-              ? _vm.carIdList.findIndex(function (item) {
-                  return item.id === obj.id
-                })
-              : null
-          var g25 =
-            !(obj.is_group === "Y" && !item.is_buyed) &&
             !(item.is_buyed && item.is_buyed === "Y") &&
-            g24 != -1
+            g19 != -1
               ? _vm.carIdList.find(function (item) {
                   return item.id === obj.id
                 })
               : null
           return {
             $orig: $orig,
+            g8: g8,
+            g9: g9,
+            g10: g10,
+            g11: g11,
+            g12: g12,
             g13: g13,
             g14: g14,
             g15: g15,
@@ -307,95 +282,90 @@ var render = function () {
             g18: g18,
             g19: g19,
             g20: g20,
-            g21: g21,
-            g22: g22,
-            g23: g23,
-            g24: g24,
-            g25: g25,
           }
         })
         return {
           $orig: $orig,
-          l2: l2,
+          l1: l1,
         }
       })
     : null
-  var g26 = _vm.shopInfo.id ? _vm.carIdList && _vm.carIdList.length > 0 : null
-  var g27 = _vm.shopInfo.id
+  var g21 = _vm.shopInfo.id ? _vm.carIdList && _vm.carIdList.length > 0 : null
+  var g22 = _vm.shopInfo.id
     ? _vm.goodsObj.group_list && _vm.goodsObj.group_list.length
     : null
-  var l4 = _vm.shopInfo.id
+  var l3 = _vm.shopInfo.id
     ? _vm.__map(_vm.goodsObj.group_list, function (i, j) {
         var $orig = _vm.__get_orig(i)
-        var g28 = i.goods_list ? i.goods_list.length : null
-        var g29 = i.goods_list.length
+        var g23 = i.goods_list ? i.goods_list.length : null
+        var g24 = i.goods_list.length
         return {
           $orig: $orig,
-          g28: g28,
-          g29: g29,
+          g23: g23,
+          g24: g24,
         }
       })
     : null
-  var g30 = _vm.shopInfo.id
+  var g25 = _vm.shopInfo.id
     ? _vm.goodsObj.choice_des &&
       _vm.goodsObj.choice_des.length &&
       _vm.goodsObj.choice_des[0] !== ""
     : null
-  var g31 = _vm.shopInfo.id
+  var g26 = _vm.shopInfo.id
     ? _vm.goodsObj.images && _vm.goodsObj.images.length
     : null
-  var g32 =
-    _vm.shopInfo.id && g31 && _vm.goodsObj.images
+  var g27 =
+    _vm.shopInfo.id && g26 && _vm.goodsObj.images
       ? _vm.goodsObj.images.length
       : null
-  var g33 = _vm.shopInfo.id
+  var g28 = _vm.shopInfo.id
     ? _vm.goodsObj.choice_des &&
       _vm.goodsObj.choice_des.length &&
       _vm.goodsObj.choice_des[0] !== ""
     : null
-  var g34 = _vm.shopInfo.id
+  var g29 = _vm.shopInfo.id
     ? !_vm.shopCarList || _vm.shopCarList.length === 0
     : null
-  var g35 = _vm.shopInfo.id
+  var g30 = _vm.shopInfo.id
     ? !_vm.shopCarList || _vm.shopCarList.length === 0
     : null
-  var g36 =
+  var g31 =
     _vm.shopInfo.id && _vm.menuDetail.group_goods
       ? _vm.menuDetail.group_goods.length
       : null
-  var l5 = _vm.shopInfo.id
+  var l4 = _vm.shopInfo.id
     ? _vm.__map(_vm.shopInfo.coupon_list, function (item, __i5__) {
         var $orig = _vm.__get_orig(item)
-        var g37 =
+        var g32 =
           item.discount_type === "a" ? item.top_price.replace(".00", "") : null
-        var g38 =
+        var g33 =
           item.discount_type === "a" ? item.data.replace(".00", "") : null
         return {
           $orig: $orig,
-          g37: g37,
-          g38: g38,
+          g32: g32,
+          g33: g33,
         }
       })
     : null
-  var l7 = _vm.shopInfo.id
+  var l6 = _vm.shopInfo.id
     ? _vm.__map(_vm.groupDetail.group_list, function (item, __i7__) {
         var $orig = _vm.__get_orig(item)
-        var g39 = item.type === "check" ? item.goods_list.length || 0 : null
-        var l6 =
+        var g34 = item.type === "check" ? item.goods_list.length || 0 : null
+        var l5 =
           item.type === "check"
             ? _vm.__map(item.goods_list, function (i, __i8__) {
                 var $orig = _vm.__get_orig(i)
-                var g40 = _vm.groupGoodsId.includes(i.id)
+                var g35 = _vm.groupGoodsId.includes(i.id)
                 return {
                   $orig: $orig,
-                  g40: g40,
+                  g35: g35,
                 }
               })
             : null
         return {
           $orig: $orig,
-          g39: g39,
-          l6: l6,
+          g34: g34,
+          l5: l5,
         }
       })
     : null
@@ -476,21 +446,19 @@ var render = function () {
         g5: g5,
         g6: g6,
         g7: g7,
-        g8: g8,
-        l1: l1,
+        l2: l2,
+        g21: g21,
+        g22: g22,
         l3: l3,
+        g25: g25,
         g26: g26,
         g27: g27,
-        l4: l4,
+        g28: g28,
+        g29: g29,
         g30: g30,
         g31: g31,
-        g32: g32,
-        g33: g33,
-        g34: g34,
-        g35: g35,
-        g36: g36,
-        l5: l5,
-        l7: l7,
+        l4: l4,
+        l6: l6,
       },
     }
   )
@@ -1793,64 +1761,59 @@ var _default = {
       this.remarkIndex = null;
       this.changePrice();
     },
+    // 选规格
     selectGood: function selectGood(id, obj, checkNumber) {
-      var _this13 = this;
-      if (!this.groupGoods.length) {
-        this.groupGoods.push({
-          goods_id: obj.id,
-          has_number: obj.has_number,
-          parent_id: id,
-          name: obj.name,
-          cover_image: obj.cover_image
-        });
-        this.groupGoodsId.push(obj.id);
+      // console.log('id, obj, checkNumber', id, obj, checkNumber);
+      // console.log('this.groupGoods', this.groupGoods);
+      // 找是否已存在当前 goods_id（点击的是已选中的，等于取消选择）
+      var existingIndex = this.groupGoods.findIndex(function (item) {
+        return item.goods_id === obj.id;
+      });
+      if (existingIndex !== -1) {
+        this.groupGoods.splice(existingIndex, 1);
+        this.groupGoodsId.splice(existingIndex, 1);
         return;
       }
-      var flag = false;
-      var number = 0;
-      this.groupGoodsId = [];
-      var delFlag = false;
-      var delIndex = null;
-      var replaceIndex = null;
-      this.groupGoods.map(function (item, index) {
-        if (item.goods_id === obj.id) {
-          delFlag = true;
-          delIndex = index;
-        }
-        if (item.parent_id === id) {
-          number++;
-        }
+
+      // 查找是否有相同 parent_id 的项
+      var parentIndex = this.groupGoods.findIndex(function (item) {
+        return item.parent_id === id;
       });
-      this.groupGoods.map(function (item, index) {
-        if (!delFlag) {
-          if (number > 0) {
-            if (Number(checkNumber) === 1) {
-              replaceIndex = index;
-            } else if (number < checkNumber) {
-              flag = true;
-            }
+      if (parentIndex !== -1) {
+        // 如果只允许选一个（checkNumber === 1），则替换
+        if (Number(checkNumber) === 1) {
+          this.groupGoods.splice(parentIndex, 1, {
+            goods_id: obj.id,
+            has_number: obj.has_number,
+            parent_id: id,
+            name: obj.name,
+            cover_image: obj.cover_image
+          });
+          this.groupGoodsId.splice(parentIndex, 1, obj.id);
+        } else {
+          // 如果 checkNumber > 1，且没超数量限制
+          var count = this.groupGoods.filter(function (item) {
+            return item.parent_id === id;
+          }).length;
+          if (count < checkNumber) {
+            this.groupGoods.push({
+              goods_id: obj.id,
+              has_number: obj.has_number,
+              parent_id: id,
+              name: obj.name,
+              cover_image: obj.cover_image
+            });
+            this.groupGoodsId.push(obj.id);
           } else {
-            flag = true;
+            // 数量已满，不操作（也可以加提示）
+            uni.showToast({
+              title: "\u6700\u591A\u9009\u62E9 ".concat(checkNumber, " \u4E2A"),
+              icon: 'none'
+            });
           }
         }
-        _this13.groupGoodsId.push(item.goods_id);
-      });
-      if (replaceIndex !== null) {
-        this.groupGoods[replaceIndex] = {
-          goods_id: obj.id,
-          has_number: obj.has_number,
-          parent_id: id,
-          name: obj.name,
-          cover_image: obj.cover_image
-        };
-        this.groupGoodsId[replaceIndex] = obj.id;
-      }
-      if (delFlag) {
-        this.groupGoods.splice(delIndex, 1);
-        this.groupGoodsId.splice(delIndex, 1);
-      }
-      if (flag) {
-        this.groupGoodsId.push(obj.id);
+      } else {
+        // parent_id 没有出现过，直接添加
         this.groupGoods.push({
           goods_id: obj.id,
           has_number: obj.has_number,
@@ -1858,10 +1821,11 @@ var _default = {
           name: obj.name,
           cover_image: obj.cover_image
         });
+        this.groupGoodsId.push(obj.id);
       }
     },
     groupAddCar: function groupAddCar() {
-      var _this14 = this;
+      var _this13 = this;
       var number = 0;
       this.groupDetail.group_list.map(function (item) {
         if (item.type == "check") {
@@ -1882,7 +1846,7 @@ var _default = {
       // console.log('走到提交');
       // return false
       this.groupContain.map(function (item) {
-        _this14.groupGoods.push({
+        _this13.groupGoods.push({
           goods_id: item.id,
           has_number: item.has_number,
           name: item.name,

@@ -1,11 +1,11 @@
 <template>
 	<view class="container">
-		<!-- 	<view class="content" v-if="flag">
+		<view class="content" v-if="flag">
 			<image src="@/static/logo.png" class="logo"></image>
 			<img :src="wechat_image" alt="" show-menu-by-longpress @click="previewImg()" class="qrcode">
 			<view class="text">长按识别扫码关注公众号</view>
-		</view> -->
-		<view class="content" style="padding: 4vw 0;">
+		</view>
+		<view class="content" v-show="popShow" style="padding: 4vw 0;">
 			<image :src="wechat_image" class="image"></image>
 			<button class="btn">打开小程序点餐</button>
 			<wx-open-launch-weapp id="launch-btn" appid="wx56308ebac0069f92" username="gh_d27ce3ed1af7"
@@ -45,42 +45,68 @@
 					'&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
 			} else {
 				this.info = uni.getStorageSync("tableInfo");
-				this.$nextTick(async () => {
-					const {
-						mp_openid
-					} = await this.$request("/factory_system/Base/wechatUserRegister", {
-						platform: "mp",
+				if (this.info.type === "wechat") {
+					this.$request("/food/User/bindOpenid", {
+						user_id: this.info.user_id.split("#")[0],
 						code: obj.code
-					})
-					const {
-						result,
-						wechat_image
-					} = await this.$request("/food/User/bindScanMsg", {
-						...this.info,
-						openid: mp_openid
-					})
-					this.wechat_image = wechat_image;
-					this.$request("/factory_system/Base/buildJsSdkConfig", {
-						apis: ['checkJsApi'],
-						tags: ['wx-open-launch-weapp'],
-						url: location.href.split("#")[0]
 					}).then(res => {
-						wxj.config({
-							...res,
-							// debug: true
-						})
-						this.popShow = true
-						this.$nextTick(() => {
-							var btn = document.getElementById('launch-btn');
-							btn.addEventListener('launch', function(e) {
-								console.log('success');
-							});
-							btn.addEventListener('error', function(e) {
-								console.log('fail', e.detail);
-							});
-						})
+						if (res.result === 0) {
+							this.wechat_image = res.wechat_image;
+							this.flag = true
+						} else {
+							uni.showToast({
+								title: "授权成功，将自动返回",
+								icon: "none"
+							})
+							setTimeout(() => {
+								wxj.miniProgram.switchTab({
+									url: "/pages/Mine/index"
+								})
+							}, 1000)
+						}
 					})
-				})
+				} else {
+					this.$nextTick(async () => {
+						const {
+							mp_openid
+						} = await this.$request("/factory_system/Base/wechatUserRegister", {
+							platform: "mp",
+							code: obj.code
+						})
+						const {
+							result,
+							wechat_image
+						} = await this.$request("/food/User/bindScanMsg", {
+							...this.info,
+							openid: mp_openid
+						})
+						this.wechat_image = wechat_image;
+						if (result === 0) {
+							this.flag = true;
+						} else {
+							this.$request("/factory_system/Base/buildJsSdkConfig", {
+								apis: ['checkJsApi'],
+								tags: ['wx-open-launch-weapp'],
+								url: location.href.split("#")[0]
+							}).then(res => {
+								wxj.config({
+									...res,
+									// debug: true
+								})
+								this.popShow = true
+								this.$nextTick(() => {
+									var btn = document.getElementById('launch-btn');
+									btn.addEventListener('launch', function(e) {
+										console.log('success');
+									});
+									btn.addEventListener('error', function(e) {
+										console.log('fail', e.detail);
+									});
+								})
+							})
+						}
+					})
+				}
 			}
 		},
 		methods: {

@@ -252,7 +252,7 @@
   }
 
   .a9 {
-    background-color: #0EB1F2;
+    background-color: #ED1805;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -276,7 +276,7 @@
   }
 
   .a11 {
-    background-color: #0EB1F2;
+    background-color: #ED1805;
     color: #fff;
     padding: 10px 0px;
     text-align: center;
