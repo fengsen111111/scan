@@ -64,7 +64,7 @@
 					x{{item.number}}
 				</view>
 			</view>
-			<view style="height: 100rpx;"></view>
+			<view style="height: 200rpx;"></view>
 		</view>
 		<!-- <view style="height: 12.8vw;" v-if="time_status==='a'"></view> -->
 		<view style="position: fixed;bottom: 0px;width: 100vw;border: 1px solid #666666;" class="container">
@@ -546,7 +546,9 @@
 			padding: 2.13vw 4vw 0;
 			padding-bottom: constant(safe-area-inset-bottom);
 			/*兼容 IOS&gt;11.2*/
-			padding-bottom: env(safe-area-inset-bottom);
+			// padding-bottom: env(safe-area-inset-bottom);
+			padding-bottom: 100rpx;
+			
 			/*兼容 IOS&gt;11.2*/
 			background: #FFFFFF;
 			box-shadow: 0 0.4vw 0.8vw 0.13vw rgba(0, 0, 0, 0.16);
