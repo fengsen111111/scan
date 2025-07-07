@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uIcon: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 395))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 403))
     },
   }
 } catch (e) {
@@ -166,7 +166,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var FoodItem = function FoodItem() {
   __webpack_require__.e(/*! require.ensure | components/FoodItem */ "components/FoodItem").then((function () {
-    return resolve(__webpack_require__(/*! @/components/FoodItem.vue */ 404));
+    return resolve(__webpack_require__(/*! @/components/FoodItem.vue */ 412));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {

@@ -69,8 +69,7 @@
 			</view>
 			<u-icon name="arrow-right"></u-icon>
 		</view>
-		<view class="option flex alignCenter spaceBetween"
-			@click="$nav('/mine_packages/rechargeCard/index')">
+		<view class="option flex alignCenter spaceBetween" @click="$nav('/mine_packages/rechargeCard/index')">
 			<view class="left flex alignCenter">
 				<image src="@/static/czk.png" mode=""></image>
 				兑换充值卡
@@ -78,6 +77,13 @@
 			<u-icon name="arrow-right"></u-icon>
 		</view>
 
+		<view class="option flex alignCenter spaceBetween" @click="$nav('/mine_packages/yszc/index')">
+			<view class="left flex alignCenter">
+				<image src="@/static/yszc.png" mode=""></image>
+				隐私政策
+			</view>
+			<u-icon name="arrow-right"></u-icon>
+		</view>
 		<view class="option flex alignCenter spaceBetween">
 			<view class="left flex alignCenter">
 				是否接受公众号通知

@@ -37,7 +37,8 @@
         "points/index",
         "point_detail/index",
         "distribute/index",
-        "rechargeCard/index"
+        "rechargeCard/index",
+        "yszc/index"
       ]
     }
   ],

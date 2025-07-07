@@ -33,6 +33,23 @@
 					type: extraData.type
 				})
 			}
+			const that = this
+			const isFirstOpen = uni.getStorageSync('isFirstOpen');
+			    if (!isFirstOpen) {
+			      setTimeout(() => {
+			        console.log('准备弹窗');
+			        uni.showModal({
+			          title: '隐私政策',
+			          content: '我们非常重视您的隐私。在使用本小程序前，请您阅读并同意《隐私政策》内容。',
+			          success: res => {
+			            if (res.confirm) {
+			              uni.setStorageSync('isFirstOpen', true);
+						  that.$nav('/mine_packages/yszc/index')
+			            }
+			          }
+			        });
+			      }, 1000); // 1秒后触发，确保页面加载完成
+			    }
 		},
 		onHide: function() {
 			console.log('App Hide')

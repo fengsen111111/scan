@@ -117,6 +117,12 @@
 						"navigationBarTitleText": "兑换充值卡",
 						"navigationStyle": "custom"
 					}
+				},
+				{
+					"path": "yszc/index",
+					"style": {
+						"navigationBarTitleText": "隐私政策"
+					}
 				}
 			]
 		}

@@ -26937,7 +26937,15 @@ module.exports = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFAAAABQCAYAAACO
 /* 397 */,
 /* 398 */,
 /* 399 */,
-/* 400 */
+/* 400 */,
+/* 401 */,
+/* 402 */,
+/* 403 */,
+/* 404 */,
+/* 405 */,
+/* 406 */,
+/* 407 */,
+/* 408 */
 /*!******************************************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-icon/icons.js ***!
   \******************************************************************************************/
@@ -27168,7 +27176,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 401 */
+/* 409 */
 /*!******************************************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-icon/props.js ***!
   \******************************************************************************************/
@@ -27275,21 +27283,21 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 402 */,
-/* 403 */,
-/* 404 */,
-/* 405 */,
-/* 406 */,
-/* 407 */,
-/* 408 */,
-/* 409 */,
 /* 410 */,
 /* 411 */,
 /* 412 */,
 /* 413 */,
 /* 414 */,
 /* 415 */,
-/* 416 */
+/* 416 */,
+/* 417 */,
+/* 418 */,
+/* 419 */,
+/* 420 */,
+/* 421 */,
+/* 422 */,
+/* 423 */,
+/* 424 */
 /*!*******************************************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-empty/props.js ***!
   \*******************************************************************************************/
@@ -27366,14 +27374,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 417 */,
-/* 418 */,
-/* 419 */,
-/* 420 */,
-/* 421 */,
-/* 422 */,
-/* 423 */,
-/* 424 */
+/* 425 */,
+/* 426 */,
+/* 427 */,
+/* 428 */,
+/* 429 */,
+/* 430 */,
+/* 431 */,
+/* 432 */
 /*!*******************************************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-popup/props.js ***!
   \*******************************************************************************************/
@@ -27470,14 +27478,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 425 */,
-/* 426 */,
-/* 427 */,
-/* 428 */,
-/* 429 */,
-/* 430 */,
-/* 431 */,
-/* 432 */
+/* 433 */,
+/* 434 */,
+/* 435 */,
+/* 436 */,
+/* 437 */,
+/* 438 */,
+/* 439 */,
+/* 440 */
 /*!********************************************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-switch/props.js ***!
   \********************************************************************************************/
@@ -27549,14 +27557,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 433 */,
-/* 434 */,
-/* 435 */,
-/* 436 */,
-/* 437 */,
-/* 438 */,
-/* 439 */,
-/* 440 */
+/* 441 */,
+/* 442 */,
+/* 443 */,
+/* 444 */,
+/* 445 */,
+/* 446 */,
+/* 447 */,
+/* 448 */
 /*!**************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/static/canvas_bg.jpg ***!
   \**************************************************************/
@@ -27566,14 +27574,14 @@ exports.default = _default;
 module.exports = __webpack_require__.p + "static/canvas_bg.jpg";
 
 /***/ }),
-/* 441 */,
-/* 442 */,
-/* 443 */,
-/* 444 */,
-/* 445 */,
-/* 446 */,
-/* 447 */,
-/* 448 */
+/* 449 */,
+/* 450 */,
+/* 451 */,
+/* 452 */,
+/* 453 */,
+/* 454 */,
+/* 455 */,
+/* 456 */
 /*!*******************************************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-parse/props.js ***!
   \*******************************************************************************************/
@@ -27633,7 +27641,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 449 */
+/* 457 */
 /*!********************************************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-parse/parser.js ***!
   \********************************************************************************************/
@@ -28564,14 +28572,14 @@ module.exports = parser;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"]))
 
 /***/ }),
-/* 450 */,
-/* 451 */,
-/* 452 */,
-/* 453 */,
-/* 454 */,
-/* 455 */,
-/* 456 */,
-/* 457 */
+/* 458 */,
+/* 459 */,
+/* 460 */,
+/* 461 */,
+/* 462 */,
+/* 463 */,
+/* 464 */,
+/* 465 */
 /*!****************************************************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-checkbox-group/props.js ***!
   \****************************************************************************************************/
@@ -28668,14 +28676,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 458 */,
-/* 459 */,
-/* 460 */,
-/* 461 */,
-/* 462 */,
-/* 463 */,
-/* 464 */,
-/* 465 */
+/* 466 */,
+/* 467 */,
+/* 468 */,
+/* 469 */,
+/* 470 */,
+/* 471 */,
+/* 472 */,
+/* 473 */
 /*!**********************************************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-checkbox/props.js ***!
   \**********************************************************************************************/
@@ -28762,21 +28770,21 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 466 */,
-/* 467 */,
-/* 468 */,
-/* 469 */,
-/* 470 */,
-/* 471 */,
-/* 472 */,
-/* 473 */,
 /* 474 */,
 /* 475 */,
 /* 476 */,
 /* 477 */,
 /* 478 */,
 /* 479 */,
-/* 480 */
+/* 480 */,
+/* 481 */,
+/* 482 */,
+/* 483 */,
+/* 484 */,
+/* 485 */,
+/* 486 */,
+/* 487 */,
+/* 488 */
 /*!*************************************************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-radio-group/props.js ***!
   \*************************************************************************************************/
@@ -28878,14 +28886,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 481 */,
-/* 482 */,
-/* 483 */,
-/* 484 */,
-/* 485 */,
-/* 486 */,
-/* 487 */,
-/* 488 */
+/* 489 */,
+/* 490 */,
+/* 491 */,
+/* 492 */,
+/* 493 */,
+/* 494 */,
+/* 495 */,
+/* 496 */
 /*!*******************************************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-radio/props.js ***!
   \*******************************************************************************************/
@@ -28967,14 +28975,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 489 */,
-/* 490 */,
-/* 491 */,
-/* 492 */,
-/* 493 */,
-/* 494 */,
-/* 495 */,
-/* 496 */
+/* 497 */,
+/* 498 */,
+/* 499 */,
+/* 500 */,
+/* 501 */,
+/* 502 */,
+/* 503 */,
+/* 504 */
 /*!*********************************************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-overlay/props.js ***!
   \*********************************************************************************************/
@@ -29016,14 +29024,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 497 */,
-/* 498 */,
-/* 499 */,
-/* 500 */,
-/* 501 */,
-/* 502 */,
-/* 503 */,
-/* 504 */
+/* 505 */,
+/* 506 */,
+/* 507 */,
+/* 508 */,
+/* 509 */,
+/* 510 */,
+/* 511 */,
+/* 512 */
 /*!************************************************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-transition/props.js ***!
   \************************************************************************************************/
@@ -29065,7 +29073,7 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 505 */
+/* 513 */
 /*!*****************************************************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-transition/transition.js ***!
   \*****************************************************************************************************/
@@ -29082,7 +29090,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 34));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 36));
-var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 506));
+var _nvueAniMap = _interopRequireDefault(__webpack_require__(/*! ./nvue.ani-map.js */ 514));
 // 定义一个一定时间后自动成功的promise，让调用nextTick方法处，进入下一个then方法
 var nextTick = function nextTick() {
   return new Promise(function (resolve) {
@@ -29174,7 +29182,7 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 506 */
+/* 514 */
 /*!*******************************************************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-transition/nvue.ani-map.js ***!
   \*******************************************************************************************************/
@@ -29367,14 +29375,14 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 507 */,
-/* 508 */,
-/* 509 */,
-/* 510 */,
-/* 511 */,
-/* 512 */,
-/* 513 */,
-/* 514 */
+/* 515 */,
+/* 516 */,
+/* 517 */,
+/* 518 */,
+/* 519 */,
+/* 520 */,
+/* 521 */,
+/* 522 */
 /*!************************************************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-status-bar/props.js ***!
   \************************************************************************************************/
@@ -29400,14 +29408,14 @@ exports.default = _default;
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ }),
-/* 515 */,
-/* 516 */,
-/* 517 */,
-/* 518 */,
-/* 519 */,
-/* 520 */,
-/* 521 */,
-/* 522 */
+/* 523 */,
+/* 524 */,
+/* 525 */,
+/* 526 */,
+/* 527 */,
+/* 528 */,
+/* 529 */,
+/* 530 */
 /*!*************************************************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-safe-bottom/props.js ***!
   \*************************************************************************************************/
@@ -29427,14 +29435,14 @@ var _default = {
 exports.default = _default;
 
 /***/ }),
-/* 523 */,
-/* 524 */,
-/* 525 */,
-/* 526 */,
-/* 527 */,
-/* 528 */,
-/* 529 */,
-/* 530 */
+/* 531 */,
+/* 532 */,
+/* 533 */,
+/* 534 */,
+/* 535 */,
+/* 536 */,
+/* 537 */,
+/* 538 */
 /*!**************************************************************************************************!*\
   !*** D:/Users/Desktop/扫码点餐/scan_weixin/node_modules/uview-ui/components/u-loading-icon/props.js ***!
   \**************************************************************************************************/

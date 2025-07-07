@@ -1,0 +1,1 @@
+<view class="container"><view style="background-color:#fff;padding:30rpx;height:92vh;overflow:auto;"><view><rich-text nodes="{{content}}"></rich-text></view></view></view>
