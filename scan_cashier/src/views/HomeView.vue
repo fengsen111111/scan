@@ -193,6 +193,10 @@
                 </div>
                 <div style="padding: 20px;">
                   <div class="flex between">
+                    <span style="color: #666666;">订单ID</span>
+                    <span>{{item.order_id}}</span>
+                  </div>
+                  <div class="flex between mt20">
                     <span style="color: #666666;">开台时间</span>
                     <span>{{item.open_time}}</span>
                   </div>
@@ -207,15 +211,18 @@
                     <span style="color: #666666;">实付金额</span>
                     <span style="color: #ED1805;">{{item.price}}</span>
                   </div>
-                  <div v-if="item.work_status=='b'" class="a10"></div>
-                  <div style="display: grid;grid-template-columns: repeat(3, minmax(0, 1fr));grid-column-gap: 10px">
-                    <view class="patchwork" @click="print(item)">补 打</view>
-                    <!-- 转台-->
-                    <view class="end" v-if="item.pay_status !='Y'" @click="zhuandan(item)">转 台
-                    </view>
-                    <!-- 结束 -->
-                    <div class="a11" v-if="item.pay_status != 'Y'" @click="_overOrder(item)">
-                      <span>结 束</span>
+
+                  <div v-if="item.order_id>0">
+                    <div class="a10"></div>
+                    <div style="display: grid;grid-template-columns: repeat(3, minmax(0, 1fr));grid-column-gap: 10px">
+                      <view class="patchwork" @click="print(item)">补 打</view>
+                      <!-- 转台-->
+                      <view class="end" v-if="item.pay_status !='Y'" @click="zhuandan(item)">转 台
+                      </view>
+                      <!-- 结束 -->
+                      <div class="a11" v-if="item.pay_status != 'Y'" @click="_overOrder(item)">
+                        <span>结 束</span>
+                      </div>
                     </div>
                   </div>
                 </div>

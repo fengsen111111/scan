@@ -101,7 +101,7 @@ var components
 try {
   components = {
     uIcon: function () {
-      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 403))
+      return Promise.all(/*! import() | node-modules/uview-ui/components/u-icon/u-icon */[__webpack_require__.e("common/vendor"), __webpack_require__.e("node-modules/uview-ui/components/u-icon/u-icon")]).then(__webpack_require__.bind(null, /*! uview-ui/components/u-icon/u-icon.vue */ 401))
     },
   }
 } catch (e) {
@@ -199,7 +199,7 @@ var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 36));
 var FoodItem = function FoodItem() {
   __webpack_require__.e(/*! require.ensure | components/FoodItem */ "components/FoodItem").then((function () {
-    return resolve(__webpack_require__(/*! @/components/FoodItem.vue */ 412));
+    return resolve(__webpack_require__(/*! @/components/FoodItem.vue */ 410));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {
