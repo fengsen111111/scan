@@ -133,7 +133,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-
+/* WEBPACK VAR INJECTION */(function(uni) {
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
@@ -142,6 +142,10 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var _regenerator = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/regenerator */ 34));
 var _asyncToGenerator2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/asyncToGenerator */ 36));
+//
+//
+//
+//
 //
 //
 //
@@ -180,9 +184,14 @@ var _default = {
       }, _callee);
     }))();
   },
-  methods: {}
+  methods: {
+    back: function back() {
+      uni.navigateBack();
+    }
+  }
 };
 exports.default = _default;
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
 
 /***/ })
 
