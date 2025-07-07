@@ -129,21 +129,6 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   var g0 = _vm.orderInfo.goods_list.length
-  var l0 = g0
-    ? _vm.__map(_vm.orderInfo.goods_list, function (item, __i0__) {
-        var $orig = _vm.__get_orig(item)
-        var m0 =
-          item.remaining_number > 0 &&
-          _vm.refund &&
-          Number(item.refund_number) < Number(item.number) &&
-          _vm.orderInfo.help_user_order != "Y" &&
-          _vm.orderInfo.pay_status != "Y"
-        return {
-          $orig: $orig,
-          m0: m0,
-        }
-      })
-    : null
   if (!_vm._isMounted) {
     _vm.e0 = function ($event) {
       _vm.payShow = false
@@ -165,7 +150,6 @@ var render = function () {
     {
       $root: {
         g0: g0,
-        l0: l0,
       },
     }
   )
@@ -208,6 +192,7 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 exports.default = void 0;
+//
 //
 //
 //

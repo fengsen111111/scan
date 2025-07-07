@@ -1218,7 +1218,9 @@ var _default = {
                               });
                               _this2.changePrice();
                             }
-                          case 5:
+                            console.log('this.shopInfo', _this2.shopInfo);
+                            console.log('this.shopCarList', _this2.shopCarList);
+                          case 7:
                           case "end":
                             return _context.stop();
                         }
@@ -1625,7 +1627,8 @@ var _default = {
           addType: true,
           useCoupon: this.useCoupon,
           orderId: this.orderId,
-          canwei: this.option.canwei
+          canwei: this.option.canwei,
+          pay_time: this.shopInfo.pay_time
         });
       } else if (this.scanType) {
         //正常下单
@@ -1633,7 +1636,8 @@ var _default = {
           id: this.shopInfo.id,
           scanType: true,
           table_code: this.scanInfo.seat_code,
-          seat_id: this.scanInfo.seat_id
+          seat_id: this.scanInfo.seat_id,
+          pay_time: this.shopInfo.pay_time
         });
       } else if (this.workerType) {
         this.$nav('/home_packages/place_order/index', {
@@ -1643,7 +1647,8 @@ var _default = {
           seat_id: "",
           help_user_coupon: this.option.help_user_coupon ? this.option.help_user_coupon : '',
           help_user_order: this.option.help_user_order ? this.option.help_user_order : '',
-          help_user_platform: this.option.help_user_platform ? this.option.help_user_platform : ''
+          help_user_platform: this.option.help_user_platform ? this.option.help_user_platform : '',
+          pay_time: this.shopInfo.pay_time
         });
       } else {
         // uni.scanCode({
@@ -1667,7 +1672,8 @@ var _default = {
           id: this.shopInfo.id,
           scanType: false,
           table_code: "",
-          seat_id: ""
+          seat_id: "",
+          pay_time: this.shopInfo.pay_time
         });
       }
       this.shopCarShow = false;

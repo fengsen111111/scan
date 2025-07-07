@@ -3,7 +3,7 @@
   import { Modal } from 'ant-design-vue';
   import { SearchOutlined, ExclamationCircleOutlined } from '@ant-design/icons-vue';
   import router from '@/router' // 需要你使用 vue-router，并配置 login 页面
-  import { geSeatList, overOrder } from '@/api'
+  import { geSeatList, overOrder, printOrderAgain, changeSeat } from '@/api'
 
   const code = ref('')//餐位号
   const status = ref('c')//状态
@@ -23,12 +23,12 @@
     }).then((res) => {
       console.log('餐位列表', res.data.list);
 
-      // list.value = res.data.list
-      list.value = res.data.list.sort((a, b) => {
-        if (a.work_status === 'b' && b.work_status !== 'b') return -1
-        if (a.work_status !== 'b' && b.work_status === 'b') return 1
-        return 0
-      })
+      list.value = res.data.list
+      // list.value = res.data.list.sort((a, b) => {
+      //   if (a.work_status === 'b' && b.work_status !== 'b') return -1
+      //   if (a.work_status !== 'b' && b.work_status === 'b') return 1
+      //   return 0
+      // })
     }).catch((err) => {
       console.log('err', err);
     })
@@ -59,6 +59,35 @@
         console.log('取消');
       },
     });
+  }
+  // 补打
+  function print(item) {
+    printOrderAgain({
+      handle_type: 'a',
+      order_id: item.order_id
+    }).then(res => {
+      message.success('打印成功')
+    })
+  }
+  const visZd = ref(false)
+  const itemZd = ref({})
+  const seat_id = ref()
+  // 转单
+  function zhuandan(item) {
+    itemZd.value = item
+    visZd.value = true
+
+  }
+  function handleOk() {
+    changeSeat({
+      seat_id: seat_id.value,
+      order_id: itemZd.value.order_id
+    }).then(res => {
+      message.success('转单成功')
+      seat_id.value = null
+      visZd.value = false
+      _geSeatList()
+    })
   }
 
   const store_name = ref('')
@@ -131,7 +160,7 @@
               <search-outlined class="a5" />
             </template>
           </a-input>
-          <div class="flex items-center" style="margin-left: 60px;">
+          <!-- <div class="flex items-center" style="margin-left: 60px;">
             <span>状态筛选</span>
             <div class="a6">
               <a-select ref="select" v-model:value="status" class="a12" @change="onChange()">
@@ -140,7 +169,7 @@
                 <a-select-option value="b">有客</a-select-option>
               </a-select>
             </div>
-          </div>
+          </div> -->
         </div>
         <div class="flex items-center">
           <span>{{store_name}}</span>
@@ -157,9 +186,10 @@
           <template v-for="item in list" :key="item.id">
             <a-col :xl="6" :lg="8">
               <div class="a8">
-                <div :class="item.work_status=='a'?'a92':'a9'">
+                <!-- <div :class="item.work_status=='a'?'a92':'a9'"> -->
+                <div class="a92">
                   <span style="font-size: 28px;">{{item.code}}</span>
-                  <span>{{item.work_status=='a'?'空闲':'有客（'+item.person_number+'人）'}}</span>
+                  <!-- <span>{{item.work_status=='a'?'空闲':'有客（'+item.person_number+'人）'}}</span> -->
                 </div>
                 <div style="padding: 20px;">
                   <div class="flex between">
@@ -174,13 +204,19 @@
                     </div>
                   </div>
                   <div class="between flex mt20">
-                    <span style="color: #666666;">下单金额</span>
+                    <span style="color: #666666;">实付金额</span>
                     <span style="color: #ED1805;">{{item.price}}</span>
                   </div>
                   <div v-if="item.work_status=='b'" class="a10"></div>
-                  <div v-if="item.work_status=='b'&&item.pay_status != 'Y'" class="a11" @click="_overOrder(item)">
-                    <span style="margin-right: 40px;">结</span>
-                    <span>束</span>
+                  <div style="display: grid;grid-template-columns: repeat(3, minmax(0, 1fr));grid-column-gap: 10px">
+                    <view class="patchwork" @click="print(item)">补 打</view>
+                    <!-- 转台-->
+                    <view class="end" v-if="item.pay_status !='Y'" @click="zhuandan(item)">转 台
+                    </view>
+                    <!-- 结束 -->
+                    <div class="a11" v-if="item.pay_status != 'Y'" @click="_overOrder(item)">
+                      <span>结 束</span>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -189,9 +225,39 @@
         </a-row>
       </div>
     </div>
+    <a-modal v-model:visible="visZd" title="转单" @ok="handleOk" okText="确定" cancelText="取消">
+      <div style="display: flex;">
+        <div style="display: flex;align-items: center;margin: 10px auto;">
+          <span>选择餐位</span>
+          <a-select ref="select" v-model:value="seat_id" style="width: 360px;margin-left: 20px;" placeholder="请选择餐位">
+            <a-select-option v-for="item in list" :key="item.id" :value="item.id">{{item.code}}</a-select-option>
+          </a-select>
+        </div>
+      </div>
+    </a-modal>
   </div>
 </template>
 <style scoped>
+  .end {
+    background-color: rgb(245, 232, 174);
+    color: #000000;
+    padding: 10px 0px;
+    text-align: center;
+    border-radius: 40px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+
+  .patchwork {
+    background-color: #000000;
+    color: #fff;
+    padding: 10px 0px;
+    text-align: center;
+    border-radius: 40px;
+    margin-top: 20px;
+    cursor: pointer;
+  }
+
   .a12 {
     width: 120px;
     background-color: #f5f5f5;

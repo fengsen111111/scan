@@ -540,47 +540,54 @@ var _default = {
             orderForm.location = res.longitude + ',' + res.latitude;
             // orderForm.location = '91.129157,29.653201'//测试用经纬度写死，测完注释
             // orderForm.help_user_coupon = orderForm.help_user_coupon ? orderForm.help_user_coupon * 1 : 0
-
             if (that.is_request_ok) {
               that.is_request_ok = false; //不可以请求了
             } else {
               return false; //阻止请求
             }
 
-            that.$request("/food/Order/createOrder", orderForm).then(function (res) {
-              console.log('结果', res);
-              setTimeout(function () {
-                uni.hideLoading();
-              }, 2000);
-              if (res.result === 1) {
-                uni.removeStorageSync("shop" + that.store_id);
-                uni.removeStorageSync("workerOrder"); //下单结束后清除代金卷
-                uni.showToast({
-                  title: "下单成功",
-                  icon: "success",
-                  duration: 2000
-                });
-                // 跳转打单界面
+            console.log('pay_time', that.option.pay_time); // a稍后支付  b立即支付
+            if (that.option.pay_time == 'a') {
+              that.$request("/food/Order/createOrder", orderForm).then(function (res) {
+                console.log('结果', res);
                 setTimeout(function () {
-                  that.$nav('/order_packages/cpxdz/index', {
-                    order: res.order_id
-                  });
+                  uni.hideLoading();
                 }, 2000);
-                // uni.navigateBack({
-                // 	delta: 2
-                // })
-              } else {
-                uni.showToast({
-                  title: "下单失败",
-                  icon: "error",
-                  duration: 2000
-                });
-              }
-              setTimeout(function () {
-                that.is_request_ok = true; //请求结束了
-              }, 2000);
-            });
-            return;
+                if (res.result === 1) {
+                  uni.removeStorageSync("shop" + that.store_id);
+                  uni.removeStorageSync("workerOrder"); //下单结束后清除代金卷
+                  uni.showToast({
+                    title: "下单成功",
+                    icon: "success",
+                    duration: 2000
+                  });
+                  // 跳转打单界面
+                  setTimeout(function () {
+                    that.$nav('/order_packages/cpxdz/index', {
+                      order: res.order_id
+                    });
+                  }, 2000);
+                  // uni.navigateBack({
+                  // 	delta: 2
+                  // })
+                } else {
+                  uni.showToast({
+                    title: "下单失败",
+                    icon: "error",
+                    duration: 2000
+                  });
+                }
+                setTimeout(function () {
+                  that.is_request_ok = true; //请求结束了
+                }, 2000);
+              });
+              return;
+            } else if (that.option.pay_time == 'b') {
+              that.$request("/food/User/getUserInfo").then(function (res) {
+                that.userMoney = res.money;
+                that.payShow = true;
+              });
+            }
           },
           fail: function fail(err) {
             console.log('获取位置失败：', err);
@@ -638,19 +645,19 @@ var _default = {
                 duration: 2000
               });
               setTimeout(function () {
-                // if (this.addType) {
-                // 	// 加菜
-                // 	this.$nav('/order_packages/cpxdz/index', {
-                // 		order: res.order_id
-                // 	})
-                // } else {
-                // 	uni.switchTab({
-                // 		url: "/pages/Order/index"
-                // 	})
-                // }
-                _this8.$nav('/order_packages/cpxdz/index', {
-                  order: res.order_id
-                });
+                if (_this8.addType) {
+                  // 加菜
+                  _this8.$nav('/order_packages/cpxdz/index', {
+                    order: res.order_id
+                  });
+                } else {
+                  uni.switchTab({
+                    url: "/pages/Order/index"
+                  });
+                }
+                // this.$nav('/order_packages/cpxdz/index', {
+                // 	order: res.order_id
+                // })
               }, 2000);
             } else if (pay.result === 3) {
               uni.requestPayment(_objectSpread(_objectSpread({
@@ -663,19 +670,19 @@ var _default = {
                     duration: 2000
                   });
                   setTimeout(function () {
-                    // if (this.addType) {
-                    // 	// 加菜
-                    // 	this.$nav('/order_packages/cpxdz/index', {
-                    // 		order: res.order_id
-                    // 	})
-                    // } else {
-                    // 	uni.switchTab({
-                    // 		url: "/pages/Order/index"
-                    // 	})
-                    // }
-                    _this8.$nav('/order_packages/cpxdz/index', {
-                      order: res.order_id
-                    });
+                    if (_this8.addType) {
+                      // 加菜
+                      _this8.$nav('/order_packages/cpxdz/index', {
+                        order: res.order_id
+                      });
+                    } else {
+                      uni.switchTab({
+                        url: "/pages/Order/index"
+                      });
+                    }
+                    // this.$nav('/order_packages/cpxdz/index', {
+                    // 	order: res.order_id
+                    // })
                   }, 2000);
                 },
                 fail: function fail() {

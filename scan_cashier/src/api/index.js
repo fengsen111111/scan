@@ -25,3 +25,19 @@ export const overOrder = (data) => {
         data,
     })
 }
+// 补打
+export const printOrderAgain = (data) => {
+    return request({
+        url: '/food/Order/printOrderAgain',
+        method: 'post',
+        data,
+    })
+}
+// 转单
+export const changeSeat = (data) => {
+    return request({
+        url: '/food/Order/changeSeat',
+        method: 'post',
+        data,
+    })
+}

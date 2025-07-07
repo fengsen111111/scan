@@ -16,7 +16,7 @@
 					<input type="text" confirm-type="search" placeholder="输入餐位号" placeholder-class="input_placeholder"
 						v-model="formData.code" @confirm="netWork()" />
 				</view>
-				<view class="screen flex alignCenter" @click="showScreen=true">
+				<!-- <view class="screen flex alignCenter" @click="showScreen=true">
 					<text>{{formData.status===''?'全部':formData.status==='a'?'空闲':'有客'}}</text>
 					<u-icon :name="showScreen?'arrow-up':'arrow-down'"></u-icon>
 				</view>
@@ -26,7 +26,7 @@
 					<view class="item" :class="formData.status==='a'?'active':''" @click="changeType('a')">空闲</view>
 					<view class="item" :class="formData.status==='b'?'active':''" @click="changeType('b')">有客</view>
 				</view>
-				<view class="mask" @click="showScreen=false" v-if="showScreen"></view>
+				<view class="mask" @click="showScreen=false" v-if="showScreen"></view> -->
 			</view>
 		</view>
 		<view class="list" v-for="(item,index) in list" :key="index">
@@ -58,7 +58,7 @@
 					<view class="left" v-else></view>
 					<view class="right flex alignCenter">
 						<view class="patchwork" @click="print(item)">补打</view>
-						<view class="end" @click="end(item)">转台</view>
+						<view class="end" v-if="item.pay_status !='Y'" @click="end(item)">转台</view>
 						<view v-if="item.pay_status !='Y'" class="jsdd" @click="_overOrder(item)">结束</view>
 					</view>
 				</view>

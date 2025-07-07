@@ -146,29 +146,23 @@ var render = function () {
   })
   if (!_vm._isMounted) {
     _vm.e0 = function ($event) {
-      _vm.showScreen = true
+      _vm.show = false
+      _vm.seatObj = {}
     }
     _vm.e1 = function ($event) {
-      _vm.showScreen = false
+      _vm.show = false
+      _vm.seatObj = {}
     }
     _vm.e2 = function ($event) {
-      _vm.show = false
-      _vm.seatObj = {}
-    }
-    _vm.e3 = function ($event) {
-      _vm.show = false
-      _vm.seatObj = {}
-    }
-    _vm.e4 = function ($event) {
       _vm.orderShow = true
     }
-    _vm.e5 = function ($event) {
+    _vm.e3 = function ($event) {
       _vm.orderShow = false
     }
-    _vm.e6 = function ($event) {
+    _vm.e4 = function ($event) {
       _vm.orderShow = false
     }
-    _vm.e7 = function (e) {
+    _vm.e5 = function (e) {
       return (_vm.typeValue = e.detail.value
         .replace(/[^\d.]/g, "")
         .replace(/^0+(\d)/, "$1")

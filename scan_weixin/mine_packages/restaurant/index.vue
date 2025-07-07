@@ -29,7 +29,8 @@
 		<view class="list" v-if="orderInfo.goods_list.length">
 			<view class="label flex alignCenter spaceBetween">
 				商品信息
-				<text v-if="refundAll&&refund&&refundOne&&orderInfo.help_user_order!='Y'&&orderInfo.pay_status!='Y'" @click="allRefund()">全部退菜</text>
+				<!-- <text v-if="refundAll&&refund&&refundOne&&orderInfo.help_user_order!='Y'&&orderInfo.pay_status!='Y'" @click="allRefund()">全部退菜</text> -->
+				<text @click="allRefund()">全部退菜</text>
 			</view>
 			<view class="item" v-for="(item) in orderInfo.goods_list" :key="item.detail_id">
 				<view class="title flex alignCenter spaceBetween">
@@ -45,8 +46,8 @@
 						<view class="">number:{{item.number}}</view>
 						<view class="">help_user_order:{{orderInfo.help_user_order}}</view>
 					</view> -->
-					<text @click="refuse(item)"
-						v-if="item.remaining_number>0&&refund&&Number(item.refund_number)<Number(item.number)&&orderInfo.help_user_order!='Y'&&orderInfo.pay_status!='Y'">退菜</text>
+					<!-- <text @click="refuse(item)" v-if="item.remaining_number>0&&refund&&Number(item.refund_number)<Number(item.number)&&orderInfo.help_user_order!='Y'&&orderInfo.pay_status!='Y'">退菜</text> -->
+					<text @click="refuse(item)">退菜</text>
 				</view>
 				<view class="info flex spaceBetween">
 					<image v-if="item.image" :src="item.image" mode=""></image>
@@ -64,7 +65,7 @@
 		<view style="height: 12.8vw;"></view>
 		<view class="bottom flex alignCenter spaceAround">
 			<view class="add" @click="print()">补打</view>
-			<view class="pay" @click="end()">转台</view>
+			<view v-if="orderInfo.pay_status !='Y'" class="pay" @click="end()">转台</view>
 			<view v-if="orderInfo.pay_status !='Y'" class="jsdd" @click="_overOrder()">结束</view>
 		</view>
 

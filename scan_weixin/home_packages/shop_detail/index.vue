@@ -647,7 +647,7 @@
 			}
 			if (option.type === "scan") {
 				// 扫码进入的
-				console.log('扫码进入',option);
+				console.log('扫码进入', option);
 				option.id = option.store_id;
 				this.scanInfo = {
 					seat_code: decodeURIComponent(option.seat_code).split("#")[0],
@@ -704,6 +704,8 @@
 						})
 						this.changePrice()
 					}
+					console.log('this.shopInfo', this.shopInfo);
+					console.log('this.shopCarList', this.shopCarList);
 				}
 			})
 			uni.showLoading({
@@ -737,9 +739,9 @@
 				}, 1000)
 			})
 			const _this = this
-			setTimeout(()=>{
-				_this.orderTo()//晚1秒执行订单查询，等餐位id这些东西先处理
-			},2000)
+			setTimeout(() => {
+				_this.orderTo() //晚1秒执行订单查询，等餐位id这些东西先处理
+			}, 2000)
 		},
 		onShow() {
 			this.shopCarList = uni.getStorageSync("shop" + this.shopInfo.id);
@@ -753,7 +755,7 @@
 				})
 				this.changePrice()
 			}
-			
+
 			// const _this = this
 			// setTimeout(()=>{
 			// 	_this.orderTo()//晚1秒执行订单查询，等餐位id这些东西先处理
@@ -761,14 +763,14 @@
 		},
 		methods: {
 			// 跳转订单详情
-			orderTo(){
+			orderTo() {
 				if (!uni.getStorageSync("token")) {
 					return false
 				}
 				//this.addType true 加菜  // 加菜就不跳转订单详情，其余但凡查出订单号，一律去订单详情
-				if(this.addType){
+				if (this.addType) {
 					return false
-				}else{
+				} else {
 					console.log('当前餐位信息', this.scanInfo);
 					this.$request("/food/Order/userGetOrderDetailByTableID", {
 						table_id: this.scanInfo.seat_id
@@ -1035,7 +1037,7 @@
 						useCoupon: this.useCoupon,
 						orderId: this.orderId,
 						canwei: this.option.canwei,
-
+						pay_time: this.shopInfo.pay_time
 					})
 				} else if (this.scanType) { //正常下单
 					this.$nav('/home_packages/place_order/index', {
@@ -1043,8 +1045,8 @@
 						scanType: true,
 						table_code: this.scanInfo.seat_code,
 						seat_id: this.scanInfo.seat_id,
-
-					})   
+						pay_time: this.shopInfo.pay_time
+					})
 				} else if (this.workerType) {
 					this.$nav('/home_packages/place_order/index', {
 						id: this.shopInfo.id,
@@ -1053,7 +1055,8 @@
 						seat_id: "",
 						help_user_coupon: this.option.help_user_coupon ? this.option.help_user_coupon : '',
 						help_user_order: this.option.help_user_order ? this.option.help_user_order : '',
-						help_user_platform: this.option.help_user_platform ? this.option.help_user_platform : ''
+						help_user_platform: this.option.help_user_platform ? this.option.help_user_platform : '',
+						pay_time: this.shopInfo.pay_time
 					})
 				} else {
 					// uni.scanCode({
@@ -1077,7 +1080,8 @@
 						id: this.shopInfo.id,
 						scanType: false,
 						table_code: "",
-						seat_id: ""
+						seat_id: "",
+						pay_time: this.shopInfo.pay_time
 					})
 				}
 				this.shopCarShow = false
@@ -1170,58 +1174,61 @@
 			},
 			// 选规格
 			selectGood(id, obj, checkNumber) {
-			  // console.log('id, obj, checkNumber', id, obj, checkNumber);
-			  // console.log('this.groupGoods', this.groupGoods);
-			  // 找是否已存在当前 goods_id（点击的是已选中的，等于取消选择）
-			  const existingIndex = this.groupGoods.findIndex(item => item.goods_id === obj.id);
-			  if (existingIndex !== -1) {
-			    this.groupGoods.splice(existingIndex, 1);
-			    this.groupGoodsId.splice(existingIndex, 1);
-			    return;
-			  }
-			
-			  // 查找是否有相同 parent_id 的项
-			  const parentIndex = this.groupGoods.findIndex(item => item.parent_id === id);
-			
-			  if (parentIndex !== -1) {
-			    // 如果只允许选一个（checkNumber === 1），则替换
-			    if (Number(checkNumber) === 1) {
-			      this.groupGoods.splice(parentIndex, 1, {
-			        goods_id: obj.id,
-			        has_number: obj.has_number,
-			        parent_id: id,
-			        name: obj.name,
-			        cover_image: obj.cover_image
-			      });
-			      this.groupGoodsId.splice(parentIndex, 1, obj.id);
-			    } else {
-			      // 如果 checkNumber > 1，且没超数量限制
-			      const count = this.groupGoods.filter(item => item.parent_id === id).length;
-			      if (count < checkNumber) {
-			        this.groupGoods.push({
-			          goods_id: obj.id,
-			          has_number: obj.has_number,
-			          parent_id: id,
-			          name: obj.name,
-			          cover_image: obj.cover_image
-			        });
-			        this.groupGoodsId.push(obj.id);
-			      } else {
-			        // 数量已满，不操作（也可以加提示）
-			        uni.showToast({ title: `最多选择 ${checkNumber} 个`, icon: 'none' });
-			      }
-			    }
-			  } else {
-			    // parent_id 没有出现过，直接添加
-			    this.groupGoods.push({
-			      goods_id: obj.id,
-			      has_number: obj.has_number,
-			      parent_id: id,
-			      name: obj.name,
-			      cover_image: obj.cover_image
-			    });
-			    this.groupGoodsId.push(obj.id);
-			  }
+				// console.log('id, obj, checkNumber', id, obj, checkNumber);
+				// console.log('this.groupGoods', this.groupGoods);
+				// 找是否已存在当前 goods_id（点击的是已选中的，等于取消选择）
+				const existingIndex = this.groupGoods.findIndex(item => item.goods_id === obj.id);
+				if (existingIndex !== -1) {
+					this.groupGoods.splice(existingIndex, 1);
+					this.groupGoodsId.splice(existingIndex, 1);
+					return;
+				}
+
+				// 查找是否有相同 parent_id 的项
+				const parentIndex = this.groupGoods.findIndex(item => item.parent_id === id);
+
+				if (parentIndex !== -1) {
+					// 如果只允许选一个（checkNumber === 1），则替换
+					if (Number(checkNumber) === 1) {
+						this.groupGoods.splice(parentIndex, 1, {
+							goods_id: obj.id,
+							has_number: obj.has_number,
+							parent_id: id,
+							name: obj.name,
+							cover_image: obj.cover_image
+						});
+						this.groupGoodsId.splice(parentIndex, 1, obj.id);
+					} else {
+						// 如果 checkNumber > 1，且没超数量限制
+						const count = this.groupGoods.filter(item => item.parent_id === id).length;
+						if (count < checkNumber) {
+							this.groupGoods.push({
+								goods_id: obj.id,
+								has_number: obj.has_number,
+								parent_id: id,
+								name: obj.name,
+								cover_image: obj.cover_image
+							});
+							this.groupGoodsId.push(obj.id);
+						} else {
+							// 数量已满，不操作（也可以加提示）
+							uni.showToast({
+								title: `最多选择 ${checkNumber} 个`,
+								icon: 'none'
+							});
+						}
+					}
+				} else {
+					// parent_id 没有出现过，直接添加
+					this.groupGoods.push({
+						goods_id: obj.id,
+						has_number: obj.has_number,
+						parent_id: id,
+						name: obj.name,
+						cover_image: obj.cover_image
+					});
+					this.groupGoodsId.push(obj.id);
+				}
 			},
 
 			groupAddCar() {
