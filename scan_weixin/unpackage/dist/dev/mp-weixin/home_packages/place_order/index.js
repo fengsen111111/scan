@@ -212,6 +212,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 var _defineProperty2 = _interopRequireDefault(__webpack_require__(/*! @babel/runtime/helpers/defineProperty */ 11));
+var _config = __webpack_require__(/*! @/utils/config.js */ 37);
 function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { (0, _defineProperty2.default)(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
 var cityPicker = function cityPicker() {
@@ -370,8 +371,14 @@ var _default = {
       });
     },
     selectTable: function selectTable() {
-      return false;
-      this.tableShow = true;
+      console.log('baseUrl', _config.baseUrl);
+      if (_config.baseUrl == 'https://test.api.xzddd.com') {
+        console.log('测试地址');
+        this.tableShow = true;
+      } else {
+        // 正式地址
+        return false;
+      }
     },
     tableConfirm: function tableConfirm(e) {
       // return false

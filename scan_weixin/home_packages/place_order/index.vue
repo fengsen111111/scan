@@ -161,6 +161,9 @@
 
 <script>
 	import cityPicker from '@/uni_modules/piaoyi-cityPicker/components/piaoyi-cityPicker/piaoyi-cityPicker'
+	import {
+		baseUrl
+	} from "@/utils/config.js"
 	export default {
 		components: {
 			cityPicker
@@ -315,8 +318,14 @@
 				})
 			},
 			selectTable() {
-				return false
-				this.tableShow = true;
+				console.log('baseUrl',baseUrl);
+				if(baseUrl == 'https://test.api.xzddd.com'){
+					console.log('测试地址');
+					this.tableShow = true;
+				}else{
+					// 正式地址
+					return false
+				}
 			},
 			tableConfirm(e) {
 				// return false
