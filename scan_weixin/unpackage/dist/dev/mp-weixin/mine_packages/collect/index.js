@@ -143,7 +143,7 @@ Object.defineProperty(exports, "__esModule", {
 exports.default = void 0;
 var FoodItem = function FoodItem() {
   __webpack_require__.e(/*! require.ensure | components/FoodItem */ "components/FoodItem").then((function () {
-    return resolve(__webpack_require__(/*! @/components/FoodItem.vue */ 410));
+    return resolve(__webpack_require__(/*! @/components/FoodItem.vue */ 412));
   }).bind(null, __webpack_require__)).catch(__webpack_require__.oe);
 };
 var _default = {

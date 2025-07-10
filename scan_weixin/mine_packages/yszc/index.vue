@@ -3,9 +3,10 @@
 		<view style="background-color: #fff;padding: 30rpx;height: 88vh;overflow: auto;">
 			<view class="" v-html="content"></view>
 		</view>
-		<view @click="back()" style="display: flex;height: 4vh;background-color: #fff;text-align: center;line-height: 4vh;">
-			<view style="background-color: #ff0000;color: #fff;width: 50%;">拒绝</view>
-			<view style="background-color: green;color: #fff;width: 50%;">同意</view>
+		<view style="height: 100rpx;"></view>
+		<view class="bottom" @click="back()">
+			<view class="share1">拒绝</view>
+			<view class="share2">同意</view>
 		</view>
 	</view>
 </template>
@@ -14,19 +15,19 @@
 	export default {
 		data() {
 			return {
-				content:''
+				content: ''
 			};
 		},
 		async onLoad() {
-			
+
 			const res = await this.$request("/food/Setting/getRichTextContent", {
 				type: "privacy_rich"
 			})
-			console.log('res',res);
+			console.log('res', res);
 			this.content = res.content
 		},
 		methods: {
-			back(){
+			back() {
 				uni.navigateBack()
 			}
 		},
@@ -34,5 +35,40 @@
 </script>
 
 <style lang="scss">
-	
+	.bottom {
+		width: 100vw;
+		height: 17.07vw;
+		background: #FFFFFF;
+		border-radius: 1.33vw 1.33vw 0 0;
+		border: 0.13vw solid #999999;
+		display: flex;
+		align-items: center;
+		justify-content: space-evenly;
+		position: fixed;
+		bottom: 0;
+
+		>.share1 {
+			width: 40%;
+			height: 12vw;
+			line-height: 12vw;
+			text-align: center;
+			border: 1px solid #ff0000;
+			border-radius: 6vw;
+			font-weight: bold;
+			font-size: 4vw;
+			color: #ff0000;
+		}
+
+		>.share2 {
+			width: 40%;
+			height: 12vw;
+			line-height: 12vw;
+			text-align: center;
+			background: #000000;
+			border-radius: 6vw;
+			font-weight: bold;
+			font-size: 4vw;
+			color: rgb(254, 232, 174);
+		}
+	}
 </style>
