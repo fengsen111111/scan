@@ -1298,9 +1298,9 @@ var _default = {
     // 跳转订单详情
     orderTo: function orderTo() {
       var _this4 = this;
-      if (!uni.getStorageSync("token")) {
-        return false;
-      }
+      // if (!uni.getStorageSync("token")) {
+      // 	return false
+      // }
       //this.addType true 加菜  // 加菜就不跳转订单详情，其余但凡查出订单号，一律去订单详情
       if (this.addType) {
         return false;
@@ -1356,8 +1356,8 @@ var _default = {
                 uni.setStorageSync("token", token);
                 uni.hideLoading();
                 _this5.loginShow = false;
-                _this5.orderTo(); //登录了之后，重新查询是否有订单
-              case 18:
+                // this.orderTo() //登录了之后，重新查询是否有订单
+              case 17:
               case "end":
                 return _context3.stop();
             }

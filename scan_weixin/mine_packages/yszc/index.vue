@@ -18,6 +18,7 @@
 			};
 		},
 		async onLoad() {
+			
 			const res = await this.$request("/food/Setting/getRichTextContent", {
 				type: "privacy_rich"
 			})

@@ -463,6 +463,9 @@ var _default = {
     // 获取订单可用优惠卷
     selectCount: function selectCount() {
       var _this4 = this;
+      if (!uni.getStorageSync("token")) {
+        return false;
+      }
       console.log('订单详情', this.orderInfo);
       var goods_list = [];
       if (this.orderInfo.goods_list.length) {

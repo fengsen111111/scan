@@ -12,11 +12,11 @@
 		</view>
 		<view style="height: 185rpx;"></view>
 		<view class="content">
-			<view style="text-align: center;">
+			<!-- <view style="text-align: center;">
 				<view style="font-size: 36rpx;font-weight: bold;">下单成功</view>
 				<view style="color: #999999;font-size: 22rpx;margin-top: 10rpx;margin-bottom: 40rpx;">
 					为保证您的用餐体验，建议用餐结束后再支付哦~</view>
-			</view>
+			</view> -->
 			<view class="order_num">订单编号:{{orderInfo.id}}</view>
 			<view class="label flex alignCenter spaceBetween">
 				下单时间
@@ -237,6 +237,9 @@
 			},
 			// 获取订单可用优惠卷
 			selectCount() {
+				if (!uni.getStorageSync("token")) {
+					return false
+				}
 				console.log('订单详情',this.orderInfo);
 				let goods_list = [];
 				if (this.orderInfo.goods_list.length) {
