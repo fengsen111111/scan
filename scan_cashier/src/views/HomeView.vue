@@ -186,8 +186,8 @@
           <template v-for="item in list" :key="item.id">
             <a-col :xl="6" :lg="8">
               <div class="a8">
-                <!-- <div :class="item.work_status=='a'?'a92':'a9'"> -->
-                <div class="a92">
+                <div :class="item.pay_status=='Y'?'a92':'a9'">
+                <!-- <div class="a92"> -->
                   <span style="font-size: 28px;">{{item.code}}</span>
                   <!-- <span>{{item.work_status=='a'?'空闲':'有客（'+item.person_number+'人）'}}</span> -->
                 </div>
