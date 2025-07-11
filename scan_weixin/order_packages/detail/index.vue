@@ -74,7 +74,8 @@
 					<view class="price flex alignCenter flexColumn">
 						总价 ￥{{orderInfo.total_price}}
 						<text>优惠 ￥{{orderInfo.discount_price}}</text>
-						<text v-if="discountList.length" @click="discountShow=true" :style="{color: moneyObj.id?'':'#ff0000'}">{{moneyObj.id?item.name:'选择优惠卷'}}</text>
+						<text v-if="discountList.length" @click="discountShow=true"
+							:style="{color: moneyObj.id?'':'#ff0000'}">{{moneyObj.id?item.name:'选择优惠卷'}}</text>
 					</view>
 				</view>
 				<view class="right flex alignCenter" v-if="orderInfo.help_user_order !='Y'">
@@ -176,9 +177,9 @@
 				discountList: [],
 				discountShow: false,
 				checkValue: [], //是否积分折扣
-				shopInfo:{},//门店信息
-				coupon_obj:{},//选择的优惠卷
-				moneyObj:{},//优惠金额
+				shopInfo: {}, //门店信息
+				coupon_obj: {}, //选择的优惠卷
+				moneyObj: {}, //优惠金额
 			};
 		},
 		onLoad(options) {
@@ -188,7 +189,7 @@
 				order_id: options.id
 			}).then(res => {
 				this.orderInfo = res
-				this.selectCount()//所有可用优惠卷
+				this.selectCount() //所有可用优惠卷
 			})
 			const that = this
 			// 头部高度
@@ -205,7 +206,7 @@
 				if (this.orderInfo.goods_list.length) {
 					goods_list = this.orderInfo.goods_list.map(item => {
 						return {
-							goods_type: item.is_group === 'Y'? 'b' : 'a',
+							goods_type: item.is_group === 'Y' ? 'b' : 'a',
 							goods_id: item.goods_id,
 							number: item.number,
 							choice_des: item.choice_des,
@@ -214,9 +215,9 @@
 					})
 				}
 				this.$request("/food/Order/computePayData", {
-					goods_list: goods_list,//商品
-					coupon_id: this.coupon_obj.id,//优惠卷id
-					pay_type: this.checkValue[0] === 1 ? 'b' : 'a'//是否积分折扣
+					goods_list: goods_list, //商品
+					coupon_id: this.coupon_obj.id, //优惠卷id
+					pay_type: this.checkValue[0] === 1 ? 'b' : 'a' //是否积分折扣
 				}).then(result => {
 					this.moneyObj = result;
 				})
@@ -224,7 +225,7 @@
 			// 使用优惠卷
 			useCouponEven(item) {
 				this.coupon_obj = item;
-				this.discountShow = false;//关闭弹窗
+				this.discountShow = false; //关闭弹窗
 				this.changePayData()
 			},
 			// 领取优惠卷
@@ -240,12 +241,12 @@
 				if (!uni.getStorageSync("token")) {
 					return false
 				}
-				console.log('订单详情',this.orderInfo);
+				console.log('订单详情', this.orderInfo);
 				let goods_list = [];
 				if (this.orderInfo.goods_list.length) {
 					goods_list = this.orderInfo.goods_list.map(item => {
 						return {
-							goods_type: item.is_group === 'Y'? 'b' : 'a',
+							goods_type: item.is_group === 'Y' ? 'b' : 'a',
 							goods_id: item.goods_id,
 							number: item.number,
 							choice_des: item.choice_des,
@@ -270,6 +271,14 @@
 				this.payType = type;
 			},
 			addMenu() {
+				if (!this.orderInfo.store_id) {
+					uni.showToast({
+						title: "请等待数据加载后重试",
+						icon: "none",
+						duration: 2000
+					})
+					return false
+				}
 				this.$nav("/home_packages/shop_detail/index", {
 					id: this.orderInfo.store_id,
 					type: "add",
@@ -288,15 +297,15 @@
 				this.payFlag = false;
 				let pay_type = "";
 				if (this.payType === 1) {
-					if(this.checkValue[0] === 1){
+					if (this.checkValue[0] === 1) {
 						pay_type = 'd'
-					}else{
+					} else {
 						pay_type = 'c'
 					}
 				} else if (this.payType === 2) {
-					if(this.checkValue[0] === 1){
+					if (this.checkValue[0] === 1) {
 						pay_type = 'b'
-					}else{
+					} else {
 						pay_type = 'a'
 					}
 				}
@@ -351,7 +360,6 @@
 </script>
 
 <style lang="scss">
-	
 	.payA {
 		width: 21.33vw;
 		height: 8vw;
@@ -364,7 +372,7 @@
 		color: #FFFFFF;
 		margin-left: 2.93vw;
 	}
-	
+
 	.addA {
 		width: 21.33vw;
 		height: 8vw;
@@ -376,7 +384,7 @@
 		font-size: 4vw;
 		color: #EFA246;
 	}
-	
+
 	.discount_checkbox {
 		background: #FFFFFF;
 		margin: -10vw auto 0;
@@ -551,12 +559,12 @@
 			/*兼容 IOS&gt;11.2*/
 			// padding-bottom: env(safe-area-inset-bottom);
 			padding-bottom: 100rpx;
-			
+
 			/*兼容 IOS&gt;11.2*/
 			background: #FFFFFF;
 			box-shadow: 0 0.4vw 0.8vw 0.13vw rgba(0, 0, 0, 0.16);
 			border-radius: 1.33vw 1.33vw 0 0;
-			
+
 
 			>.right {
 				align-items: flex-end;

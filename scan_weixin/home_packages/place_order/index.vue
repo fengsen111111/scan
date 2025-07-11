@@ -318,11 +318,11 @@
 				})
 			},
 			selectTable() {
-				console.log('baseUrl',baseUrl);
-				if(baseUrl == 'https://test.api.xzddd.com'){
+				console.log('baseUrl', baseUrl);
+				if (baseUrl == 'https://test.api.xzddd.com') {
 					console.log('测试地址');
 					this.tableShow = true;
-				}else{
+				} else {
 					// 正式地址
 					return false
 				}
@@ -494,9 +494,16 @@
 							orderForm.location = res.longitude + ',' + res.latitude
 							// orderForm.location = '91.129157,29.653201'//测试用经纬度写死，测完注释
 							// orderForm.help_user_coupon = orderForm.help_user_coupon ? orderForm.help_user_coupon * 1 : 0
+							// 默认是true 可以请求  发起了请求 就变成false,不允许请求
 							if (that.is_request_ok) {
 								that.is_request_ok = false //不可以请求了
 							} else {
+								uni.hideLoading();
+								uni.showToast({
+									title: "请耐心等待...",
+									icon: "none",
+									duration: 2000
+								})
 								return false //阻止请求
 							}
 							console.log('pay_time', that.option.pay_time); // a稍后支付  b立即支付
@@ -509,20 +516,20 @@
 									if (res.result === 1) {
 										uni.removeStorageSync("shop" + that.store_id);
 										uni.removeStorageSync("workerOrder"); //下单结束后清除代金卷
-										uni.showToast({
-											title: "下单成功",
-											icon: "success",
-											duration: 2000
+										// uni.showToast({
+										// 	title: "下单成功",
+										// 	icon: "success",
+										// 	duration: 2000
+										// })
+										that.$nav('/order_packages/cpxdz/index', {
+											order: res.order_id
 										})
 										// 跳转打单界面
-										setTimeout(() => {
-											that.$nav('/order_packages/cpxdz/index', {
-												order: res.order_id
-											})
-										}, 2000)
-										// uni.navigateBack({
-										// 	delta: 2
-										// })
+										// setTimeout(() => {
+										// 	that.$nav('/order_packages/cpxdz/index', {
+										// 		order: res.order_id
+										// 	})
+										// }, 2000)
 									} else {
 										uni.showToast({
 											title: "下单失败",
@@ -532,16 +539,16 @@
 									}
 									setTimeout(() => {
 										that.is_request_ok = true //请求结束了
-									}, 2000)
+									}, 4000)
 								})
 								return;
 							} else if (that.option.pay_time == 'b') {
 								that.$request("/food/User/getUserInfo").then(res => {
 									that.userMoney = res.money;
 									that.payShow = true;
+									that.is_request_ok = true //请求结束了
 								})
 							}
-
 						},
 						fail: function(err) {
 							console.log('获取位置失败：', err);
@@ -629,9 +636,10 @@
 										setTimeout(() => {
 											if (this.addType) {
 												// 加菜
-												this.$nav('/order_packages/cpxdz/index', {
-													order: res.order_id
-												})
+												this.$nav(
+													'/order_packages/cpxdz/index', {
+														order: res.order_id
+													})
 											} else {
 												uni.switchTab({
 													url: "/pages/Order/index"

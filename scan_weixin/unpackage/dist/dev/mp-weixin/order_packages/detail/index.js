@@ -378,6 +378,7 @@ function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { va
 //
 //
 //
+//
 var _default = {
   data: function data() {
     return {
@@ -495,6 +496,14 @@ var _default = {
       this.payType = type;
     },
     addMenu: function addMenu() {
+      if (!this.orderInfo.store_id) {
+        uni.showToast({
+          title: "请等待数据加载后重试",
+          icon: "none",
+          duration: 2000
+        });
+        return false;
+      }
       this.$nav("/home_packages/shop_detail/index", {
         id: this.orderInfo.store_id,
         type: "add",

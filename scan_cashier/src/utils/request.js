@@ -3,8 +3,8 @@ import axios from 'axios'
 import { message } from 'ant-design-vue'
 import router from '@/router' // 需要你使用 vue-router，并配置 login 页面
 
-// const baseUrl = 'https://food.wechat.sczhiyun.net' // 正式地址
-const baseUrl = 'https://test.api.xzddd.com' // 测试地址
+const baseUrl = 'https://food.wechat.sczhiyun.net' // 正式地址
+// const baseUrl = 'https://test.api.xzddd.com' // 测试地址
 
 const service = axios.create({
   baseURL: baseUrl,
