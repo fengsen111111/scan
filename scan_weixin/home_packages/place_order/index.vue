@@ -227,6 +227,21 @@
 		},
 		onLoad(options) {
 			console.log('options', options);
+			if(options.rk=='shopping'){
+				// 商品详情进入
+			}else{
+				uni.showToast({
+					title: "请通过店铺详情进入",
+					icon: "none",
+					duration: 2000
+				})
+				setTimeout(()=>{
+					// uni.switchTab({
+					// 	url:'/pages/Home/index'
+					// })
+					uni.navigateBack()
+				},1000)
+			}
 			this.option = options
 			this.workerType = true //不进入支付，直接下单  第一单需要支付
 			if (options.addType) {
@@ -276,10 +291,19 @@
 			this.changePayData();
 			this.selectCount("first");
 			// 
-
-
 		},
 		methods: {
+			// 删除购物车缓存
+			clearShopDel() {
+				const keys = uni.getStorageInfoSync().keys;
+				keys.forEach(key => {
+					if (key.startsWith('shop') && /^\d+$/.test(key.slice(4))) {
+						// 如果 key 是以 shop 开头，后面是纯数字
+						uni.removeStorageSync(key);
+						console.log(`已删除本地缓存：${key}`);
+					}
+				});
+			},
 			// 优惠卷
 			discountClose() {
 				this.discountShow = false;
@@ -514,22 +538,13 @@
 										uni.hideLoading();
 									}, 2000)
 									if (res.result === 1) {
+										that.clearShopDel()//删除购物车缓存
 										uni.removeStorageSync("shop" + that.store_id);
 										uni.removeStorageSync("workerOrder"); //下单结束后清除代金卷
-										// uni.showToast({
-										// 	title: "下单成功",
-										// 	icon: "success",
-										// 	duration: 2000
-										// })
-										that.$nav('/order_packages/cpxdz/index', {
-											order: res.order_id
+										uni.reLaunch({
+											url: '/order_packages/cpxdz/index?order=' + res
+												.order_id
 										})
-										// 跳转打单界面
-										// setTimeout(() => {
-										// 	that.$nav('/order_packages/cpxdz/index', {
-										// 		order: res.order_id
-										// 	})
-										// }, 2000)
 									} else {
 										uni.showToast({
 											title: "下单失败",
@@ -594,6 +609,7 @@
 
 				this.$request("/food/Order/createOrder", orderForm).then(res => {
 					if (res.result === 1) {
+						this.clearShopDel()//删除购物车缓存
 						uni.removeStorageSync("shop" + this.store_id);
 						this.$request("/food/Order/payOrder", {
 							order_id: res.order_id,
@@ -606,21 +622,19 @@
 									icon: "success",
 									duration: 2000
 								})
-
 								setTimeout(() => {
 									if (this.addType) {
 										// 加菜
-										this.$nav('/order_packages/cpxdz/index', {
-											order: res.order_id
+										uni.reLaunch({
+											url: '/order_packages/cpxdz/index?order=' + res
+												.order_id
 										})
 									} else {
 										uni.switchTab({
 											url: "/pages/Order/index"
 										})
 									}
-									// this.$nav('/order_packages/cpxdz/index', {
-									// 	order: res.order_id
-									// })
+
 								}, 2000)
 
 							} else if (pay.result === 3) {
@@ -636,18 +650,16 @@
 										setTimeout(() => {
 											if (this.addType) {
 												// 加菜
-												this.$nav(
-													'/order_packages/cpxdz/index', {
-														order: res.order_id
-													})
+												uni.reLaunch({
+													url: '/order_packages/cpxdz/index?order=' +
+														res.order_id
+												})
 											} else {
 												uni.switchTab({
 													url: "/pages/Order/index"
 												})
 											}
-											// this.$nav('/order_packages/cpxdz/index', {
-											// 	order: res.order_id
-											// })
+
 										}, 2000)
 									},
 									fail: () => {

@@ -5,8 +5,11 @@
 		</view>
 		<view style="height: 100rpx;"></view>
 		<view class="bottom" @click="back()">
-			<view class="share1">拒绝</view>
-			<view class="share2">同意</view>
+			<!-- <view class="share1">拒绝</view>
+			<view class="share2">同意</view> -->
+			<view class="" style="color: #40A9FF;text-align: center;">
+				我已阅读并同意
+			</view>
 		</view>
 	</view>
 </template>
@@ -28,6 +31,7 @@
 		},
 		methods: {
 			back() {
+				uni.setStorageSync('isFirstOpen', true);
 				uni.navigateBack()
 			}
 		},

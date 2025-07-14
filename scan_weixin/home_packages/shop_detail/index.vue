@@ -738,10 +738,7 @@
 					}).exec()
 				}, 1000)
 			})
-			const _this = this
-			setTimeout(() => {
-				_this.orderTo() //晚1秒执行订单查询，等餐位id这些东西先处理
-			}, 2000)
+			
 		},
 		onShow() {
 			this.shopCarList = uni.getStorageSync("shop" + this.shopInfo.id);
@@ -756,10 +753,10 @@
 				this.changePrice()
 			}
 
-			// const _this = this
-			// setTimeout(()=>{
-			// 	_this.orderTo()//晚1秒执行订单查询，等餐位id这些东西先处理
-			// },1000)
+			const _this = this
+			setTimeout(() => {
+				_this.orderTo() //晚1秒执行订单查询，等餐位id这些东西先处理
+			}, 2000)
 		},
 		methods: {
 			// 跳转订单详情
@@ -1037,7 +1034,8 @@
 						useCoupon: this.useCoupon,
 						orderId: this.orderId,
 						canwei: this.option.canwei,
-						pay_time: this.shopInfo.pay_time
+						pay_time: this.shopInfo.pay_time,
+						rk:'shopping'
 					})
 				} else if (this.scanType) { //正常下单
 					this.$nav('/home_packages/place_order/index', {
@@ -1045,7 +1043,8 @@
 						scanType: true,
 						table_code: this.scanInfo.seat_code,
 						seat_id: this.scanInfo.seat_id,
-						pay_time: this.shopInfo.pay_time
+						pay_time: this.shopInfo.pay_time,
+						rk:'shopping'
 					})
 				} else if (this.workerType) {
 					this.$nav('/home_packages/place_order/index', {
@@ -1056,7 +1055,8 @@
 						help_user_coupon: this.option.help_user_coupon ? this.option.help_user_coupon : '',
 						help_user_order: this.option.help_user_order ? this.option.help_user_order : '',
 						help_user_platform: this.option.help_user_platform ? this.option.help_user_platform : '',
-						pay_time: this.shopInfo.pay_time
+						pay_time: this.shopInfo.pay_time,
+						rk:'shopping'
 					})
 				} else {
 					// uni.scanCode({
@@ -1081,7 +1081,8 @@
 						scanType: false,
 						table_code: "",
 						seat_id: "",
-						pay_time: this.shopInfo.pay_time
+						pay_time: this.shopInfo.pay_time,
+						rk:'shopping'
 					})
 				}
 				this.shopCarShow = false

@@ -59,6 +59,24 @@
 				<FoodItem v-for="(item,index) in list" :key="index" :item="item" :index="index"></FoodItem>
 			</view>
 		</scroll-view>
+		
+		<u-popup :show="isFirstOpen" mode="center" @close="isFirstOpen=false">
+			<view class="" style="width: 80vw;padding: 40rpx;">
+				<view style="display: flex;justify-content: space-between;">
+					<view class=""></view>
+					<view class="" >隐私协议</view>
+					<view class=""></view>
+					<!-- <u-icon name="close" color="#000000" size="25" @click="isFirstOpen=false"></u-icon> -->
+				</view>
+				<view class="" style="margin-top: 20rpx;">
+					我们非常重视您的隐私。在使用本小程序前，请您阅读并同意<text style="color: #40A9FF;" @click="()=>{isFirstOpen=false;$nav('/mine_packages/yszc/index')}">《隐私政策》</text>内容。
+				</view>
+				<view style="display: flex;justify-content: space-evenly;;margin-top: 40rpx;text-align: center;" @click="setPup()">
+					<!-- <view class="" style="width: 35%;background-color: #999999;border-radius: 40rpx;color: black;padding: 20rpx;">取消</view> -->
+					<view class="" style="width: 80%;background-color: #40A9FF;border-radius: 40rpx;color: #fff;padding: 20rpx;">确定</view>
+				</view>
+			</view>
+		</u-popup>
 	</view>
 </template>
 
@@ -89,7 +107,9 @@
 
 				bannerList: [],
 				total: 0,
-				list: []
+				list: [],
+				isFirstOpen:false
+				
 			};
 		},
 		onLoad() {
@@ -102,28 +122,56 @@
 				this.bannerList = res.list
 			})
 			this.netWork();
+
+			const that = this
+			const isFirstOpen = uni.getStorageSync('isFirstOpen');
+			if (!isFirstOpen) {
+				setTimeout(() => {
+					console.log('准备弹窗');
+					that.isFirstOpen = true
+					// uni.showModal({
+					// 	title: '隐私政策',
+					// 	content: '我们非常重视您的隐私。在使用本小程序前，请您阅读并同意《隐私政策》内容。',
+					// 	success: res => {
+					// 		if (res.confirm) {
+					// 			uni.setStorageSync('isFirstOpen', true);
+					// 			that.$nav('/mine_packages/yszc/index')
+					// 		}
+					// 	}
+					// });
+				}, 1000); // 1秒后触发，确保页面加载完成
+			}
 		},
 		methods: {
+			setPup(){
+				uni.setStorageSync('isFirstOpen', true);
+				this.isFirstOpen = false
+			},
+			
 			async scanCode() {
 				uni.scanCode({
 					scanType: ["qrCode"],
 					success: res => {
-						console.log('res',res);
+						console.log('res', res);
 						let str = res.result.split("?")[1];
 						let obj = {};
 						let arr = str.split('&');
 						for (let i = 0; i < arr.length; i++) {
 							obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
 						}
-						
+
 						this.$request("/food/Order/userGetOrderDetailByTableID", {
 							// id: obj.id
-							table_id:obj.seat_id
-						}).then((resule)=>{
+							table_id: obj.seat_id
+						}).then((resule) => {
 							// 有订单号就跳转订单详情
-							if(resule.order_id){
-								this.$nav('/order_packages/detail/index',{id:resule.order_id,time_status:'',pay_status:''})
-							}else{
+							if (resule.order_id) {
+								this.$nav('/order_packages/detail/index', {
+									id: resule.order_id,
+									time_status: '',
+									pay_status: ''
+								})
+							} else {
 								if (obj.store_id) {
 									uni.setStorageSync("scanInfo", {
 										seat_code: obj.seat_code,
@@ -136,7 +184,7 @@
 								console.log(obj)
 							}
 						})
-						
+
 					}
 				})
 			},
