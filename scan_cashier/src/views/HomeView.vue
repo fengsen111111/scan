@@ -63,8 +63,10 @@
   // 补打
   function print(item) {
     printOrderAgain({
-      handle_type: 'a',
-      order_id: item.order_id
+      post_params: {
+        handle_type: 'a',
+        order_id: item.order_id
+      }
     }).then(res => {
       message.success('打印成功')
     })
@@ -80,8 +82,10 @@
   }
   function handleOk() {
     changeSeat({
-      seat_id: seat_id.value,
-      order_id: itemZd.value.order_id
+      post_params: {
+        seat_id: seat_id.value,
+        order_id: itemZd.value.order_id
+      }
     }).then(res => {
       message.success('转单成功')
       seat_id.value = null
@@ -187,7 +191,7 @@
             <a-col :xl="6" :lg="8">
               <div class="a8">
                 <div :class="item.pay_status=='Y'?'a92':'a9'">
-                <!-- <div class="a92"> -->
+                  <!-- <div class="a92"> -->
                   <span style="font-size: 28px;">{{item.code}}</span>
                   <!-- <span>{{item.work_status=='a'?'空闲':'有客（'+item.person_number+'人）'}}</span> -->
                 </div>

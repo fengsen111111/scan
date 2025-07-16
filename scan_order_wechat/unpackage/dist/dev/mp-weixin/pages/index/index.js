@@ -143,84 +143,59 @@ var _default = {
     for (var i = 0; i < arr.length; i++) {
       obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
     }
+    // code 换微信授权
     if (!obj.code) {
       uni.setStorageSync("tableInfo", obj);
       window.location.href = 'https://open.weixin.qq.com/connect/oauth2/authorize?appid=wxeb40583ae744fcc5' + '&redirect_uri=' + encodeURIComponent(location.href.split("?")[0]) + '&response_type=code&scope=snsapi_userinfo&state=STATE#wechat_redirect';
     } else {
       this.info = uni.getStorageSync("tableInfo");
-      if (this.info.type === "wechat") {
-        this.$request("/food/User/bindOpenid", {
-          user_id: this.info.user_id.split("#")[0],
-          code: obj.code
-        }).then(function (res) {
-          if (res.result === 0) {
-            _this.wechat_image = res.wechat_image;
-            _this.flag = true;
-          } else {
-            uni.showToast({
-              title: "授权成功，将自动返回",
-              icon: "none"
-            });
-            setTimeout(function () {
-              _jweixin.default.miniProgram.switchTab({
-                url: "/pages/Mine/index"
-              });
-            }, 1000);
-          }
-        });
-      } else {
-        this.$nextTick( /*#__PURE__*/(0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
-          var _yield$_this$$request, mp_openid, _yield$_this$$request2, result, wechat_image;
-          return _regenerator.default.wrap(function _callee$(_context) {
-            while (1) {
-              switch (_context.prev = _context.next) {
-                case 0:
-                  _context.next = 2;
-                  return _this.$request("/factory_system/Base/wechatUserRegister", {
-                    platform: "mp",
-                    code: obj.code
-                  });
-                case 2:
-                  _yield$_this$$request = _context.sent;
-                  mp_openid = _yield$_this$$request.mp_openid;
-                  _context.next = 6;
-                  return _this.$request("/food/User/bindScanMsg", _objectSpread(_objectSpread({}, _this.info), {}, {
-                    openid: mp_openid
-                  }));
-                case 6:
-                  _yield$_this$$request2 = _context.sent;
-                  result = _yield$_this$$request2.result;
-                  wechat_image = _yield$_this$$request2.wechat_image;
-                  _this.wechat_image = wechat_image;
-                  if (result === 0) {
-                    _this.flag = true;
-                  } else {
-                    _this.$request("/factory_system/Base/buildJsSdkConfig", {
-                      apis: ['checkJsApi'],
-                      tags: ['wx-open-launch-weapp'],
-                      url: location.href.split("#")[0]
-                    }).then(function (res) {
-                      _jweixin.default.config(_objectSpread({}, res));
-                      _this.popShow = true;
-                      _this.$nextTick(function () {
-                        var btn = document.getElementById('launch-btn');
-                        btn.addEventListener('launch', function (e) {
-                          console.log('success');
-                        });
-                        btn.addEventListener('error', function (e) {
-                          console.log('fail', e.detail);
-                        });
-                      });
+      this.$nextTick( /*#__PURE__*/(0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee() {
+        var _yield$_this$$request, mp_openid, _yield$_this$$request2, result, wechat_image;
+        return _regenerator.default.wrap(function _callee$(_context) {
+          while (1) {
+            switch (_context.prev = _context.next) {
+              case 0:
+                _context.next = 2;
+                return _this.$request("/factory_system/Base/wechatUserRegister", {
+                  platform: "mp",
+                  code: obj.code
+                });
+              case 2:
+                _yield$_this$$request = _context.sent;
+                mp_openid = _yield$_this$$request.mp_openid;
+                _context.next = 6;
+                return _this.$request("/food/User/bindScanMsg", _objectSpread(_objectSpread({}, _this.info), {}, {
+                  openid: mp_openid
+                }));
+              case 6:
+                _yield$_this$$request2 = _context.sent;
+                result = _yield$_this$$request2.result;
+                wechat_image = _yield$_this$$request2.wechat_image;
+                _this.wechat_image = wechat_image;
+                _this.$request("/factory_system/Base/buildJsSdkConfig", {
+                  apis: ['checkJsApi'],
+                  tags: ['wx-open-launch-weapp'],
+                  url: location.href.split("#")[0]
+                }).then(function (res) {
+                  _jweixin.default.config(_objectSpread({}, res));
+                  _this.popShow = true;
+                  _this.$nextTick(function () {
+                    var btn = document.getElementById('launch-btn');
+                    btn.addEventListener('launch', function (e) {
+                      console.log('success');
                     });
-                  }
-                case 11:
-                case "end":
-                  return _context.stop();
-              }
+                    btn.addEventListener('error', function (e) {
+                      console.log('fail', e.detail);
+                    });
+                  });
+                });
+              case 11:
+              case "end":
+                return _context.stop();
             }
-          }, _callee);
-        })));
-      }
+          }
+        }, _callee);
+      })));
     }
   },
   methods: {

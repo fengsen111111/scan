@@ -1,10 +1,5 @@
 <template>
 	<view class="container">
-		<!-- 	<view class="content" v-if="flag">
-			<image src="@/static/logo.png" class="logo"></image>
-			<img :src="wechat_image" alt="" show-menu-by-longpress @click="previewImg()" class="qrcode">
-			<view class="text">长按识别扫码关注公众号</view>
-		</view> -->
 		<view class="content" style="padding: 4vw 0;">
 			<image :src="wechat_image" class="image"></image>
 			<button class="btn">打开小程序点餐</button>
