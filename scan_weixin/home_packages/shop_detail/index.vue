@@ -783,7 +783,7 @@
 				// 	return false
 				// }
 				//this.addType true 加菜  // 加菜就不跳转订单详情，其余但凡查出订单号，一律去订单详情
-				if (this.addType) {
+				if (this.addType || this.option.ly=='home') {
 					return false
 				} else {
 					console.log('当前餐位信息', this.scanInfo);

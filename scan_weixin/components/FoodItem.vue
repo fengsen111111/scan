@@ -1,5 +1,5 @@
 <template>
-	<view class="food_item flex spaceBetween" @click="$nav('/home_packages/shop_detail/index',{id:item.id})">
+	<view class="food_item flex spaceBetween" @click="$nav('/home_packages/shop_detail/index',{id:item.id,ly:'home'})">
 		<image :src="item.logo" mode=""></image>
 		<view class="right">
 			<view class="title flex spaceBetween">

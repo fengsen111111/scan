@@ -242,31 +242,7 @@
 					uni.navigateBack()
 				},1000)
 			}
-			this.option = options
-			this.workerType = true //不进入支付，直接下单  第一单需要支付
-			if (options.addType) {
-				// this.workerType = true //不进入支付，直接下单
-				// 点击加菜进来的
-				this.table_code = options.canwei //餐位code
-				this.orderForm.order_id = options.orderId //订单id
-				console.log(options.useCoupon)
-				setTimeout(() => {
-					let arr = this.tableList.filter((item) => item.code == options.canwei) //餐位号
-					this.orderForm.table_id = arr[0].id //餐位id
-				}, 1000)
-				this.addType = true;
-				this.useCoupon = options.useCoupon !== 'false';
-				this.orderId = options.orderId
-			}
-			if (uni.getStorageSync("person_number")) {
-				this.orderForm.person_number = uni.getStorageSync("person_number").person_number;
-				this.numberShow = false;
-			}
-			if (options.workerType) {
-				this.workerType = true
-			}
-			this.goodsList = uni.getStorageSync("shop" + options.id) || [];
-			this.orderForm.store_id = options.id;
+			// 获取门店餐位列表
 			this.$request("/food/Seat/geSeatList2", {
 				store_id: options.id
 			}).then(res => {
@@ -287,6 +263,34 @@
 					console.log('obj', obj);
 				}
 			})
+			
+			this.option = options
+			this.workerType = true //不进入支付，直接下单  第一单需要支付
+			if (options.addType) {
+				// this.workerType = true //不进入支付，直接下单
+				// 点击加菜进来的
+				this.table_code = options.canwei //餐位code
+				this.orderForm.order_id = options.orderId //订单id
+				console.log(options.useCoupon)
+				setTimeout(() => {
+					let arr = this.tableList.filter((item) => item.code == options.canwei) //餐位号
+					console.log('arr',arr);
+					this.orderForm.table_id = arr[0].id //餐位id
+				}, 2000)
+				this.addType = true;
+				this.useCoupon = options.useCoupon !== 'false';
+				this.orderId = options.orderId
+			}
+			if (uni.getStorageSync("person_number")) {
+				this.orderForm.person_number = uni.getStorageSync("person_number").person_number;
+				this.numberShow = false;
+			}
+			if (options.workerType) {
+				this.workerType = true
+			}
+			this.goodsList = uni.getStorageSync("shop" + options.id) || [];
+			this.orderForm.store_id = options.id;
+			
 			this.store_id = options.id;
 			this.changePayData();
 			this.selectCount("first");
@@ -473,7 +477,7 @@
 			},
 			// 下单 
 			order() {
-				if (!this.table_code) {
+				if (!this.table_code||!this.orderForm.table_id) {
 					uni.showToast({
 						title: "请先选择餐位号",
 						icon: "error"
