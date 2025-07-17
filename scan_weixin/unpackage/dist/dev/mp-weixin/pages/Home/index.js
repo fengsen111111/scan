@@ -255,20 +255,18 @@ var _default = {
       setTimeout(function () {
         console.log('准备弹窗');
         that.isFirstOpen = true;
-        // uni.showModal({
-        // 	title: '隐私政策',
-        // 	content: '我们非常重视您的隐私。在使用本小程序前，请您阅读并同意《隐私政策》内容。',
-        // 	success: res => {
-        // 		if (res.confirm) {
-        // 			uni.setStorageSync('isFirstOpen', true);
-        // 			that.$nav('/mine_packages/yszc/index')
-        // 		}
-        // 	}
-        // });
       }, 1000); // 1秒后触发，确保页面加载完成
     }
   },
-
+  onShow: function onShow() {
+    if (this.formData.location.length > 0) {
+      // 以获取到定位
+    } else {
+      // 未获取到定位
+      this.formData.location = uni.getStorageSync('mr_location') ? uni.getStorageSync('mr_location') : '';
+      this.modw();
+    }
+  },
   methods: {
     setPup: function setPup() {
       uni.setStorageSync('isFirstOpen', true);
@@ -333,7 +331,7 @@ var _default = {
     netWork: function netWork() {
       var _this3 = this;
       uni.showLoading({
-        title: "请稍后",
+        title: "获取定位中...",
         mask: true
       });
       uni.getLocation({
@@ -374,22 +372,39 @@ var _default = {
         }
       });
     },
-    refresh: function refresh() {
+    // 为获取到定位使用默认定位
+    modw: function modw() {
       var _this4 = this;
+      this.$request("/food/Store/getStoreList", this.formData).then(function (res) {
+        uni.hideLoading();
+        _this4.total = res.count;
+        if (_this4.formData.currentPage === 1) {
+          _this4.list = res.list;
+        } else {
+          _this4.list = _this4.list.concat(res.list);
+        }
+        _this4.freshFlag = false;
+      }).catch(function () {
+        uni.hideLoading();
+        _this4.freshFlag = false;
+      });
+    },
+    refresh: function refresh() {
+      var _this5 = this;
       return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
         return _regenerator.default.wrap(function _callee2$(_context2) {
           while (1) {
             switch (_context2.prev = _context2.next) {
               case 0:
-                _this4.formData = {
+                _this5.formData = {
                   distance: "",
                   type_id: "",
                   location: "",
                   currentPage: 1,
                   perPage: 10
                 };
-                _this4.freshFlag = true;
-                _this4.netWork();
+                _this5.freshFlag = true;
+                _this5.netWork();
               case 3:
               case "end":
                 return _context2.stop();
@@ -424,27 +439,27 @@ var _default = {
       }
     },
     openScreen: function openScreen(key) {
-      var _this5 = this;
+      var _this6 = this;
       this.screen = [];
       this.screenFlag = true;
       this.screenKey = key;
       if (key === "distance") {
         this.$request("/food/Setting/getSetting").then(function (res) {
-          _this5.screen = res.distances.map(function (item) {
+          _this6.screen = res.distances.map(function (item) {
             return {
               id: item,
               name: item + '米'
             };
           });
-          _this5.screen.unshift({
+          _this6.screen.unshift({
             id: "",
             name: "附近"
           });
         });
       } else {
         this.$request("/food/Type/getTypeList").then(function (res) {
-          _this5.screen = res.list;
-          _this5.screen.unshift({
+          _this6.screen = res.list;
+          _this6.screen.unshift({
             id: "",
             name: "全部"
           });

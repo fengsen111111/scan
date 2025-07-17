@@ -1107,7 +1107,8 @@ var _default = {
       groupGoods: [],
       groupGoodsId: [],
       is_zksq: false,
-      option: {}
+      option: {},
+      jwdxx: ''
     };
   },
   onLoad: function onLoad(option) {
@@ -1201,26 +1202,10 @@ var _default = {
                       while (1) {
                         switch (_context.prev = _context.next) {
                           case 0:
-                            _context.next = 2;
-                            return _this2.$request("/food/Store/getStoreDetail", {
-                              location: res.longitude + "," + res.latitude,
-                              store_id: option.id
-                            });
-                          case 2:
-                            _this2.shopInfo = _context.sent;
-                            _this2.shopCarList = uni.getStorageSync("shop" + _this2.shopInfo.id);
-                            if (_this2.shopCarList) {
-                              _this2.shopCarList.map(function (item) {
-                                _this2.carIdList.push({
-                                  id: item.info.id,
-                                  number: item.num
-                                });
-                              });
-                              _this2.changePrice();
-                            }
-                            console.log('this.shopInfo', _this2.shopInfo);
-                            console.log('this.shopCarList', _this2.shopCarList);
-                          case 7:
+                            _this2.jwdxx = res.longitude + "," + res.latitude;
+                            uni.setStorageSync('mr_location', _this2.jwdxx);
+                            _this2._getStoreDetail();
+                          case 3:
                           case "end":
                             return _context.stop();
                         }
@@ -1233,6 +1218,15 @@ var _default = {
                   return success;
                 }()
               });
+              setTimeout(function () {
+                if (_this2.jwdxx.length > 0) {
+                  // 以获取到定位
+                } else {
+                  // 未获取到定位
+                  _this2.jwdxx = uni.getStorageSync('mr_location') ? uni.getStorageSync('mr_location') : '';
+                  _this2._getStoreDetail();
+                }
+              }, 3000);
               uni.showLoading({
                 title: "请稍后"
               });
@@ -1262,7 +1256,7 @@ var _default = {
                   }).exec();
                 }, 1000);
               });
-            case 20:
+            case 21:
             case "end":
               return _context2.stop();
           }
@@ -1289,9 +1283,44 @@ var _default = {
     }, 2000);
   },
   methods: {
+    _getStoreDetail: function _getStoreDetail() {
+      var _this4 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
+        return _regenerator.default.wrap(function _callee3$(_context3) {
+          while (1) {
+            switch (_context3.prev = _context3.next) {
+              case 0:
+                _context3.next = 2;
+                return _this4.$request("/food/Store/getStoreDetail", {
+                  location: _this4.jwdxx,
+                  store_id: _this4.option.id
+                });
+              case 2:
+                _this4.shopInfo = _context3.sent;
+                _this4.shopCarList = uni.getStorageSync("shop" + _this4.shopInfo.id);
+                if (_this4.shopCarList) {
+                  _this4.shopCarList.map(function (item) {
+                    _this4.carIdList.push({
+                      id: item.info.id,
+                      number: item.num
+                    });
+                  });
+                  _this4.changePrice();
+                }
+                uni.setStorageSync('mr_location', _this4.shopInfo.location);
+                console.log('this.shopInfo', _this4.shopInfo);
+                console.log('this.shopCarList', _this4.shopCarList);
+              case 8:
+              case "end":
+                return _context3.stop();
+            }
+          }
+        }, _callee3);
+      }))();
+    },
     // 跳转订单详情
     orderTo: function orderTo() {
-      var _this4 = this;
+      var _this5 = this;
       // if (!uni.getStorageSync("token")) {
       // 	return false
       // }
@@ -1306,7 +1335,7 @@ var _default = {
           console.log('当前座位是否有订单号', resule);
           // 有订单号就跳转订单详情
           if (resule.order_id) {
-            _this4.$nav('/order_packages/detail/index', {
+            _this5.$nav('/order_packages/detail/index', {
               id: resule.order_id,
               time_status: '',
               pay_status: ''
@@ -1316,47 +1345,47 @@ var _default = {
       }
     },
     login: function login() {
-      var _this5 = this;
-      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee3() {
-        var _yield$uni$login, code, _yield$_this5$$reques, mini_openid, _yield$_this5$$reques2, token;
-        return _regenerator.default.wrap(function _callee3$(_context3) {
+      var _this6 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
+        var _yield$uni$login, code, _yield$_this6$$reques, mini_openid, _yield$_this6$$reques2, token;
+        return _regenerator.default.wrap(function _callee4$(_context4) {
           while (1) {
-            switch (_context3.prev = _context3.next) {
+            switch (_context4.prev = _context4.next) {
               case 0:
                 uni.showLoading({
                   title: "请稍后"
                 });
-                _context3.next = 3;
+                _context4.next = 3;
                 return uni.login();
               case 3:
-                _yield$uni$login = _context3.sent;
+                _yield$uni$login = _context4.sent;
                 code = _yield$uni$login.code;
-                _context3.next = 7;
-                return _this5.$request("/factory_system/Base/wechatUserRegister", {
+                _context4.next = 7;
+                return _this6.$request("/factory_system/Base/wechatUserRegister", {
                   code: code,
                   platform: "mini"
                 });
               case 7:
-                _yield$_this5$$reques = _context3.sent;
-                mini_openid = _yield$_this5$$reques.mini_openid;
+                _yield$_this6$$reques = _context4.sent;
+                mini_openid = _yield$_this6$$reques.mini_openid;
                 uni.setStorageSync("openId", mini_openid);
-                _context3.next = 12;
-                return _this5.$request("/food/User/loginAndRegister", {
+                _context4.next = 12;
+                return _this6.$request("/food/User/loginAndRegister", {
                   openid: mini_openid
                 });
               case 12:
-                _yield$_this5$$reques2 = _context3.sent;
-                token = _yield$_this5$$reques2.token;
+                _yield$_this6$$reques2 = _context4.sent;
+                token = _yield$_this6$$reques2.token;
                 uni.setStorageSync("token", token);
                 uni.hideLoading();
-                _this5.loginShow = false;
+                _this6.loginShow = false;
                 // this.orderTo() //登录了之后，重新查询是否有订单
               case 17:
               case "end":
-                return _context3.stop();
+                return _context4.stop();
             }
           }
-        }, _callee3);
+        }, _callee4);
       }))();
     },
     changeRemark: function changeRemark(index) {
@@ -1373,14 +1402,14 @@ var _default = {
       this.peopleShow = false;
     },
     changePrice: function changePrice() {
-      var _this6 = this;
+      var _this7 = this;
       this.shopNumber = 0;
       var formData = {
         goods_list: []
       };
       if (this.shopCarList.length) {
         formData.goods_list = this.shopCarList.map(function (item) {
-          _this6.shopNumber += item.num;
+          _this7.shopNumber += item.num;
           return {
             goods_type: item.type === 1 ? 'b' : 'a',
             goods_id: item.info.id,
@@ -1388,7 +1417,7 @@ var _default = {
           };
         });
         this.$request("/food/Order/computerGoods", formData).then(function (res) {
-          _this6.moneyObj = res;
+          _this7.moneyObj = res;
         });
       } else {
         this.moneyObj = {};
@@ -1402,23 +1431,23 @@ var _default = {
       this.changeFlag = true;
     },
     collect: function collect() {
-      var _this7 = this;
-      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee4() {
-        return _regenerator.default.wrap(function _callee4$(_context4) {
+      var _this8 = this;
+      return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee5() {
+        return _regenerator.default.wrap(function _callee5$(_context5) {
           while (1) {
-            switch (_context4.prev = _context4.next) {
+            switch (_context5.prev = _context5.next) {
               case 0:
-                _this7.shopInfo.is_collection = _this7.shopInfo.is_collection === 'N' ? 'Y' : 'N';
-                _context4.next = 3;
-                return _this7.$request("/food/Store/collectionStore", {
-                  store_id: _this7.shopInfo.id
+                _this8.shopInfo.is_collection = _this8.shopInfo.is_collection === 'N' ? 'Y' : 'N';
+                _context5.next = 3;
+                return _this8.$request("/food/Store/collectionStore", {
+                  store_id: _this8.shopInfo.id
                 });
               case 3:
               case "end":
-                return _context4.stop();
+                return _context5.stop();
             }
           }
-        }, _callee4);
+        }, _callee5);
       }))();
     },
     getStar: function getStar(val, index) {
@@ -1461,7 +1490,7 @@ var _default = {
       this.menuShopShow = true;
     },
     getCoupon: function getCoupon(item) {
-      var _this8 = this;
+      var _this9 = this;
       if (item.has_status === "Y") return;
       this.$request("/food/Coupon/hasCoupon", {
         coupon_id: item.id
@@ -1469,24 +1498,24 @@ var _default = {
         uni.getLocation({
           type: 'wgs84',
           success: function () {
-            var _success2 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee5(res) {
-              return _regenerator.default.wrap(function _callee5$(_context5) {
+            var _success2 = (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee6(res) {
+              return _regenerator.default.wrap(function _callee6$(_context6) {
                 while (1) {
-                  switch (_context5.prev = _context5.next) {
+                  switch (_context6.prev = _context6.next) {
                     case 0:
-                      _context5.next = 2;
-                      return _this8.$request("/food/Store/getStoreDetail", {
+                      _context6.next = 2;
+                      return _this9.$request("/food/Store/getStoreDetail", {
                         location: res.longitude + "," + res.latitude,
-                        store_id: _this8.shopInfo.id
+                        store_id: _this9.shopInfo.id
                       });
                     case 2:
-                      _this8.shopInfo = _context5.sent;
+                      _this9.shopInfo = _context6.sent;
                     case 3:
                     case "end":
-                      return _context5.stop();
+                      return _context6.stop();
                   }
                 }
-              }, _callee5);
+              }, _callee6);
             }));
             function success(_x2) {
               return _success2.apply(this, arguments);
@@ -1526,15 +1555,15 @@ var _default = {
       });
     },
     addShopCar: function addShopCar(type) {
-      var _this9 = this;
+      var _this10 = this;
       console.log('goodsObj', this.goodsObj, type);
       var getAllgoods = uni.getStorageSync("shop" + this.shopInfo.id);
       var flag = true;
       if (getAllgoods) {
         getAllgoods.map(function (item) {
-          if (item.info.id === _this9.goodsObj.id) {
-            item.num += _this9.goodsNum;
-            item.choice_des = _this9.goodsObj.choice_des[_this9.remarkIndex] || '';
+          if (item.info.id === _this10.goodsObj.id) {
+            item.num += _this10.goodsNum;
+            item.choice_des = _this10.goodsObj.choice_des[_this10.remarkIndex] || '';
             flag = false;
           }
         });
@@ -1560,7 +1589,7 @@ var _default = {
       }
       this.carIdList = [];
       this.shopCarList.map(function (item) {
-        _this9.carIdList.push({
+        _this10.carIdList.push({
           id: item.info.id,
           number: item.num
         });
@@ -1578,7 +1607,7 @@ var _default = {
       this.menuDetailShow = true;
     },
     changeCarNum: function changeCarNum(obj, type, index) {
-      var _this10 = this;
+      var _this11 = this;
       if (type === "add") {
         obj.num += 1;
       } else if (type === "min") {
@@ -1593,7 +1622,7 @@ var _default = {
       this.carIdList = [];
       if (this.shopCarList) {
         this.shopCarList.map(function (item) {
-          _this10.carIdList.push({
+          _this11.carIdList.push({
             id: item.info.id,
             number: item.num
           });
@@ -1677,7 +1706,7 @@ var _default = {
       this.shopCarShow = false;
     },
     selGroup: function selGroup(obj) {
-      var _this11 = this;
+      var _this12 = this;
       this.groupDetailShow = true;
       this.groupDetail = obj;
       this.groupContain = [];
@@ -1685,12 +1714,12 @@ var _default = {
       this.groupGoods = [];
       obj.group_list.map(function (item) {
         if (item.type === "single") {
-          _this11.groupContain = _this11.groupContain.concat(item.goods_list);
+          _this12.groupContain = _this12.groupContain.concat(item.goods_list);
         }
       });
     },
     addCar: function addCar(type, obj, option) {
-      var _this12 = this;
+      var _this13 = this;
       var index = this.carIdList.findIndex(function (item) {
         return item.id === obj.id;
       });
@@ -1732,8 +1761,8 @@ var _default = {
         if (!obj.group_goods || !obj.group_goods.length) {
           getAllgoods.map(function (item, index) {
             if (item.info.id === obj.id) {
-              if (_this12.carIdList[index] && _this12.carIdList[index].id === obj.id) {
-                item.num = _this12.carIdList[index].number;
+              if (_this13.carIdList[index] && _this13.carIdList[index].id === obj.id) {
+                item.num = _this13.carIdList[index].number;
               } else {
                 allGoodsIndex = index;
               }
@@ -1829,7 +1858,7 @@ var _default = {
       }
     },
     groupAddCar: function groupAddCar() {
-      var _this13 = this;
+      var _this14 = this;
       var number = 0;
       this.groupDetail.group_list.map(function (item) {
         if (item.type == "check") {
@@ -1850,7 +1879,7 @@ var _default = {
       // console.log('走到提交');
       // return false
       this.groupContain.map(function (item) {
-        _this13.groupGoods.push({
+        _this14.groupGoods.push({
           goods_id: item.id,
           has_number: item.has_number,
           name: item.name,

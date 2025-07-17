@@ -569,6 +569,59 @@
 							console.log('获取位置失败：', err);
 						}
 					});
+					setTimeout(() => {
+						if (orderForm.location.length > 0) {
+							// 以获取到定位
+						} else {
+							// 未获取到定位
+							orderForm.location = uni.getStorageSync('mr_location')?uni.getStorageSync('mr_location'):''
+							if (that.is_request_ok) {
+								that.is_request_ok = false //不可以请求了
+							} else {
+								uni.hideLoading();
+								uni.showToast({
+									title: "请耐心等待...",
+									icon: "none",
+									duration: 2000
+								})
+								return false //阻止请求
+							}
+							console.log('pay_time', that.option.pay_time); // a稍后支付  b立即支付
+							if (that.option.pay_time == 'a') {
+								that.$request("/food/Order/createOrder", orderForm).then(res => {
+									console.log('结果', res);
+									setTimeout(() => {
+										uni.hideLoading();
+									}, 2000)
+									if (res.result === 1) {
+										that.clearShopDel()//删除购物车缓存
+										uni.removeStorageSync("shop" + that.store_id);
+										uni.removeStorageSync("workerOrder"); //下单结束后清除代金卷
+										uni.reLaunch({
+											url: '/order_packages/cpxdz/index?order=' + res
+												.order_id
+										})
+									} else {
+										uni.showToast({
+											title: "下单失败",
+											icon: "error",
+											duration: 2000
+										})
+									}
+									setTimeout(() => {
+										that.is_request_ok = true //请求结束了
+									}, 4000)
+								})
+								return;
+							} else if (that.option.pay_time == 'b') {
+								that.$request("/food/User/getUserInfo").then(res => {
+									that.userMoney = res.money;
+									that.payShow = true;
+									that.is_request_ok = true //请求结束了
+								})
+							}
+						}
+					}, 3000)
 					return false
 				}
 				this.$request("/food/User/getUserInfo").then(res => {

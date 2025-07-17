@@ -614,7 +614,9 @@
 
 				is_zksq: false,
 
-				option: {}
+				option: {},
+				
+				jwdxx:''
 			};
 		},
 		async onLoad(option) {
@@ -687,27 +689,24 @@
 				this.useCoupon = option.useCoupon
 				this.orderId = option.orderId
 			}
+			
 			uni.getLocation({
 				type: 'wgs84',
 				success: async res => {
-					this.shopInfo = await this.$request("/food/Store/getStoreDetail", {
-						location: res.longitude + "," + res.latitude,
-						store_id: option.id
-					})
-					this.shopCarList = uni.getStorageSync("shop" + this.shopInfo.id);
-					if (this.shopCarList) {
-						this.shopCarList.map(item => {
-							this.carIdList.push({
-								id: item.info.id,
-								number: item.num
-							})
-						})
-						this.changePrice()
-					}
-					console.log('this.shopInfo', this.shopInfo);
-					console.log('this.shopCarList', this.shopCarList);
+					this.jwdxx = res.longitude + "," + res.latitude
+					uni.setStorageSync('mr_location',this.jwdxx)
+					this._getStoreDetail()
 				}
 			})
+			setTimeout(() => {
+				if (this.jwdxx.length > 0) {
+					// 以获取到定位
+				} else {
+					// 未获取到定位
+					this.jwdxx = uni.getStorageSync('mr_location')?uni.getStorageSync('mr_location'):''
+					this._getStoreDetail()
+				}
+			}, 3000)
 			uni.showLoading({
 				title: "请稍后"
 			})
@@ -759,6 +758,25 @@
 			}, 2000)
 		},
 		methods: {
+			async _getStoreDetail(){
+				this.shopInfo = await this.$request("/food/Store/getStoreDetail", {
+					location: this.jwdxx,
+					store_id: this.option.id
+				})
+				this.shopCarList = uni.getStorageSync("shop" + this.shopInfo.id);
+				if (this.shopCarList) {
+					this.shopCarList.map(item => {
+						this.carIdList.push({
+							id: item.info.id,
+							number: item.num
+						})
+					})
+					this.changePrice()
+				}
+				uni.setStorageSync('mr_location',this.shopInfo.location)
+				console.log('this.shopInfo', this.shopInfo);
+				console.log('this.shopCarList', this.shopCarList);
+			},
 			// 跳转订单详情
 			orderTo() {
 				// if (!uni.getStorageSync("token")) {
