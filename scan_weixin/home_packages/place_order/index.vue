@@ -267,6 +267,10 @@
 			this.option = options
 			this.workerType = true //不进入支付，直接下单  第一单需要支付
 			if (options.addType) {
+				uni.showLoading({
+					title: "加载中...",
+					mask: true,
+				})
 				// this.workerType = true //不进入支付，直接下单
 				// 点击加菜进来的
 				this.table_code = options.canwei //餐位code
@@ -276,6 +280,7 @@
 					let arr = this.tableList.filter((item) => item.code == options.canwei) //餐位号
 					console.log('arr',arr);
 					this.orderForm.table_id = arr[0].id //餐位id
+					uni.hideLoading();
 				}, 2000)
 				this.addType = true;
 				this.useCoupon = options.useCoupon !== 'false';

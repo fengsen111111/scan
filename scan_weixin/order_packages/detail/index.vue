@@ -70,7 +70,7 @@
 		<view style="position: fixed;bottom: 0px;width: 100vw;border: 1px solid #666666;" class="container">
 			<view class="bottom flex alignCenter spaceBetween">
 				<view class="left flex alignCenter">
-					实付￥{{orderInfo.price}}
+					已付￥{{orderInfo.price}}
 					<view class="price flex alignCenter flexColumn">
 						总价 ￥{{orderInfo.total_price}}
 						<text>优惠 ￥{{orderInfo.discount_price}}</text>
