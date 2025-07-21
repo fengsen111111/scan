@@ -8,6 +8,7 @@
 		</view>
 
 		<view class="list">
+			<image v-if="list.length==0" src="@/static/empty.jpg" style="width: 100%;" mode=""></image>
 			<view class="item_box" v-for="(item,index) in list" :key="item" v-if="formData.status==='a'">
 				<view class="item flex alignCenter">
 					<image :src="item.cover_image" alt="" mode="aspectFill"></image>

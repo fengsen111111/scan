@@ -1,6 +1,7 @@
 <template>
 	<view class="container">
 		<view style="height: 1.33vw;"></view>
+		<image v-if="list.length==0" src="@/static/empty.jpg" style="width: 100%;" mode=""></image>
 		<FoodItem v-for="(item,index) in list" :key="index" :item="item" :index="index" collect></FoodItem>
 	</view>
 </template>

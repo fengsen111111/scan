@@ -21,7 +21,7 @@
 			团队列表（{{list.length}}人）
 			<text @click="$nav('/mine_packages/record/index')">收益记录</text>
 		</view>
-
+		<image v-if="list.length==0" src="@/static/empty.jpg" style="width: 100%;" mode=""></image>
 		<view class="item flex alignCenter spaceBetween" v-for="(item) in list" :key="item.id">
 			<view class="left flex alignCenter" @click="$nav('/mine_packages/distribute/index',{id:item.id})">
 				<image :src="item.head_image||require('@/static/avatar.png')" mode=""></image>

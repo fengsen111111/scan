@@ -1,6 +1,7 @@
 <template>
 	<view class="container">
 		<view style="height: 1.33vw;"></view>
+		<image v-if="list.length==0" src="@/static/empty.jpg" style="width: 100%;" mode=""></image>
 		<view class="item" v-for="(item) in list" :key="item.id">
 			<image :src="item.image" mode=""></image>
 			<view class="info">

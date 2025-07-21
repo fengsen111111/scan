@@ -5,6 +5,7 @@
 			<text>{{integral}}</text>
 		</view>
 		<view style="height: 1.73vw;"></view>
+		<image v-if="list.length==0" src="@/static/empty.jpg" style="width: 100%;" mode=""></image>
 		<view class="item flex alignCenter spaceBetween" v-for="(item) in list" :key="item.id">
 			<view class="left flex alignCenter">
 				<image
