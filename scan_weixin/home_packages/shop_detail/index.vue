@@ -349,10 +349,12 @@
 					:style="!shopCarList||shopCarList.length===0?'height:10vh':'height: 50vh;'">
 					<view class="item flex spaceBetween" v-for="(item,index) in shopCarList" :key="index">
 						<view class="left flex alignCenter">
-							<image :src="item.info.cover_image" mode=""></image>
+							<view style="width: 100rpx;height: 100rpx;">
+								<image :src="item.info.cover_image" mode="" style="width:100rpx;height: 100rpx;"></image>
+							</view>
 							<view class="right">
-								{{item.info.name}}
-								<view class="remark">备注：{{item.choice_des}}</view>
+								<view style="line-height: 32rpx;">{{item.info.name}}</view>
+								<view class="remark" style="margin-top: 20rpx;">备注：{{item.choice_des}}</view>
 								<text>单价&emsp;￥{{item.info.price}}</text>
 							</view>
 						</view>
@@ -759,6 +761,14 @@
 		},
 		methods: {
 			async _getStoreDetail(){
+				if(!this.option.id){
+					uni.showToast({
+						title: "网络错误，请联系工作人员",
+						icon: "none",
+						duration:3000
+					})
+					return false
+				}
 				this.shopInfo = await this.$request("/food/Store/getStoreDetail", {
 					location: this.jwdxx,
 					store_id: this.option.id
@@ -913,16 +923,25 @@
 				this.menuShopShow = true;
 			},
 			getCoupon(item) {
+				const _this = this
 				if (item.has_status === "Y") return;
-				this.$request("/food/Coupon/hasCoupon", {
+				_this.$request("/food/Coupon/hasCoupon", {
 					coupon_id: item.id
 				}).then(res => {
 					uni.getLocation({
 						type: 'wgs84',
 						success: async res => {
-							this.shopInfo = await this.$request("/food/Store/getStoreDetail", {
+							if(!_this.shopInfo.id){
+								uni.showToast({
+									title: "网络错误，请联系工作人员",
+									icon: "none",
+									duration:3000
+								})
+								return false
+							}
+							_this.shopInfo = await _this.$request("/food/Store/getStoreDetail", {
 								location: res.longitude + "," + res.latitude,
-								store_id: this.shopInfo.id
+								store_id: _this.shopInfo.id
 							})
 						}
 					})
@@ -1607,7 +1626,7 @@
 			}
 
 			>.right {
-				height: 14.67vw;
+				// height: 14.67vw;
 				display: flex;
 				flex-direction: column;
 				justify-content: space-between;
@@ -1656,7 +1675,7 @@
 				}
 
 				>.right {
-					height: 14.67vw;
+					// height: 14.67vw;
 					display: flex;
 					flex-direction: column;
 					justify-content: space-between;

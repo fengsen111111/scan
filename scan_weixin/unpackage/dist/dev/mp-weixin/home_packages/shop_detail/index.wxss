@@ -299,7 +299,6 @@
   margin-bottom: 0;
 }
 .shopCarContent .item > .right {
-  height: 14.67vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -340,7 +339,6 @@
   border-radius: 1.33vw;
 }
 .shopCarContent .item > .left > .right {
-  height: 14.67vw;
   display: flex;
   flex-direction: column;
   justify-content: space-between;

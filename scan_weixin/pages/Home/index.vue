@@ -272,6 +272,7 @@
 				}
 			},
 			jump(obj) {
+				console.log('obj',obj);
 				if (obj.jump_type === 'a') {
 					this.$nav("/pages/RichText/index", {
 						title: "详情",

@@ -24,10 +24,19 @@
 			};
 		},
 		onLoad(option) {
+			const _this = this
 			uni.getLocation({
 				type: 'wgs84',
 				success: async res => {
-					this.shopInfo = await this.$request("/food/Store/getStoreDetail", {
+					if(!option.id){
+						uni.showToast({
+							title: "网络错误，请联系工作人员",
+							icon: "none",
+							duration:3000
+						})
+						return false
+					}
+					_this.shopInfo = await _this.$request("/food/Store/getStoreDetail", {
 						location: res.longitude + "," + res.latitude,
 						store_id: option.id
 					})

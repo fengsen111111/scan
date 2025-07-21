@@ -222,7 +222,9 @@
 
 				option: {},
 
-				is_request_ok: true //是否请求完了
+				is_request_ok: true ,//是否请求完了
+				
+				jwdxx:''
 			};
 		},
 		onLoad(options) {
@@ -522,9 +524,10 @@
 					uni.getLocation({
 						type: 'wgs84', // 返回 GPS 坐标，也可以使用 'gcj02'（适用于高德、微信地图）
 						success: function(res) {
-							console.log('经度：' + res.longitude);
-							console.log('纬度：' + res.latitude);
+							// console.log('经度：' + res.longitude);
+							// console.log('纬度：' + res.latitude);
 							orderForm.location = res.longitude + ',' + res.latitude
+							that.jwdxx = res.longitude + ',' + res.latitude
 							// orderForm.location = '91.129157,29.653201'//测试用经纬度写死，测完注释
 							// orderForm.help_user_coupon = orderForm.help_user_coupon ? orderForm.help_user_coupon * 1 : 0
 							// 默认是true 可以请求  发起了请求 就变成false,不允许请求
@@ -554,19 +557,22 @@
 											url: '/order_packages/cpxdz/index?order=' + res
 												.order_id
 										})
+										setTimeout(() => {
+											that.is_request_ok = true //请求结束了
+										}, 4000)
 									} else {
 										uni.showToast({
 											title: "下单失败",
 											icon: "error",
 											duration: 2000
 										})
-									}
-									setTimeout(() => {
 										that.is_request_ok = true //请求结束了
-									}, 4000)
+									}
+									
 								})
 								return;
 							} else if (that.option.pay_time == 'b') {
+								uni.hideLoading();
 								that.$request("/food/User/getUserInfo").then(res => {
 									that.userMoney = res.money;
 									that.payShow = true;
@@ -579,7 +585,8 @@
 						}
 					});
 					setTimeout(() => {
-						if (orderForm.location.length > 0) {
+						console.log('that.jwdxx',that.jwdxx);
+						if (that.jwdxx.length > 0) {
 							// 以获取到定位
 						} else {
 							// 未获取到定位
@@ -610,19 +617,21 @@
 											url: '/order_packages/cpxdz/index?order=' + res
 												.order_id
 										})
+										setTimeout(() => {
+											that.is_request_ok = true //请求结束了
+										}, 4000)
 									} else {
 										uni.showToast({
 											title: "下单失败",
 											icon: "error",
 											duration: 2000
 										})
-									}
-									setTimeout(() => {
 										that.is_request_ok = true //请求结束了
-									}, 4000)
+									}
 								})
 								return;
 							} else if (that.option.pay_time == 'b') {
+								uni.hideLoading();
 								that.$request("/food/User/getUserInfo").then(res => {
 									that.userMoney = res.money;
 									that.payShow = true;
@@ -630,7 +639,7 @@
 								})
 							}
 						}
-					}, 3000)
+					}, 5000)
 					return false
 				}
 				this.$request("/food/User/getUserInfo").then(res => {
