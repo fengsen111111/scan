@@ -13,10 +13,10 @@
 					<input type="text" placeholder="输入关键词搜索门店" v-model="keyWords" placeholder-class="input_placeholder"
 						confirm-type="search" @confirm="search()" />
 				</view>
-				<!-- <view class="scan" @click="scanCode()">
+				<view class="scan" @click="scanCode()">
 					<image src="@/static/scan.png" alt="" />
 					扫一扫
-				</view> -->
+				</view>
 			</view>
 			<view class="swiper">
 				<swiper class="swiper" circular autoplay :interval="2000">
@@ -150,8 +150,7 @@
 			},
 
 			async scanCode() {
-				uni.scanCode({
-					scanType: ["qrCode"],
+				wx.scanCode({
 					success: res => {
 						console.log('res', res);
 						this.$nav('/'+res.path)
@@ -438,8 +437,8 @@
 			>.input_box {
 				display: flex;
 				align-items: center;
-				// width: 72vw;
-				width: 92vw;
+				width: 72vw;
+				// width: 92vw;
 				padding: 0 4vw;
 				height: 8.33vw;
 				background: #F5F5F5;

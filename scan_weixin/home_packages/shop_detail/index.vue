@@ -1084,8 +1084,7 @@
 				    	rk:'shopping'
 				    })
 				}else if (this.option.ly=='home') { //列表进入
-				    uni.scanCode({
-				    	scanType: ["qrCode"],
+				    wx.scanCode({
 				    	success: res => {
 				    		console.log('res', res);
 				    		let str = res.path.split("?")[1];

@@ -7,7 +7,7 @@
 				<view class="left flex alignCenter" @click="selectTable()">
 					餐位
 					<text>{{table_code||"请选择"}}</text>
-					<!-- <view class="scanCode" @click.stop="scanCode()">扫桌码</view> -->
+					<view class="scanCode" @click.stop="scanCode()">扫桌码</view>
 				</view>
 				<view class="right flex alignCenter">
 					<text style="margin-right: 4vw;">人数</text>
@@ -317,11 +317,10 @@
 				}
 			},
 			scanCode() {
-				uni.scanCode({
-					scanType: ["qrCode"],
+				wx.scanCode({
 					success: res => {
 						console.log('res', res);
-						let str = res.result.split("?")[1];
+						let str = res.path.split("?")[1];
 						let obj = {};
 						let arr = str.split('&');
 						for (let i = 0; i < arr.length; i++) {
