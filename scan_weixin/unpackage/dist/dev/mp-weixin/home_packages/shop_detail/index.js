@@ -1695,7 +1695,7 @@ var _default = {
           scanType: ["qrCode"],
           success: function success(res) {
             console.log('res', res);
-            var str = res.result.split("?")[1];
+            var str = res.path.split("?")[1];
             var obj = {};
             var arr = str.split('&');
             for (var i = 0; i < arr.length; i++) {

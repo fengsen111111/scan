@@ -1088,7 +1088,7 @@
 				    	scanType: ["qrCode"],
 				    	success: res => {
 				    		console.log('res', res);
-				    		let str = res.result.split("?")[1];
+				    		let str = res.path.split("?")[1];
 				    		let obj = {};
 				    		let arr = str.split('&');
 				    		for (let i = 0; i < arr.length; i++) {
