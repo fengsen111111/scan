@@ -623,10 +623,8 @@
 		},
 		async onLoad(option) {
 			this.option = option
-			// if (!uni.getStorageSync("token")) {
-			// 	this.loginShow = true;
-			// }
-			console.log('1店铺详情传参', option)
+			console.log('店铺详情传参option', option)
+			// 点击分享链接进入
 			if (option.scene) {
 				let param = option.scene
 				let str = param.split("?")[1];
@@ -654,33 +652,11 @@
 				console.log('扫码进入', option);
 				option.id = option.store_id;
 				this.scanInfo = {
-					seat_code: decodeURIComponent(option.seat_code).split("#")[0],
+					seat_code: option.seat_code,
 					seat_id: option.seat_id
 				};
 				this.scanType = true;
 			}
-			// 公众号进入,不管什么进入，有id就执行
-			// if(option.id){
-			// 	// 获取餐桌小程序码内容
-			// 	this.$request("/food/Seat/miniCodeMsg", {
-			// 		id: option.id
-			// 	}).then((res)=>{
-			// 		console.log('获取餐桌小程序码内容', res);
-			// 		this.$request("/food/Order/userGetOrderDetailByTableID", {
-			// 			table_id: res.seat_id
-			// 		}).then((resule)=>{
-			// 			console.log('resule', resule);
-			// 			// 有订单号就跳转订单详情
-			// 			if (resule.order_id) {
-			// 				this.$nav('/order_packages/detail/index', {
-			// 					id: resule.order_id,
-			// 					time_status: '',
-			// 					pay_status: ''
-			// 				})
-			// 			}
-			// 		})
-			// 	})
-			// }
 			// 代金卷
 			if (option.type === "workerOrder") {
 				this.workerType = true;
@@ -712,7 +688,7 @@
 			uni.showLoading({
 				title: "请稍后"
 			})
-
+            // 商品列表
 			this.$request("/food/Goods/getGoodsList", {
 				store_id: option.id
 			}).then(res => {
@@ -1074,70 +1050,16 @@
 						pay_time: this.shopInfo.pay_time,
 						rk:'shopping'
 					})
-				} else if (this.scanType) { //扫码进入
-				    this.$nav('/home_packages/place_order/index', {
-				    	id: this.shopInfo.id,
-				    	scanType: true,
-				    	table_code: this.scanInfo.seat_code,
-				    	seat_id: this.scanInfo.seat_id,
-				    	pay_time: this.shopInfo.pay_time,
-				    	rk:'shopping'
-				    })
-				}else if (this.option.ly=='home') { //列表进入
-				    uni.scanCode({
-				    	scanType: ["qrCode"],
-				    	success: res => {
-				    		console.log('res', res);
-				    		let str = res.result.split("?")[1];
-				    		let obj = {};
-				    		let arr = str.split('&');
-				    		for (let i = 0; i < arr.length; i++) {
-				    			obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
-				    		}
-				    		this.scanInfo.seat_id = obj.seat_id;
-				    		this.scanInfo.seat_code = obj.seat_code
-							
-				    		this.$request("/food/Order/userGetOrderDetailByTableID", {
-				    			// id: obj.id
-				    			table_id: obj.seat_id
-				    		}).then((resule) => {
-				    			// 有订单号就跳转订单详情
-				    			if (resule.order_id) {
-									uni.switchTab({
-										url: "/order_packages/detail/index?id="+resule.order_id
-									})
-				    			}else{
-									// 获取门店餐位列表
-									this.$request("/food/Seat/geSeatList2", {
-										store_id: this.shopInfo.id
-									}).then(res => {
-										// 传了餐位id就匹配出来对应餐位
-										if (this.scanInfo.seat_id) {
-											let obj = res.list.filter((item) => item.id == this.scanInfo.seat_id)
-											console.log('obj',obj);
-											if(obj.length>0){
-												this.$nav('/home_packages/place_order/index', {
-													id: this.shopInfo.id,
-													scanType: true,
-													table_code: this.scanInfo.seat_code,
-													seat_id: this.scanInfo.seat_id,
-													pay_time: this.shopInfo.pay_time,
-													rk:'shopping'
-												})
-											}else{
-												uni.showToast({
-													title: "当前桌码与商家不是同一家",
-													icon: "none",
-													duration:4000
-												})
-											}
-										}
-									})
-								}
-				    		})
-				    	}
-				    })
-				} else if (this.workerType) {//代客下单
+				} else if (this.scanType) { //正常下单
+					this.$nav('/home_packages/place_order/index', {
+						id: this.shopInfo.id,
+						scanType: true,
+						table_code: this.scanInfo.seat_code,
+						seat_id: this.scanInfo.seat_id,
+						pay_time: this.shopInfo.pay_time,
+						rk:'shopping'
+					})
+				} else if (this.workerType) {
 					this.$nav('/home_packages/place_order/index', {
 						id: this.shopInfo.id,
 						workerType: true,

@@ -117,7 +117,7 @@
 .container .search > .input_box {
   display: flex;
   align-items: center;
-  width: 72vw;
+  width: 92vw;
   padding: 0 4vw;
   height: 8.33vw;
   background: #F5F5F5;

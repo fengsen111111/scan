@@ -300,22 +300,16 @@ var _default = {
       store_id: options.id
     }).then(function (res) {
       _this.tableList = res.list;
-      // if (options.scanType) {
-      // 	this.orderForm.table_id = options.seat_id;
-      // 	this.table_code = options.table_code
-      // }
-      //  else {
-      // 	this.orderForm.table_id = options.seat_id;
-      // 	this.table_code = options.table_code
-      // }
       // 传了餐位id就匹配出来对应餐位
       if (options.seat_id) {
         var obj = res.list.filter(function (item) {
           return item.id == options.seat_id;
         });
-        _this.orderForm.table_id = obj[0].id;
-        _this.table_code = obj[0].code;
         console.log('obj', obj);
+        if (obj.length > 0) {
+          _this.orderForm.table_id = obj[0].id;
+          _this.table_code = obj[0].code;
+        }
       }
     });
     this.option = options;

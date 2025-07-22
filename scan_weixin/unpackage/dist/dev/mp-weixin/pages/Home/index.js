@@ -283,36 +283,38 @@ var _default = {
                   scanType: ["qrCode"],
                   success: function success(res) {
                     console.log('res', res);
-                    var str = res.result.split("?")[1];
-                    var obj = {};
-                    var arr = str.split('&');
-                    for (var i = 0; i < arr.length; i++) {
-                      obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
-                    }
-                    _this2.$request("/food/Order/userGetOrderDetailByTableID", {
-                      // id: obj.id
-                      table_id: obj.seat_id
-                    }).then(function (resule) {
-                      // 有订单号就跳转订单详情
-                      if (resule.order_id) {
-                        _this2.$nav('/order_packages/detail/index', {
-                          id: resule.order_id,
-                          time_status: '',
-                          pay_status: ''
-                        });
-                      } else {
-                        if (obj.store_id) {
-                          uni.setStorageSync("scanInfo", {
-                            seat_code: obj.seat_code,
-                            seat_id: obj.seat_id,
-                            store_id: obj.store_id,
-                            type: "scan"
-                          });
-                          _this2.$nav("/home_packages/shop_detail/index");
-                        }
-                        console.log(obj);
-                      }
-                    });
+                    _this2.$nav('/' + res.path);
+                    // let str = res.result.split("?")[1];
+                    // let obj = {};
+                    // let arr = str.split('&');
+                    // for (let i = 0; i < arr.length; i++) {
+                    // 	obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
+                    // }
+
+                    // this.$request("/food/Order/userGetOrderDetailByTableID", {
+                    // 	// id: obj.id
+                    // 	table_id: obj.seat_id
+                    // }).then((resule) => {
+                    // 	// 有订单号就跳转订单详情
+                    // 	if (resule.order_id) {
+                    // 		this.$nav('/order_packages/detail/index', {
+                    // 			id: resule.order_id,
+                    // 			time_status: '',
+                    // 			pay_status: ''
+                    // 		})
+                    // 	} else {
+                    // 		if (obj.store_id) {
+                    // 			uni.setStorageSync("scanInfo", {
+                    // 				seat_code: obj.seat_code,
+                    // 				seat_id: obj.seat_id,
+                    // 				store_id: obj.store_id,
+                    // 				type: "scan"
+                    // 			})
+                    // 			this.$nav("/home_packages/shop_detail/index")
+                    // 		}
+                    // 		console.log(obj)
+                    // 	}
+                    // })
                   }
                 });
               case 1:

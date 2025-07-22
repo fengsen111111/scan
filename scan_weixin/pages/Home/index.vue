@@ -13,11 +13,10 @@
 					<input type="text" placeholder="输入关键词搜索门店" v-model="keyWords" placeholder-class="input_placeholder"
 						confirm-type="search" @confirm="search()" />
 				</view>
-				<view class="scan" @click="scanCode()">
+				<!-- <view class="scan" @click="scanCode()">
 					<image src="@/static/scan.png" alt="" />
-					<!-- <u-icon name="/static/scan.png" size="5vw" color="#999999"></u-icon> -->
 					扫一扫
-				</view>
+				</view> -->
 			</view>
 			<view class="swiper">
 				<swiper class="swiper" circular autoplay :interval="2000">
@@ -155,37 +154,38 @@
 					scanType: ["qrCode"],
 					success: res => {
 						console.log('res', res);
-						let str = res.result.split("?")[1];
-						let obj = {};
-						let arr = str.split('&');
-						for (let i = 0; i < arr.length; i++) {
-							obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
-						}
+						this.$nav('/'+res.path)
+						// let str = res.result.split("?")[1];
+						// let obj = {};
+						// let arr = str.split('&');
+						// for (let i = 0; i < arr.length; i++) {
+						// 	obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
+						// }
 
-						this.$request("/food/Order/userGetOrderDetailByTableID", {
-							// id: obj.id
-							table_id: obj.seat_id
-						}).then((resule) => {
-							// 有订单号就跳转订单详情
-							if (resule.order_id) {
-								this.$nav('/order_packages/detail/index', {
-									id: resule.order_id,
-									time_status: '',
-									pay_status: ''
-								})
-							} else {
-								if (obj.store_id) {
-									uni.setStorageSync("scanInfo", {
-										seat_code: obj.seat_code,
-										seat_id: obj.seat_id,
-										store_id: obj.store_id,
-										type: "scan"
-									})
-									this.$nav("/home_packages/shop_detail/index")
-								}
-								console.log(obj)
-							}
-						})
+						// this.$request("/food/Order/userGetOrderDetailByTableID", {
+						// 	// id: obj.id
+						// 	table_id: obj.seat_id
+						// }).then((resule) => {
+						// 	// 有订单号就跳转订单详情
+						// 	if (resule.order_id) {
+						// 		this.$nav('/order_packages/detail/index', {
+						// 			id: resule.order_id,
+						// 			time_status: '',
+						// 			pay_status: ''
+						// 		})
+						// 	} else {
+						// 		if (obj.store_id) {
+						// 			uni.setStorageSync("scanInfo", {
+						// 				seat_code: obj.seat_code,
+						// 				seat_id: obj.seat_id,
+						// 				store_id: obj.store_id,
+						// 				type: "scan"
+						// 			})
+						// 			this.$nav("/home_packages/shop_detail/index")
+						// 		}
+						// 		console.log(obj)
+						// 	}
+						// })
 
 					}
 				})
@@ -438,7 +438,8 @@
 			>.input_box {
 				display: flex;
 				align-items: center;
-				width: 72vw;
+				// width: 72vw;
+				width: 92vw;
 				padding: 0 4vw;
 				height: 8.33vw;
 				background: #F5F5F5;

@@ -7,7 +7,7 @@
 				<view class="left flex alignCenter" @click="selectTable()">
 					餐位
 					<text>{{table_code||"请选择"}}</text>
-					<view class="scanCode" @click.stop="scanCode()">扫桌码</view>
+					<!-- <view class="scanCode" @click.stop="scanCode()">扫桌码</view> -->
 				</view>
 				<view class="right flex alignCenter">
 					<text style="margin-right: 4vw;">人数</text>
@@ -249,20 +249,14 @@
 				store_id: options.id
 			}).then(res => {
 				this.tableList = res.list;
-				// if (options.scanType) {
-				// 	this.orderForm.table_id = options.seat_id;
-				// 	this.table_code = options.table_code
-				// }
-				//  else {
-				// 	this.orderForm.table_id = options.seat_id;
-				// 	this.table_code = options.table_code
-				// }
 				// 传了餐位id就匹配出来对应餐位
 				if (options.seat_id) {
 					let obj = res.list.filter((item) => item.id == options.seat_id)
-					this.orderForm.table_id = obj[0].id;
-					this.table_code = obj[0].code
-					console.log('obj', obj);
+					console.log('obj',obj);
+					if(obj.length>0){
+						this.orderForm.table_id = obj[0].id;
+						this.table_code = obj[0].code
+					}
 				}
 			})
 			

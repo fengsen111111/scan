@@ -1655,6 +1655,7 @@ var _default = {
       }
     },
     scanTableCode: function scanTableCode() {
+      var _this11 = this;
       if (!uni.getStorageSync("token")) {
         this.loginShow = true;
         return false;
@@ -1679,7 +1680,7 @@ var _default = {
           rk: 'shopping'
         });
       } else if (this.scanType) {
-        //正常下单
+        //扫码进入
         this.$nav('/home_packages/place_order/index', {
           id: this.shopInfo.id,
           scanType: true,
@@ -1688,7 +1689,64 @@ var _default = {
           pay_time: this.shopInfo.pay_time,
           rk: 'shopping'
         });
+      } else if (this.option.ly == 'home') {
+        //列表进入
+        uni.scanCode({
+          scanType: ["qrCode"],
+          success: function success(res) {
+            console.log('res', res);
+            var str = res.result.split("?")[1];
+            var obj = {};
+            var arr = str.split('&');
+            for (var i = 0; i < arr.length; i++) {
+              obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
+            }
+            _this11.scanInfo.seat_id = obj.seat_id;
+            _this11.scanInfo.seat_code = obj.seat_code;
+            _this11.$request("/food/Order/userGetOrderDetailByTableID", {
+              // id: obj.id
+              table_id: obj.seat_id
+            }).then(function (resule) {
+              // 有订单号就跳转订单详情
+              if (resule.order_id) {
+                uni.switchTab({
+                  url: "/order_packages/detail/index?id=" + resule.order_id
+                });
+              } else {
+                // 获取门店餐位列表
+                _this11.$request("/food/Seat/geSeatList2", {
+                  store_id: _this11.shopInfo.id
+                }).then(function (res) {
+                  // 传了餐位id就匹配出来对应餐位
+                  if (_this11.scanInfo.seat_id) {
+                    var _obj = res.list.filter(function (item) {
+                      return item.id == _this11.scanInfo.seat_id;
+                    });
+                    console.log('obj', _obj);
+                    if (_obj.length > 0) {
+                      _this11.$nav('/home_packages/place_order/index', {
+                        id: _this11.shopInfo.id,
+                        scanType: true,
+                        table_code: _this11.scanInfo.seat_code,
+                        seat_id: _this11.scanInfo.seat_id,
+                        pay_time: _this11.shopInfo.pay_time,
+                        rk: 'shopping'
+                      });
+                    } else {
+                      uni.showToast({
+                        title: "当前桌码与商家不是同一家",
+                        icon: "none",
+                        duration: 4000
+                      });
+                    }
+                  }
+                });
+              }
+            });
+          }
+        });
       } else if (this.workerType) {
+        //代客下单
         this.$nav('/home_packages/place_order/index', {
           id: this.shopInfo.id,
           workerType: true,
@@ -1730,7 +1788,7 @@ var _default = {
       this.shopCarShow = false;
     },
     selGroup: function selGroup(obj) {
-      var _this11 = this;
+      var _this12 = this;
       this.groupDetailShow = true;
       this.groupDetail = obj;
       this.groupContain = [];
@@ -1738,12 +1796,12 @@ var _default = {
       this.groupGoods = [];
       obj.group_list.map(function (item) {
         if (item.type === "single") {
-          _this11.groupContain = _this11.groupContain.concat(item.goods_list);
+          _this12.groupContain = _this12.groupContain.concat(item.goods_list);
         }
       });
     },
     addCar: function addCar(type, obj, option) {
-      var _this12 = this;
+      var _this13 = this;
       var index = this.carIdList.findIndex(function (item) {
         return item.id === obj.id;
       });
@@ -1785,8 +1843,8 @@ var _default = {
         if (!obj.group_goods || !obj.group_goods.length) {
           getAllgoods.map(function (item, index) {
             if (item.info.id === obj.id) {
-              if (_this12.carIdList[index] && _this12.carIdList[index].id === obj.id) {
-                item.num = _this12.carIdList[index].number;
+              if (_this13.carIdList[index] && _this13.carIdList[index].id === obj.id) {
+                item.num = _this13.carIdList[index].number;
               } else {
                 allGoodsIndex = index;
               }
@@ -1882,7 +1940,7 @@ var _default = {
       }
     },
     groupAddCar: function groupAddCar() {
-      var _this13 = this;
+      var _this14 = this;
       var number = 0;
       this.groupDetail.group_list.map(function (item) {
         if (item.type == "check") {
@@ -1903,7 +1961,7 @@ var _default = {
       // console.log('走到提交');
       // return false
       this.groupContain.map(function (item) {
-        _this13.groupGoods.push({
+        _this14.groupGoods.push({
           goods_id: item.id,
           has_number: item.has_number,
           name: item.name,
