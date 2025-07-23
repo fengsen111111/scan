@@ -198,7 +198,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
+/* WEBPACK VAR INJECTION */(function(uni, wx) {
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
@@ -279,8 +279,7 @@ var _default = {
           while (1) {
             switch (_context.prev = _context.next) {
               case 0:
-                uni.scanCode({
-                  scanType: ["qrCode"],
+                wx.scanCode({
                   success: function success(res) {
                     console.log('res', res);
                     _this2.$nav('/' + res.path);
@@ -482,7 +481,7 @@ var _default = {
   }
 };
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"]))
 
 /***/ }),
 

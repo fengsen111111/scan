@@ -204,7 +204,7 @@ __webpack_require__.r(__webpack_exports__);
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-/* WEBPACK VAR INJECTION */(function(uni) {
+/* WEBPACK VAR INJECTION */(function(uni, wx) {
 
 var _interopRequireDefault = __webpack_require__(/*! @babel/runtime/helpers/interopRequireDefault */ 4);
 Object.defineProperty(exports, "__esModule", {
@@ -372,11 +372,10 @@ var _default = {
     },
     scanCode: function scanCode() {
       var _this2 = this;
-      uni.scanCode({
-        scanType: ["qrCode"],
+      wx.scanCode({
         success: function success(res) {
           console.log('res', res);
-          var str = res.result.split("?")[1];
+          var str = res.path.split("?")[1];
           var obj = {};
           var arr = str.split('&');
           for (var i = 0; i < arr.length; i++) {
@@ -811,7 +810,7 @@ var _default = {
   }
 };
 exports.default = _default;
-/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"]))
+/* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/index.js */ 2)["default"], __webpack_require__(/*! ./node_modules/@dcloudio/uni-mp-weixin/dist/wx.js */ 1)["default"]))
 
 /***/ }),
 

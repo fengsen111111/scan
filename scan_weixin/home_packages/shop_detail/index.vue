@@ -469,7 +469,7 @@
 				<view class="confirm" @click="peopleConfirm()">确定</view>
 			</view>
 		</u-popup>
-		<u-popup :show="loginShow" mode="center" round="5.33vw">
+		<u-popup :show="loginShow" mode="center" round="5.33vw"  @close="loginShow=false">
 			<view class="loginShowContent">
 				<view class="title flex alignCenter spaceBetween">
 					用户登录
