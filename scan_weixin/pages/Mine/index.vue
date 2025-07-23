@@ -40,10 +40,11 @@
 				<text>{{userInfo.collection_number || 0}} 家</text>
 			</view>
 		</view>
-		<view class="recharge flex alignCenter spaceBetween">
+		<!-- <view class="recharge flex alignCenter spaceBetween">
 			充值赠送活动
 			<view class="pay" @click="$nav('/mine_packages/charge/index')">充值</view>
-		</view>
+		</view> -->
+		<view style="height: 40rpx;"></view>
 		<view class="option flex alignCenter spaceBetween" @click="$nav('/mine_packages/points/index')">
 			<view class="left flex alignCenter">
 				<image src="@/static/points.png" mode=""></image>

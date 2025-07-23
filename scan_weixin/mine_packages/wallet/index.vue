@@ -3,10 +3,10 @@
 		<view style="height: 1.33vw;"></view>
 		<view class="balance flex alignCenter spaceBetween">
 			余额&emsp;{{userInfo.money||0.00}}
-			<view class="right flex alignCenter">
+			<!-- <view class="right flex alignCenter">
 				充值赠送活动
 				<view class="pay" @click="$nav('/mine_packages/charge/index')">充值</view>
-			</view>
+			</view> -->
 		</view>
 		<view class="label">余额记录</view>
 		<image v-if="list.length==0" src="@/static/empty.jpg" style="width: 100%;" mode=""></image>
