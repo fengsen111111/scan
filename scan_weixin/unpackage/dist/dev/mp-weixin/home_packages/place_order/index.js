@@ -314,6 +314,7 @@ var _default = {
     });
     this.option = options;
     this.workerType = true; //不进入支付，直接下单  第一单需要支付
+    // 加菜
     if (options.addType) {
       uni.showLoading({
         title: "加载中...",
@@ -340,6 +341,7 @@ var _default = {
       this.orderForm.person_number = uni.getStorageSync("person_number").person_number;
       this.numberShow = false;
     }
+    // 代客下单
     if (options.workerType) {
       this.workerType = true;
     }
@@ -374,27 +376,30 @@ var _default = {
       var _this2 = this;
       wx.scanCode({
         success: function success(res) {
-          console.log('res', res);
           var str = res.path.split("?")[1];
           var obj = {};
           var arr = str.split('&');
           for (var i = 0; i < arr.length; i++) {
             obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
           }
-          _this2.orderForm.table_id = obj.seat_id;
-          _this2.table_code = obj.seat_code;
-          _this2.$request("/food/Order/userGetOrderDetailByTableID", {
-            // id: obj.id
-            table_id: obj.seat_id
+          // console.log('参数',obj);
+          _this2.$request("/food/Seat/getScanMsg", {
+            scan_id: obj.scene
           }).then(function (resule) {
-            // 有订单号就跳转订单详情
-            if (resule.order_id) {
-              _this2.$nav('/order_packages/detail/index', {
-                id: resule.order_id,
-                time_status: '',
-                pay_status: ''
-              });
-            }
+            // console.log('二维码数据',resule);
+            _this2.orderForm.table_id = resule.seat_id;
+            _this2.table_code = resule.seat_code;
+            _this2.$request("/food/Order/userGetOrderDetailByTableID", {
+              // id: obj.id
+              table_id: obj.seat_id
+            }).then(function (resule_order) {
+              // 有订单号就跳转订单详情
+              if (resule_order.order_id) {
+                uni.switchTab({
+                  url: "/order_packages/detail/index?id=" + resule_order.order_id
+                });
+              }
+            });
           });
         }
       });

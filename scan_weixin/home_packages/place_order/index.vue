@@ -262,6 +262,7 @@
 			
 			this.option = options
 			this.workerType = true //不进入支付，直接下单  第一单需要支付
+			// 加菜
 			if (options.addType) {
 				uni.showLoading({
 					title: "加载中...",
@@ -286,6 +287,7 @@
 				this.orderForm.person_number = uni.getStorageSync("person_number").person_number;
 				this.numberShow = false;
 			}
+			// 代客下单
 			if (options.workerType) {
 				this.workerType = true
 			}
@@ -319,28 +321,30 @@
 			scanCode() {
 				wx.scanCode({
 					success: res => {
-						console.log('res', res);
 						let str = res.path.split("?")[1];
 						let obj = {};
 						let arr = str.split('&');
 						for (let i = 0; i < arr.length; i++) {
 							obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
 						}
-						this.orderForm.table_id = obj.seat_id;
-						this.table_code = obj.seat_code
-
-						this.$request("/food/Order/userGetOrderDetailByTableID", {
-							// id: obj.id
-							table_id: obj.seat_id
-						}).then((resule) => {
-							// 有订单号就跳转订单详情
-							if (resule.order_id) {
-								this.$nav('/order_packages/detail/index', {
-									id: resule.order_id,
-									time_status: '',
-									pay_status: ''
-								})
-							}
+						// console.log('参数',obj);
+						this.$request("/food/Seat/getScanMsg", {
+							scan_id:obj.scene
+						}).then((resule)=>{
+							// console.log('二维码数据',resule);
+							this.orderForm.table_id = resule.seat_id;
+							this.table_code = resule.seat_code
+							this.$request("/food/Order/userGetOrderDetailByTableID", {
+								// id: obj.id
+								table_id: obj.seat_id
+							}).then((resule_order) => {
+								// 有订单号就跳转订单详情
+								if (resule_order.order_id) {
+									uni.switchTab({
+										url: "/order_packages/detail/index?id="+resule_order.order_id
+									})
+								}
+							})
 						})
 					}
 				})

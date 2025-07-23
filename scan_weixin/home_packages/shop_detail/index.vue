@@ -622,26 +622,16 @@
 			};
 		},
 		async onLoad(option) {
-			this.option = option
-			// if (!uni.getStorageSync("token")) {
-			// 	this.loginShow = true;
-			// }
-			console.log('1店铺详情传参', option)
+			console.log('店铺详情传参', option)
 			if (option.scene) {
-				let param = option.scene
-				let str = param.split("?")[1];
-				let obj = {};
-				let arr = str.split('&');
-				for (let i = 0; i < arr.length; i++) {
-					obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
-				}
-				console.log('???', obj);
 				// 更具餐位获取小程序码内容
-				option = await this.$request("/food/Seat/miniCodeMsg", {
-					id: obj.id
+				option = await this.$request("/food/Seat/getScanMsg", {
+					scan_id:option.scene
 				})
-				console.log('option.scene下面的option', option);
+				console.log('option', option);
 			}
+			
+			this.option = option
 			// 餐位信息 且  无id
 			if (uni.getStorageSync("scanInfo") && !option.id) {
 				option.id = uni.getStorageSync("scanInfo").store_id;
@@ -659,28 +649,6 @@
 				};
 				this.scanType = true;
 			}
-			// 公众号进入,不管什么进入，有id就执行
-			// if(option.id){
-			// 	// 获取餐桌小程序码内容
-			// 	this.$request("/food/Seat/miniCodeMsg", {
-			// 		id: option.id
-			// 	}).then((res)=>{
-			// 		console.log('获取餐桌小程序码内容', res);
-			// 		this.$request("/food/Order/userGetOrderDetailByTableID", {
-			// 			table_id: res.seat_id
-			// 		}).then((resule)=>{
-			// 			console.log('resule', resule);
-			// 			// 有订单号就跳转订单详情
-			// 			if (resule.order_id) {
-			// 				this.$nav('/order_packages/detail/index', {
-			// 					id: resule.order_id,
-			// 					time_status: '',
-			// 					pay_status: ''
-			// 				})
-			// 			}
-			// 		})
-			// 	})
-			// }
 			// 代金卷
 			if (option.type === "workerOrder") {
 				this.workerType = true;
@@ -691,7 +659,6 @@
 				this.useCoupon = option.useCoupon
 				this.orderId = option.orderId
 			}
-			
 			uni.getLocation({
 				type: 'wgs84',
 				success: async res => {
@@ -712,7 +679,6 @@
 			uni.showLoading({
 				title: "请稍后"
 			})
-
 			this.$request("/food/Goods/getGoodsList", {
 				store_id: option.id
 			}).then(res => {
@@ -1086,54 +1052,57 @@
 				}else if (this.option.ly=='home') { //列表进入
 				    wx.scanCode({
 				    	success: res => {
-				    		console.log('res', res);
-				    		let str = res.path.split("?")[1];
-				    		let obj = {};
-				    		let arr = str.split('&');
-				    		for (let i = 0; i < arr.length; i++) {
-				    			obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
-				    		}
-				    		this.scanInfo.seat_id = obj.seat_id;
-				    		this.scanInfo.seat_code = obj.seat_code
-							
-				    		this.$request("/food/Order/userGetOrderDetailByTableID", {
-				    			// id: obj.id
-				    			table_id: obj.seat_id
-				    		}).then((resule) => {
-				    			// 有订单号就跳转订单详情
-				    			if (resule.order_id) {
-									uni.switchTab({
-										url: "/order_packages/detail/index?id="+resule.order_id
-									})
-				    			}else{
-									// 获取门店餐位列表
-									this.$request("/food/Seat/geSeatList2", {
-										store_id: this.shopInfo.id
-									}).then(res => {
-										// 传了餐位id就匹配出来对应餐位
-										if (this.scanInfo.seat_id) {
-											let obj = res.list.filter((item) => item.id == this.scanInfo.seat_id)
-											console.log('obj',obj);
-											if(obj.length>0){
-												this.$nav('/home_packages/place_order/index', {
-													id: this.shopInfo.id,
-													scanType: true,
-													table_code: this.scanInfo.seat_code,
-													seat_id: this.scanInfo.seat_id,
-													pay_time: this.shopInfo.pay_time,
-													rk:'shopping'
-												})
-											}else{
-												uni.showToast({
-													title: "当前桌码与商家不是同一家",
-													icon: "none",
-													duration:4000
-												})
+				    		// console.log('扫码路径', res.path);
+							let str = res.path.split("?")[1];
+							let obj = {};
+							let arr = str.split('&');
+							for (let i = 0; i < arr.length; i++) {
+								obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
+							}
+							// console.log('参数',obj);
+							this.$request("/food/Seat/getScanMsg", {
+								scan_id:obj.scene
+							}).then((resule)=>{
+								// console.log('二维码数据',resule);
+								this.scanInfo.seat_id = resule.seat_id;
+								this.scanInfo.seat_code = resule.seat_code
+								this.$request("/food/Order/userGetOrderDetailByTableID", {
+									table_id: this.scanInfo.seat_id
+								}).then((resule_order) => {
+									// 有订单号就跳转订单详情
+									if (resule_order.order_id) {
+										uni.switchTab({
+											url: "/order_packages/detail/index?id="+resule_order.order_id
+										})
+									}else{
+										this.$request("/food/Seat/geSeatList2", {
+											store_id: this.shopInfo.id
+										}).then(res => {
+											// 传了餐位id就匹配出来对应餐位
+											if (this.scanInfo.seat_id) {
+												let obj = res.list.filter((item) => item.id == this.scanInfo.seat_id)
+												console.log('obj',obj);
+												if(obj.length>0){
+													this.$nav('/home_packages/place_order/index', {
+														id: this.shopInfo.id,
+														scanType: true,
+														table_code: this.scanInfo.seat_code,
+														seat_id: this.scanInfo.seat_id,
+														pay_time: this.shopInfo.pay_time,
+														rk:'shopping'
+													})
+												}else{
+													uni.showToast({
+														title: "当前桌码与商家不是同一家",
+														icon: "none",
+														duration:4000
+													})
+												}
 											}
-										}
-									})
-								}
-				    		})
+										})
+									}
+								})
+							})
 				    	}
 				    })
 				} else if (this.workerType) {//代客下单

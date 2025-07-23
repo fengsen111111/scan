@@ -1119,37 +1119,24 @@ var _default = {
   onLoad: function onLoad(option) {
     var _this2 = this;
     return (0, _asyncToGenerator2.default)( /*#__PURE__*/_regenerator.default.mark(function _callee2() {
-      var param, str, obj, arr, i;
       return _regenerator.default.wrap(function _callee2$(_context2) {
         while (1) {
           switch (_context2.prev = _context2.next) {
             case 0:
-              _this2.option = option;
-              // if (!uni.getStorageSync("token")) {
-              // 	this.loginShow = true;
-              // }
-              console.log('1店铺详情传参', option);
+              console.log('店铺详情传参', option);
               if (!option.scene) {
-                _context2.next = 13;
+                _context2.next = 6;
                 break;
               }
-              param = option.scene;
-              str = param.split("?")[1];
-              obj = {};
-              arr = str.split('&');
-              for (i = 0; i < arr.length; i++) {
-                obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
-              }
-              console.log('???', obj);
-              // 更具餐位获取小程序码内容
-              _context2.next = 11;
-              return _this2.$request("/food/Seat/miniCodeMsg", {
-                id: obj.id
+              _context2.next = 4;
+              return _this2.$request("/food/Seat/getScanMsg", {
+                scan_id: option.scene
               });
-            case 11:
+            case 4:
               option = _context2.sent;
-              console.log('option.scene下面的option', option);
-            case 13:
+              console.log('option', option);
+            case 6:
+              _this2.option = option;
               // 餐位信息 且  无id
               if (uni.getStorageSync("scanInfo") && !option.id) {
                 option.id = uni.getStorageSync("scanInfo").store_id;
@@ -1167,28 +1154,6 @@ var _default = {
                 };
                 _this2.scanType = true;
               }
-              // 公众号进入,不管什么进入，有id就执行
-              // if(option.id){
-              // 	// 获取餐桌小程序码内容
-              // 	this.$request("/food/Seat/miniCodeMsg", {
-              // 		id: option.id
-              // 	}).then((res)=>{
-              // 		console.log('获取餐桌小程序码内容', res);
-              // 		this.$request("/food/Order/userGetOrderDetailByTableID", {
-              // 			table_id: res.seat_id
-              // 		}).then((resule)=>{
-              // 			console.log('resule', resule);
-              // 			// 有订单号就跳转订单详情
-              // 			if (resule.order_id) {
-              // 				this.$nav('/order_packages/detail/index', {
-              // 					id: resule.order_id,
-              // 					time_status: '',
-              // 					pay_status: ''
-              // 				})
-              // 			}
-              // 		})
-              // 	})
-              // }
               // 代金卷
               if (option.type === "workerOrder") {
                 _this2.workerType = true;
@@ -1261,7 +1226,7 @@ var _default = {
                   }).exec();
                 }, 1000);
               });
-            case 21:
+            case 15:
             case "end":
               return _context2.stop();
           }
@@ -1696,54 +1661,58 @@ var _default = {
         //列表进入
         wx.scanCode({
           success: function success(res) {
-            console.log('res', res);
+            // console.log('扫码路径', res.path);
             var str = res.path.split("?")[1];
             var obj = {};
             var arr = str.split('&');
             for (var i = 0; i < arr.length; i++) {
               obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
             }
-            _this11.scanInfo.seat_id = obj.seat_id;
-            _this11.scanInfo.seat_code = obj.seat_code;
-            _this11.$request("/food/Order/userGetOrderDetailByTableID", {
-              // id: obj.id
-              table_id: obj.seat_id
+            // console.log('参数',obj);
+            _this11.$request("/food/Seat/getScanMsg", {
+              scan_id: obj.scene
             }).then(function (resule) {
-              // 有订单号就跳转订单详情
-              if (resule.order_id) {
-                uni.switchTab({
-                  url: "/order_packages/detail/index?id=" + resule.order_id
-                });
-              } else {
-                // 获取门店餐位列表
-                _this11.$request("/food/Seat/geSeatList2", {
-                  store_id: _this11.shopInfo.id
-                }).then(function (res) {
-                  // 传了餐位id就匹配出来对应餐位
-                  if (_this11.scanInfo.seat_id) {
-                    var _obj = res.list.filter(function (item) {
-                      return item.id == _this11.scanInfo.seat_id;
-                    });
-                    console.log('obj', _obj);
-                    if (_obj.length > 0) {
-                      _this11.$nav('/home_packages/place_order/index', {
-                        id: _this11.shopInfo.id,
-                        scanType: true,
-                        table_code: _this11.scanInfo.seat_code,
-                        seat_id: _this11.scanInfo.seat_id,
-                        pay_time: _this11.shopInfo.pay_time,
-                        rk: 'shopping'
+              // console.log('二维码数据',resule);
+              _this11.scanInfo.seat_id = resule.seat_id;
+              _this11.scanInfo.seat_code = resule.seat_code;
+              _this11.$request("/food/Order/userGetOrderDetailByTableID", {
+                table_id: _this11.scanInfo.seat_id
+              }).then(function (resule_order) {
+                // 有订单号就跳转订单详情
+                if (resule_order.order_id) {
+                  uni.switchTab({
+                    url: "/order_packages/detail/index?id=" + resule_order.order_id
+                  });
+                } else {
+                  _this11.$request("/food/Seat/geSeatList2", {
+                    store_id: _this11.shopInfo.id
+                  }).then(function (res) {
+                    // 传了餐位id就匹配出来对应餐位
+                    if (_this11.scanInfo.seat_id) {
+                      var _obj = res.list.filter(function (item) {
+                        return item.id == _this11.scanInfo.seat_id;
                       });
-                    } else {
-                      uni.showToast({
-                        title: "当前桌码与商家不是同一家",
-                        icon: "none",
-                        duration: 4000
-                      });
+                      console.log('obj', _obj);
+                      if (_obj.length > 0) {
+                        _this11.$nav('/home_packages/place_order/index', {
+                          id: _this11.shopInfo.id,
+                          scanType: true,
+                          table_code: _this11.scanInfo.seat_code,
+                          seat_id: _this11.scanInfo.seat_id,
+                          pay_time: _this11.shopInfo.pay_time,
+                          rk: 'shopping'
+                        });
+                      } else {
+                        uni.showToast({
+                          title: "当前桌码与商家不是同一家",
+                          icon: "none",
+                          duration: 4000
+                        });
+                      }
                     }
-                  }
-                });
-              }
+                  });
+                }
+              });
             });
           }
         });
