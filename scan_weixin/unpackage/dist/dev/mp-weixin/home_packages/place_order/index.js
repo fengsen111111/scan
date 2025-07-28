@@ -536,7 +536,7 @@ var _default = {
       this.changePayData();
     },
     // 下单 
-    order: function order() {
+    zj_order: function zj_order() {
       var _this7 = this;
       if (!this.table_code || !this.orderForm.table_id) {
         uni.showToast({
@@ -701,7 +701,8 @@ var _default = {
         _this7.payShow = true;
       });
     },
-    confirm: function confirm() {
+    // 弹窗加菜 下单
+    tc_confirm: function tc_confirm() {
       var _this8 = this;
       if (!this.payFlag) return;
       this.payFlag = false;

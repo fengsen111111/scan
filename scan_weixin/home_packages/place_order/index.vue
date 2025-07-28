@@ -82,7 +82,7 @@
 				</view>
 			</view>
 			<view class="right flex alignCenter">
-				<view class="gotIt" @click.stop="order()">{{addType?'加菜':'菜品下单'}}</view>
+				<view class="gotIt" @click.stop="zj_order()">{{addType?'加菜':'菜品下单'}}</view>
 			</view>
 		</view>
 		<u-popup :show="discountShow" :mode="discountFirst?'center':'bottom'" round="5.33vw" @close="discountClose()">
@@ -149,7 +149,7 @@
 					</view>
 					<u-icon name="checkmark-circle-fill" color="black" size="20" v-if="payType===1"></u-icon>
 				</view>
-				<view class="confirm" @click="confirm()">{{addType?'加菜':'菜品下单'}}</view>
+				<view class="confirm" @click="tc_confirm()">{{addType?'加菜':'菜品下单'}}</view>
 			</view>
 		</u-popup>
 		<cityPicker :mask-close-able="true" @confirm="tableConfirm()" @cancel="tableShow=false" :visible="tableShow"
@@ -480,7 +480,7 @@
 				this.changePayData()
 			},
 			// 下单 
-			order() {
+			zj_order() {
 				if (!this.table_code||!this.orderForm.table_id) {
 					uni.showToast({
 						title: "请先选择餐位号",
@@ -644,7 +644,8 @@
 					this.payShow = true;
 				})
 			},
-			confirm() {
+			// 弹窗加菜 下单
+			tc_confirm() {
 				if (!this.payFlag) return;
 				this.payFlag = false
 				let pay_type = ""
