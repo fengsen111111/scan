@@ -1636,6 +1636,7 @@ var _default = {
         });
         return;
       }
+      uni.setStorageSync("shopping", this.shopInfo.id);
       // 加菜
       if (this.addType) {
         this.$nav('/home_packages/place_order/index', {
@@ -1661,7 +1662,7 @@ var _default = {
         //列表进入
         wx.scanCode({
           success: function success(res) {
-            // console.log('扫码路径', res.path);
+            console.log('扫码路径', res.path);
             var str = res.path.split("?")[1];
             var obj = {};
             var arr = str.split('&');
@@ -1672,7 +1673,7 @@ var _default = {
             _this11.$request("/food/Seat/getScanMsg", {
               scan_id: obj.scene
             }).then(function (resule) {
-              // console.log('二维码数据',resule);
+              console.log('二维码数据', resule);
               _this11.scanInfo.seat_id = resule.seat_id;
               _this11.scanInfo.seat_code = resule.seat_code;
               _this11.$request("/food/Order/userGetOrderDetailByTableID", {
@@ -1680,10 +1681,17 @@ var _default = {
               }).then(function (resule_order) {
                 // 有订单号就跳转订单详情
                 if (resule_order.order_id) {
-                  uni.switchTab({
+                  uni.redirectTo({
                     url: "/order_packages/detail/index?id=" + resule_order.order_id
                   });
                 } else {
+                  uni.showLoading({
+                    title: "加载中",
+                    mask: true
+                  });
+                  setTimeout(function () {
+                    uni.hideLoading();
+                  }, 4000);
                   _this11.$request("/food/Seat/geSeatList2", {
                     store_id: _this11.shopInfo.id
                   }).then(function (res) {

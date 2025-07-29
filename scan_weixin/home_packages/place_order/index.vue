@@ -33,6 +33,7 @@
 		</view>
 		<view class="shopInfo">
 			<view class="label">商品信息</view>
+			<image v-if="goodsList.length==0" src="@/static/empty.jpg" style="width: 100%;" mode=""></image>
 			<view class="item" v-for="(item,index) in goodsList" :key="index">
 				<view class="title flex alignCenter spaceBetween">
 					<view>
@@ -222,27 +223,29 @@
 
 				option: {},
 
-				is_request_ok: true ,//是否请求完了
-				
-				jwdxx:''
+				is_request_ok: true, //是否请求完了
+
+				jwdxx: '',
+
+				visOrderId: '' // 订单id
 			};
 		},
 		onLoad(options) {
 			console.log('options', options);
-			if(options.rk=='shopping'){
+			if (options.rk == 'shopping') {
 				// 商品详情进入
-			}else{
+			} else {
 				uni.showToast({
 					title: "请通过店铺详情进入",
 					icon: "none",
 					duration: 2000
 				})
-				setTimeout(()=>{
+				setTimeout(() => {
 					// uni.switchTab({
 					// 	url:'/pages/Home/index'
 					// })
 					uni.navigateBack()
-				},1000)
+				}, 1000)
 			}
 			// 获取门店餐位列表
 			this.$request("/food/Seat/geSeatList2", {
@@ -252,14 +255,14 @@
 				// 传了餐位id就匹配出来对应餐位
 				if (options.seat_id) {
 					let obj = res.list.filter((item) => item.id == options.seat_id)
-					console.log('obj',obj);
-					if(obj.length>0){
+					console.log('obj', obj);
+					if (obj.length > 0) {
 						this.orderForm.table_id = obj[0].id;
 						this.table_code = obj[0].code
 					}
 				}
 			})
-			
+
 			this.option = options
 			this.workerType = true //不进入支付，直接下单  第一单需要支付
 			// 加菜
@@ -275,7 +278,7 @@
 				console.log(options.useCoupon)
 				setTimeout(() => {
 					let arr = this.tableList.filter((item) => item.code == options.canwei) //餐位号
-					console.log('arr',arr);
+					console.log('arr', arr);
 					this.orderForm.table_id = arr[0].id //餐位id
 					uni.hideLoading();
 				}, 2000)
@@ -292,16 +295,31 @@
 				this.workerType = true
 			}
 			this.goodsList = uni.getStorageSync("shop" + options.id) || [];
+			uni.removeStorageSync("shop" + options.id); //删除购物车数据
 			this.orderForm.store_id = options.id;
-			
+
 			this.store_id = options.id;
 			this.changePayData();
 			this.selectCount("first");
 			// 
 		},
+		onShow() {
+			// 是否有token   是否有购物车进入的token 
+			let shopping = uni.getStorageSync("shopping") //购物车进入
+			if (shopping) {
+				// 商品详情进入，删除缓存
+				uni.removeStorageSync('shopping');
+			} else {
+				// 没有就返回上一页
+				uni.navigateBack()
+			}
+		},
 		methods: {
 			// 删除购物车缓存
 			clearShopDel() {
+				this.goodsList = []
+				this.moneyObj = {}
+				return false
 				const keys = uni.getStorageInfoSync().keys;
 				keys.forEach(key => {
 					if (key.startsWith('shop') && /^\d+$/.test(key.slice(4))) {
@@ -329,8 +347,8 @@
 						}
 						// console.log('参数',obj);
 						this.$request("/food/Seat/getScanMsg", {
-							scan_id:obj.scene
-						}).then((resule)=>{
+							scan_id: obj.scene
+						}).then((resule) => {
 							// console.log('二维码数据',resule);
 							this.orderForm.table_id = resule.seat_id;
 							this.table_code = resule.seat_code
@@ -341,7 +359,8 @@
 								// 有订单号就跳转订单详情
 								if (resule_order.order_id) {
 									uni.switchTab({
-										url: "/order_packages/detail/index?id="+resule_order.order_id
+										url: "/order_packages/detail/index?id=" +
+											resule_order.order_id
 									})
 								}
 							})
@@ -481,7 +500,7 @@
 			},
 			// 下单 
 			zj_order() {
-				if (!this.table_code||!this.orderForm.table_id) {
+				if (!this.table_code || !this.orderForm.table_id) {
 					uni.showToast({
 						title: "请先选择餐位号",
 						icon: "error"
@@ -498,7 +517,8 @@
 
 				if (this.workerType) {
 					uni.showLoading({
-						title: "请稍后……"
+						title: "请稍后……",
+						mask: true
 					})
 					let orderForm = {
 						...this.orderForm,
@@ -547,13 +567,39 @@
 										uni.hideLoading();
 									}, 2000)
 									if (res.result === 1) {
-										that.clearShopDel()//删除购物车缓存
-										uni.removeStorageSync("shop" + that.store_id);
-										uni.removeStorageSync("workerOrder"); //下单结束后清除代金卷
-										uni.reLaunch({
-											url: '/order_packages/cpxdz/index?order=' + res
-												.order_id
-										})
+										that.visOrderId = res.order_id
+										uni.showModal({
+											title: '订单提示',
+											content: '当前订单已提交，是否查看详情？',
+											confirmText: '查看详情',
+											cancelText: '立即支付',
+											success: function(res) {
+												if (res.confirm) {
+													console.log('用户点击了【查看详情】');
+													that.clearShopDel() //删除购物车缓存
+													// uni.removeStorageSync("shop" + that.store_id);
+													uni.removeStorageSync(
+													"workerOrder"); //下单结束后清除代金卷
+													uni.reLaunch({
+														url: '/order_packages/cpxdz/index?order=' +
+															res
+															.order_id
+													})
+													// 执行跳转到订单详情页等操作
+												} else if (res.cancel) {
+													console.log('用户点击了【立即支付】');
+													// 执行支付逻辑
+													uni.hideLoading();
+													that.$request("/food/User/getUserInfo")
+														.then(res => {
+															that.userMoney = res.money;
+															that.payShow = true;
+															that.is_request_ok =
+																true //请求结束了
+														})
+												}
+											}
+										});
 										setTimeout(() => {
 											that.is_request_ok = true //请求结束了
 										}, 4000)
@@ -565,10 +611,11 @@
 										})
 										that.is_request_ok = true //请求结束了
 									}
-									
+
 								})
 								return;
 							} else if (that.option.pay_time == 'b') {
+								that.visOrderId = ''
 								uni.hideLoading();
 								that.$request("/food/User/getUserInfo").then(res => {
 									that.userMoney = res.money;
@@ -579,64 +626,95 @@
 						},
 						fail: function(err) {
 							console.log('获取位置失败：', err);
+							// setTimeout(() => {
+							console.log('that.jwdxx', that.jwdxx);
+							if (that.jwdxx.length > 0) {
+								// 以获取到定位
+							} else {
+								// 未获取到定位
+								orderForm.location = uni.getStorageSync('mr_location') ? uni.getStorageSync(
+									'mr_location') : ''
+								if (that.is_request_ok) {
+									that.is_request_ok = false //不可以请求了
+								} else {
+									uni.hideLoading();
+									uni.showToast({
+										title: "请耐心等待...",
+										icon: "none",
+										duration: 2000
+									})
+									return false //阻止请求
+								}
+								console.log('pay_time', that.option.pay_time); // a稍后支付  b立即支付
+								if (that.option.pay_time == 'a') {
+									that.$request("/food/Order/createOrder", orderForm).then(res => {
+										console.log('结果', res);
+										setTimeout(() => {
+											uni.hideLoading();
+										}, 2000)
+										if (res.result === 1) {
+											that.visOrderId = res.order_id
+											uni.showModal({
+												title: '订单提示',
+												content: '当前订单已提交，是否查看详情？',
+												confirmText: '查看详情',
+												cancelText: '立即支付',
+												success: function(res) {
+													if (res.confirm) {
+														console.log('用户点击了【查看详情】');
+														that.clearShopDel() //删除购物车缓存
+														// uni.removeStorageSync("shop" + that.store_id);
+														uni.removeStorageSync(
+															"workerOrder"); //下单结束后清除代金卷
+														uni.reLaunch({
+															url: '/order_packages/cpxdz/index?order=' +
+																res
+																.order_id
+														})
+														// 执行跳转到订单详情页等操作
+													} else if (res.cancel) {
+														console.log('用户点击了【立即支付】');
+														// 执行支付逻辑
+														uni.hideLoading();
+														that.$request(
+																"/food/User/getUserInfo")
+															.then(res => {
+																that.userMoney = res
+																	.money;
+																that.payShow = true;
+																that.is_request_ok =
+																	true //请求结束了
+															})
+													}
+												}
+											});
+											setTimeout(() => {
+												that.is_request_ok = true //请求结束了
+											}, 4000)
+										} else {
+											uni.showToast({
+												title: "下单失败",
+												icon: "error",
+												duration: 2000
+											})
+											that.is_request_ok = true //请求结束了
+										}
+									})
+									return;
+								} else if (that.option.pay_time == 'b') {
+									that.visOrderId = ''
+									uni.hideLoading();
+									that.$request("/food/User/getUserInfo").then(res => {
+										that.userMoney = res.money;
+										that.payShow = true;
+										that.is_request_ok = true //请求结束了
+									})
+								}
+							}
+							// }, 5000)
 						}
 					});
-					setTimeout(() => {
-						console.log('that.jwdxx',that.jwdxx);
-						if (that.jwdxx.length > 0) {
-							// 以获取到定位
-						} else {
-							// 未获取到定位
-							orderForm.location = uni.getStorageSync('mr_location')?uni.getStorageSync('mr_location'):''
-							if (that.is_request_ok) {
-								that.is_request_ok = false //不可以请求了
-							} else {
-								uni.hideLoading();
-								uni.showToast({
-									title: "请耐心等待...",
-									icon: "none",
-									duration: 2000
-								})
-								return false //阻止请求
-							}
-							console.log('pay_time', that.option.pay_time); // a稍后支付  b立即支付
-							if (that.option.pay_time == 'a') {
-								that.$request("/food/Order/createOrder", orderForm).then(res => {
-									console.log('结果', res);
-									setTimeout(() => {
-										uni.hideLoading();
-									}, 2000)
-									if (res.result === 1) {
-										that.clearShopDel()//删除购物车缓存
-										uni.removeStorageSync("shop" + that.store_id);
-										uni.removeStorageSync("workerOrder"); //下单结束后清除代金卷
-										uni.reLaunch({
-											url: '/order_packages/cpxdz/index?order=' + res
-												.order_id
-										})
-										setTimeout(() => {
-											that.is_request_ok = true //请求结束了
-										}, 4000)
-									} else {
-										uni.showToast({
-											title: "下单失败",
-											icon: "error",
-											duration: 2000
-										})
-										that.is_request_ok = true //请求结束了
-									}
-								})
-								return;
-							} else if (that.option.pay_time == 'b') {
-								uni.hideLoading();
-								that.$request("/food/User/getUserInfo").then(res => {
-									that.userMoney = res.money;
-									that.payShow = true;
-									that.is_request_ok = true //请求结束了
-								})
-							}
-						}
-					}, 5000)
+
 					return false
 				}
 				this.$request("/food/User/getUserInfo").then(res => {
@@ -676,91 +754,170 @@
 				// 	}
 				// }
 
-				this.$request("/food/Order/createOrder", orderForm).then(res => {
-					if (res.result === 1) {
-						this.clearShopDel()//删除购物车缓存
-						uni.removeStorageSync("shop" + this.store_id);
-						this.$request("/food/Order/payOrder", {
-							order_id: res.order_id,
-							coupon_id: this.orderForm.coupon_id,
-							pay_type
-						}).then(pay => {
-							if (pay.result === 1) {
-								uni.showToast({
-									title: "支付成功",
-									icon: "success",
-									duration: 2000
-								})
-								setTimeout(() => {
-									if (this.addType) {
-										// 加菜
-										uni.reLaunch({
-											url: '/order_packages/cpxdz/index?order=' + res
-												.order_id
-										})
-									} else {
-										uni.switchTab({
-											url: "/pages/Order/index"
-										})
-									}
+                // 有订单号
+				if (this.visOrderId) {
+					this.$request("/food/Order/payOrder", {
+						order_id:  this.visOrderId,
+						coupon_id: this.orderForm.coupon_id,
+						pay_type
+					}).then(pay => {
+						if (pay.result === 1) {
+							this.clearShopDel() //删除购物车缓存
+							uni.showToast({
+								title: "支付成功",
+								icon: "success",
+								duration: 2000
+							})
+							setTimeout(() => {
+								if (this.addType) {
+									// 加菜
+									uni.reLaunch({
+										url: '/order_packages/cpxdz/index?order=' + res
+											.order_id
+									})
+								} else {
+									uni.switchTab({
+										url: "/pages/Order/index"
+									})
+								}
 
-								}, 2000)
+							}, 2000)
 
-							} else if (pay.result === 3) {
-								uni.requestPayment({
-									provider: "wxpay",
-									...pay.pay_data,
-									success: res => {
-										uni.showToast({
-											title: "支付成功",
-											icon: "success",
-											duration: 2000
-										})
-										setTimeout(() => {
-											if (this.addType) {
-												// 加菜
-												uni.reLaunch({
-													url: '/order_packages/cpxdz/index?order=' +
-														res.order_id
-												})
-											} else {
-												uni.switchTab({
-													url: "/pages/Order/index"
-												})
-											}
+						} else if (pay.result === 3) {
+							this.clearShopDel() //删除购物车缓存
+							uni.requestPayment({
+								provider: "wxpay",
+								...pay.pay_data,
+								success: res => {
+									uni.showToast({
+										title: "支付成功",
+										icon: "success",
+										duration: 2000
+									})
+									setTimeout(() => {
+										if (this.addType) {
+											// 加菜
+											uni.reLaunch({
+												url: '/order_packages/cpxdz/index?order=' +
+													res.order_id
+											})
+										} else {
+											uni.switchTab({
+												url: "/pages/Order/index"
+											})
+										}
 
-										}, 2000)
-									},
-									fail: () => {
-										uni.showToast({
-											title: "用户取消支付",
-											icon: "error"
-										})
-										this.payFlag = true;
-									}
-								})
-							} else {
-								this.payFlag = true;
-								uni.showToast({
-									title: "支付失败",
-									icon: "error",
-									duration: 2000
-								})
-							}
-						}).catch(() => {
+									}, 2000)
+								},
+								fail: () => {
+									uni.showToast({
+										title: "用户取消支付",
+										icon: "error"
+									})
+									this.payFlag = true;
+								}
+							})
+						} else {
 							this.payFlag = true;
-						})
-					} else {
+							uni.showToast({
+								title: "支付失败",
+								icon: "error",
+								duration: 2000
+							})
+						}
+					}).catch(() => {
 						this.payFlag = true;
-						uni.showToast({
-							title: "下单失败",
-							icon: "error",
-							duration: 1000
-						})
-					}
-				}).catch(() => {
-					this.payFlag = true;
-				})
+					})
+				} else {
+					this.$request("/food/Order/createOrder", orderForm).then(res => {
+						if (res.result === 1) {
+							this.clearShopDel() //删除购物车缓存
+							uni.removeStorageSync("shop" + this.store_id);
+							this.$request("/food/Order/payOrder", {
+								order_id: res.order_id,
+								coupon_id: this.orderForm.coupon_id,
+								pay_type
+							}).then(pay => {
+								if (pay.result === 1) {
+									this.clearShopDel() //删除购物车缓存
+									uni.showToast({
+										title: "支付成功",
+										icon: "success",
+										duration: 2000
+									})
+									setTimeout(() => {
+										if (this.addType) {
+											// 加菜
+											uni.reLaunch({
+												url: '/order_packages/cpxdz/index?order=' +
+													res
+													.order_id
+											})
+										} else {
+											uni.switchTab({
+												url: "/pages/Order/index"
+											})
+										}
+
+									}, 2000)
+
+								} else if (pay.result === 3) {
+									this.clearShopDel() //删除购物车缓存
+									uni.requestPayment({
+										provider: "wxpay",
+										...pay.pay_data,
+										success: res => {
+											uni.showToast({
+												title: "支付成功",
+												icon: "success",
+												duration: 2000
+											})
+											setTimeout(() => {
+												if (this.addType) {
+													// 加菜
+													uni.reLaunch({
+														url: '/order_packages/cpxdz/index?order=' +
+															res.order_id
+													})
+												} else {
+													uni.switchTab({
+														url: "/pages/Order/index"
+													})
+												}
+
+											}, 2000)
+										},
+										fail: () => {
+											uni.showToast({
+												title: "用户取消支付",
+												icon: "error"
+											})
+											this.payFlag = true;
+										}
+									})
+								} else {
+									this.payFlag = true;
+									uni.showToast({
+										title: "支付失败",
+										icon: "error",
+										duration: 2000
+									})
+								}
+							}).catch(() => {
+								this.payFlag = true;
+							})
+						} else {
+							this.payFlag = true;
+							uni.showToast({
+								title: "下单失败",
+								icon: "error",
+								duration: 1000
+							})
+						}
+					}).catch(() => {
+						this.payFlag = true;
+					})
+				}
 			}
 		}
 	}

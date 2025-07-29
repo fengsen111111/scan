@@ -1029,6 +1029,7 @@
 					})
 					return;
 				}
+				uni.setStorageSync("shopping",this.shopInfo.id)
 				// 加菜
 				if (this.addType) {
 					this.$nav('/home_packages/place_order/index', {
@@ -1038,7 +1039,7 @@
 						orderId: this.orderId,
 						canwei: this.option.canwei,
 						pay_time: this.shopInfo.pay_time,
-						rk:'shopping'
+						rk:'shopping',
 					})
 				} else if (this.scanType) { //扫码进入
 				    this.$nav('/home_packages/place_order/index', {
@@ -1052,7 +1053,7 @@
 				}else if (this.option.ly=='home') { //列表进入
 				    wx.scanCode({
 				    	success: res => {
-				    		// console.log('扫码路径', res.path);
+				    		console.log('扫码路径', res.path);
 							let str = res.path.split("?")[1];
 							let obj = {};
 							let arr = str.split('&');
@@ -1063,7 +1064,7 @@
 							this.$request("/food/Seat/getScanMsg", {
 								scan_id:obj.scene
 							}).then((resule)=>{
-								// console.log('二维码数据',resule);
+								console.log('二维码数据',resule);
 								this.scanInfo.seat_id = resule.seat_id;
 								this.scanInfo.seat_code = resule.seat_code
 								this.$request("/food/Order/userGetOrderDetailByTableID", {
@@ -1071,10 +1072,17 @@
 								}).then((resule_order) => {
 									// 有订单号就跳转订单详情
 									if (resule_order.order_id) {
-										uni.switchTab({
+										uni.redirectTo({
 											url: "/order_packages/detail/index?id="+resule_order.order_id
 										})
 									}else{
+										uni.showLoading({
+											title: "加载中",
+											mask: true 
+										})
+										setTimeout(()=>{
+											uni.hideLoading()
+										},4000)
 										this.$request("/food/Seat/geSeatList2", {
 											store_id: this.shopInfo.id
 										}).then(res => {
