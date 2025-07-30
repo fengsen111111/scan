@@ -112,6 +112,7 @@
 					</view>
 				</view>
 				<view class="confirm" @click="orderConfirm()">确认</view>
+				<view style="height: 40rpx;"></view>
 			</view>
 		</u-popup>
 	</view>

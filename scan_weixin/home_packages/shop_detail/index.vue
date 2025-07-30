@@ -350,7 +350,8 @@
 					<view class="item flex spaceBetween" v-for="(item,index) in shopCarList" :key="index">
 						<view class="left flex alignCenter">
 							<view style="width: 100rpx;height: 100rpx;">
-								<image :src="item.info.cover_image" mode="" style="width:100rpx;height: 100rpx;"></image>
+								<image :src="item.info.cover_image" mode="" style="width:100rpx;height: 100rpx;">
+								</image>
 							</view>
 							<view class="right">
 								<view style="line-height: 32rpx;">{{item.info.name}}</view>
@@ -469,7 +470,7 @@
 				<view class="confirm" @click="peopleConfirm()">确定</view>
 			</view>
 		</u-popup>
-		<u-popup :show="loginShow" mode="center" round="5.33vw"  @close="loginShow=false">
+		<u-popup :show="loginShow" mode="center" round="5.33vw" @close="loginShow=false">
 			<view class="loginShowContent">
 				<view class="title flex alignCenter spaceBetween">
 					用户登录
@@ -617,8 +618,8 @@
 				is_zksq: false,
 
 				option: {},
-				
-				jwdxx:''
+
+				jwdxx: ''
 			};
 		},
 		async onLoad(option) {
@@ -626,11 +627,11 @@
 			if (option.scene) {
 				// 更具餐位获取小程序码内容
 				option = await this.$request("/food/Seat/getScanMsg", {
-					scan_id:option.scene
+					scan_id: option.scene
 				})
 				console.log('option', option);
 			}
-			
+
 			this.option = option
 			// 餐位信息 且  无id
 			if (uni.getStorageSync("scanInfo") && !option.id) {
@@ -663,7 +664,7 @@
 				type: 'wgs84',
 				success: async res => {
 					this.jwdxx = res.longitude + "," + res.latitude
-					uni.setStorageSync('mr_location',this.jwdxx)
+					uni.setStorageSync('mr_location', this.jwdxx)
 					this._getStoreDetail()
 				}
 			})
@@ -672,7 +673,7 @@
 					// 以获取到定位
 				} else {
 					// 未获取到定位
-					this.jwdxx = uni.getStorageSync('mr_location')?uni.getStorageSync('mr_location'):''
+					this.jwdxx = uni.getStorageSync('mr_location') ? uni.getStorageSync('mr_location') : ''
 					this._getStoreDetail()
 				}
 			}, 3000)
@@ -705,7 +706,7 @@
 					}).exec()
 				}, 1000)
 			})
-			
+
 		},
 		onShow() {
 			this.shopCarList = uni.getStorageSync("shop" + this.shopInfo.id);
@@ -726,12 +727,12 @@
 			}, 2000)
 		},
 		methods: {
-			async _getStoreDetail(){
-				if(!this.option.id){
+			async _getStoreDetail() {
+				if (!this.option.id) {
 					uni.showToast({
 						title: "网络错误，请联系工作人员",
 						icon: "none",
-						duration:3000
+						duration: 3000
 					})
 					return false
 				}
@@ -749,7 +750,7 @@
 					})
 					this.changePrice()
 				}
-				uni.setStorageSync('mr_location',this.shopInfo.location)
+				uni.setStorageSync('mr_location', this.shopInfo.location)
 				console.log('this.shopInfo', this.shopInfo);
 				console.log('this.shopCarList', this.shopCarList);
 			},
@@ -759,7 +760,7 @@
 				// 	return false
 				// }
 				//this.addType true 加菜  // 加菜就不跳转订单详情，其余但凡查出订单号，一律去订单详情
-				if (this.addType || this.option.ly=='home') {
+				if (this.addType || this.option.ly == 'home') {
 					return false
 				} else {
 					console.log('当前餐位信息', this.scanInfo);
@@ -897,11 +898,11 @@
 					uni.getLocation({
 						type: 'wgs84',
 						success: async res => {
-							if(!_this.shopInfo.id){
+							if (!_this.shopInfo.id) {
 								uni.showToast({
 									title: "网络错误，请联系工作人员",
 									icon: "none",
-									duration:3000
+									duration: 3000
 								})
 								return false
 							}
@@ -1029,9 +1030,11 @@
 					})
 					return;
 				}
-				uni.setStorageSync("shopping",this.shopInfo.id)
+				uni.setStorageSync("shopping", this.shopInfo.id)
 				// 加菜
 				if (this.addType) {
+					this.carIdList = [];
+					this.shopCarList = []
 					this.$nav('/home_packages/place_order/index', {
 						id: this.shopInfo.id,
 						addType: true,
@@ -1039,21 +1042,23 @@
 						orderId: this.orderId,
 						canwei: this.option.canwei,
 						pay_time: this.shopInfo.pay_time,
-						rk:'shopping',
+						rk: 'shopping',
 					})
 				} else if (this.scanType) { //扫码进入
-				    this.$nav('/home_packages/place_order/index', {
-				    	id: this.shopInfo.id,
-				    	scanType: true,
-				    	table_code: this.scanInfo.seat_code,
-				    	seat_id: this.scanInfo.seat_id,
-				    	pay_time: this.shopInfo.pay_time,
-				    	rk:'shopping'
-				    })
-				}else if (this.option.ly=='home') { //列表进入
-				    wx.scanCode({
-				    	success: res => {
-				    		console.log('扫码路径', res.path);
+					this.carIdList = [];
+					this.shopCarList = []
+					this.$nav('/home_packages/place_order/index', {
+						id: this.shopInfo.id,
+						scanType: true,
+						table_code: this.scanInfo.seat_code,
+						seat_id: this.scanInfo.seat_id,
+						pay_time: this.shopInfo.pay_time,
+						rk: 'shopping'
+					})
+				} else if (this.option.ly == 'home') { //列表进入
+					wx.scanCode({
+						success: res => {
+							console.log('扫码路径', res.path);
 							let str = res.path.split("?")[1];
 							let obj = {};
 							let arr = str.split('&');
@@ -1062,9 +1067,9 @@
 							}
 							// console.log('参数',obj);
 							this.$request("/food/Seat/getScanMsg", {
-								scan_id:obj.scene
-							}).then((resule)=>{
-								console.log('二维码数据',resule);
+								scan_id: obj.scene
+							}).then((resule) => {
+								console.log('二维码数据', resule);
 								this.scanInfo.seat_id = resule.seat_id;
 								this.scanInfo.seat_code = resule.seat_code
 								this.$request("/food/Order/userGetOrderDetailByTableID", {
@@ -1073,37 +1078,39 @@
 									// 有订单号就跳转订单详情
 									if (resule_order.order_id) {
 										uni.redirectTo({
-											url: "/order_packages/detail/index?id="+resule_order.order_id
+											url: "/order_packages/detail/index?id=" + resule_order.order_id
 										})
-									}else{
+									} else {
 										uni.showLoading({
 											title: "加载中",
-											mask: true 
+											mask: true
 										})
-										setTimeout(()=>{
+										setTimeout(() => {
 											uni.hideLoading()
-										},4000)
+										}, 4000)
 										this.$request("/food/Seat/geSeatList2", {
 											store_id: this.shopInfo.id
 										}).then(res => {
 											// 传了餐位id就匹配出来对应餐位
 											if (this.scanInfo.seat_id) {
 												let obj = res.list.filter((item) => item.id == this.scanInfo.seat_id)
-												console.log('obj',obj);
-												if(obj.length>0){
+												console.log('obj', obj);
+												if (obj.length > 0) {
+													this.carIdList = [];
+													this.shopCarList = []
 													this.$nav('/home_packages/place_order/index', {
 														id: this.shopInfo.id,
 														scanType: true,
 														table_code: this.scanInfo.seat_code,
 														seat_id: this.scanInfo.seat_id,
 														pay_time: this.shopInfo.pay_time,
-														rk:'shopping'
+														rk: 'shopping'
 													})
-												}else{
+												} else {
 													uni.showToast({
 														title: "当前桌码与商家不是同一家",
 														icon: "none",
-														duration:4000
+														duration: 4000
 													})
 												}
 											}
@@ -1111,46 +1118,143 @@
 									}
 								})
 							})
-				    	}
-				    })
+						}
+					})
 				} else if (this.workerType) {//代客下单
-					this.$nav('/home_packages/place_order/index', {
-						id: this.shopInfo.id,
-						workerType: true,
-						table_code: "",
-						seat_id: "",
-						help_user_coupon: this.option.help_user_coupon ? this.option.help_user_coupon : '',
-						help_user_order: this.option.help_user_order ? this.option.help_user_order : '',
-						help_user_platform: this.option.help_user_platform ? this.option.help_user_platform : '',
-						pay_time: this.shopInfo.pay_time,
-						rk:'shopping'
+					wx.scanCode({
+						success: res => {
+							console.log('扫码路径', res.path);
+							let str = res.path.split("?")[1];
+							let obj = {};
+							let arr = str.split('&');
+							for (let i = 0; i < arr.length; i++) {
+								obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
+							}
+							// console.log('参数',obj);
+							this.$request("/food/Seat/getScanMsg", {
+								scan_id: obj.scene
+							}).then((resule) => {
+								console.log('二维码数据', resule);
+								this.scanInfo.seat_id = resule.seat_id;
+								this.scanInfo.seat_code = resule.seat_code
+								this.$request("/food/Order/userGetOrderDetailByTableID", {
+									table_id: this.scanInfo.seat_id
+								}).then((resule_order) => {
+									// 有订单号就跳转订单详情
+									if (resule_order.order_id) {
+										uni.redirectTo({
+											url: "/order_packages/detail/index?id=" + resule_order.order_id
+										})
+									} else {
+										uni.showLoading({
+											title: "加载中",
+											mask: true
+										})
+										setTimeout(() => {
+											uni.hideLoading()
+										}, 4000)
+										this.$request("/food/Seat/geSeatList2", {
+											store_id: this.shopInfo.id
+										}).then(res => {
+											// 传了餐位id就匹配出来对应餐位
+											if (this.scanInfo.seat_id) {
+												let obj = res.list.filter((item) => item.id == this.scanInfo.seat_id)
+												console.log('obj', obj);
+												if (obj.length > 0) {
+													this.carIdList = [];
+													this.shopCarList = []
+													this.$nav('/home_packages/place_order/index', {
+														id: this.shopInfo.id,
+														workerType: true,
+														table_code: this.scanInfo.seat_code,
+														seat_id: this.scanInfo.seat_id,
+														help_user_coupon: this.option.help_user_coupon ? this.option.help_user_coupon : '',
+														help_user_order: this.option.help_user_order ? this.option.help_user_order : '',
+														help_user_platform: this.option.help_user_platform ? this.option.help_user_platform : '',
+														pay_time: this.shopInfo.pay_time,
+														rk: 'shopping'
+													})
+												} else {
+													uni.showToast({
+														title: "当前桌码与商家不是同一家",
+														icon: "none",
+														duration: 4000
+													})
+												}
+											}
+										})
+									}
+								})
+							})
+						}
 					})
+
 				} else {
-					// uni.scanCode({
-					// 	scanType: ["qrCode"],
-					// 	success: res => {
-					// 		let str = res.result.split("?")[1];
-					// 		let obj = {};
-					// 		let arr = str.split('&');
-					// 		for (let i = 0; i < arr.length; i++) {
-					// 			obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
-					// 		}
-					// 		this.$nav('/home_packages/place_order/index', {
-					// 			id: this.shopInfo.id,
-					// 			scanType: true,
-					// 			table_code: obj.seat_code,
-					// 			seat_id: obj.seat_id
-					// 		})
-					// 	}
-					// })
-					this.$nav('/home_packages/place_order/index', {
-						id: this.shopInfo.id,
-						scanType: false,
-						table_code: "",
-						seat_id: "",
-						pay_time: this.shopInfo.pay_time,
-						rk:'shopping'
+					wx.scanCode({
+						success: res => {
+							console.log('扫码路径', res.path);
+							let str = res.path.split("?")[1];
+							let obj = {};
+							let arr = str.split('&');
+							for (let i = 0; i < arr.length; i++) {
+								obj[arr[i].split('=')[0]] = arr[i].split('=')[1];
+							}
+							// console.log('参数',obj);
+							this.$request("/food/Seat/getScanMsg", {
+								scan_id: obj.scene
+							}).then((resule) => {
+								console.log('二维码数据', resule);
+								this.scanInfo.seat_id = resule.seat_id;
+								this.scanInfo.seat_code = resule.seat_code
+								this.$request("/food/Order/userGetOrderDetailByTableID", {
+									table_id: this.scanInfo.seat_id
+								}).then((resule_order) => {
+									// 有订单号就跳转订单详情
+									if (resule_order.order_id) {
+										uni.redirectTo({
+											url: "/order_packages/detail/index?id=" + resule_order.order_id
+										})
+									} else {
+										uni.showLoading({
+											title: "加载中",
+											mask: true
+										})
+										setTimeout(() => {
+											uni.hideLoading()
+										}, 4000)
+										this.$request("/food/Seat/geSeatList2", {
+											store_id: this.shopInfo.id
+										}).then(res => {
+											// 传了餐位id就匹配出来对应餐位
+											if (this.scanInfo.seat_id) {
+												let obj = res.list.filter((item) => item.id == this.scanInfo.seat_id)
+												console.log('obj', obj);
+												if (obj.length > 0) {
+													this.carIdList = [];
+													this.shopCarList = []
+													this.$nav('/home_packages/place_order/index', {
+														id: this.shopInfo.id,
+														scanType: false,
+														table_code: this.scanInfo.seat_code,
+														seat_id: this.scanInfo.seat_id,
+														pay_time: this.shopInfo.pay_time,
+														rk: 'shopping'
+													})
+												} else {
+													uni.showToast({
+														title: "当前桌码与商家不是同一家",
+														icon: "none",
+														duration: 4000
+													})
+												}
+											}
+										})
+									}
+								})
+							})
+						}
 					})
+
 				}
 				this.shopCarShow = false
 			},
