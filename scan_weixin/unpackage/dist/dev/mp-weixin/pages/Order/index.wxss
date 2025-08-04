@@ -179,11 +179,10 @@
   font-weight: 500;
   font-size: 4vw;
   color: #333333;
-  transition: all .2s;
+  transition: all 0.2s;
 }
 .container > .top > .head > .big_screen > .active {
   font-weight: 700;
   font-size: 4vw;
   color: #000000;
 }
-

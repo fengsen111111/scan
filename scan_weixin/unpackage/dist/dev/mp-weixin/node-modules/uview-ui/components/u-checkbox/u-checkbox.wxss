@@ -34,7 +34,9 @@ view.data-v-532d01c7, scroll-view.data-v-532d01c7, swiper-item.data-v-532d01c7 {
   align-content: flex-start;
 }
 .u-checkbox.data-v-532d01c7 {
+
   display: flex;
+
   flex-direction: row;
   overflow: hidden;
   flex-direction: row;
@@ -52,7 +54,9 @@ view.data-v-532d01c7, scroll-view.data-v-532d01c7, swiper-item.data-v-532d01c7 {
   transition-property: border-color, background-color, color;
   transition-duration: 0.2s;
   color: #606266;
+
   display: flex;
+
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -91,4 +95,3 @@ view.data-v-532d01c7, scroll-view.data-v-532d01c7, swiper-item.data-v-532d01c7 {
 .u-checkbox__label--disabled.data-v-532d01c7 {
   color: #c8c9cc;
 }
-

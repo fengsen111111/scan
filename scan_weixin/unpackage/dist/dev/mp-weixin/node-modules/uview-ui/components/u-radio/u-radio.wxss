@@ -34,7 +34,9 @@ view.data-v-643b3322, scroll-view.data-v-643b3322, swiper-item.data-v-643b3322 {
   align-content: flex-start;
 }
 .u-radio.data-v-643b3322 {
+
   display: flex;
+
   flex-direction: row;
   overflow: hidden;
   flex-direction: row;
@@ -52,7 +54,9 @@ view.data-v-643b3322, scroll-view.data-v-643b3322, swiper-item.data-v-643b3322 {
   transition-property: border-color, background-color, color;
   transition-duration: 0.2s;
   color: #606266;
+
   display: flex;
+
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -91,4 +95,3 @@ view.data-v-643b3322, scroll-view.data-v-643b3322, swiper-item.data-v-643b3322 {
 .u-radio__label--disabled.data-v-643b3322 {
   color: #c8c9cc;
 }
-

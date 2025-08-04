@@ -34,7 +34,7 @@ view.data-v-172979f2, scroll-view.data-v-172979f2, swiper-item.data-v-172979f2 {
   align-content: flex-start;
 }
 @font-face {
-  font-family: 'uicon-iconfont';
+  font-family: "uicon-iconfont";
   src: url("https://at.alicdn.com/t/font_2225171_8kdcwk4po24.ttf") format("truetype");
 }
 .u-icon.data-v-172979f2 {
@@ -60,7 +60,9 @@ view.data-v-172979f2, scroll-view.data-v-172979f2, swiper-item.data-v-172979f2 {
 .u-icon__icon.data-v-172979f2 {
   font-family: uicon-iconfont;
   position: relative;
+
   display: flex;
+
   flex-direction: row;
   align-items: center;
 }
@@ -86,4 +88,3 @@ view.data-v-172979f2, scroll-view.data-v-172979f2, swiper-item.data-v-172979f2 {
 .u-icon__label.data-v-172979f2 {
   line-height: 1;
 }
-

@@ -80,7 +80,7 @@
   white-space: nowrap;
 }
 .food_item > .right > .label > .item {
-  padding: .4vw 1.33vw;
+  padding: 0.4vw 1.33vw;
   margin-right: 1.47vw;
   margin-bottom: 2vw;
   background: #FDECE0;
@@ -109,7 +109,7 @@
   border-radius: 0.53vw;
   background: #F5F5F5;
   position: relative;
-  margin-right: .27vw;
+  margin-right: 0.27vw;
   overflow: hidden;
 }
 .food_item > .right > .info > .left > .star > .item:last-child {
@@ -144,4 +144,3 @@
   padding-top: 1.34vw;
   color: #80CF40;
 }
-

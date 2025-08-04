@@ -91,7 +91,7 @@
   color: #000000;
 }
 .container > .item > .right > .bottom {
-  margin-top: .8vw;
+  margin-top: 0.8vw;
 }
 .container > .item > .right > .bottom > text {
   font-weight: bold;
@@ -162,4 +162,3 @@
   color: #ED1805;
   margin-left: 3.47vw;
 }
-

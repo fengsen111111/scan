@@ -104,46 +104,7 @@
 /******/ 		var promises = [];
 /******/
 /******/
-/******/ 		// mini-css-extract-plugin CSS loading
-/******/ 		var cssChunks = {"node-modules/uview-ui/components/u-icon/u-icon":1,"node-modules/uview-ui/components/u-popup/u-popup":1,"components/FoodItem":1,"node-modules/uview-ui/components/u-empty/u-empty":1,"components/CanvasImage":1,"node-modules/uview-ui/components/u-switch/u-switch":1,"node-modules/uview-ui/components/u-parse/u-parse":1,"node-modules/uview-ui/components/u-checkbox-group/u-checkbox-group":1,"node-modules/uview-ui/components/u-checkbox/u-checkbox":1,"uni_modules/piaoyi-cityPicker/components/piaoyi-cityPicker/piaoyi-cityPicker":1,"node-modules/uview-ui/components/u-radio-group/u-radio-group":1,"node-modules/uview-ui/components/u-radio/u-radio":1,"node-modules/uview-ui/components/u-overlay/u-overlay":1,"node-modules/uview-ui/components/u-safe-bottom/u-safe-bottom":1,"node-modules/uview-ui/components/u-status-bar/u-status-bar":1,"node-modules/uview-ui/components/u-transition/u-transition":1,"node-modules/uview-ui/components/u-loading-icon/u-loading-icon":1,"node-modules/uview-ui/components/u-parse/node/node":1};
-/******/ 		if(installedCssChunks[chunkId]) promises.push(installedCssChunks[chunkId]);
-/******/ 		else if(installedCssChunks[chunkId] !== 0 && cssChunks[chunkId]) {
-/******/ 			promises.push(installedCssChunks[chunkId] = new Promise(function(resolve, reject) {
-/******/ 				var href = "" + ({"node-modules/uview-ui/components/u-icon/u-icon":"node-modules/uview-ui/components/u-icon/u-icon","node-modules/uview-ui/components/u-popup/u-popup":"node-modules/uview-ui/components/u-popup/u-popup","components/FoodItem":"components/FoodItem","node-modules/uview-ui/components/u-empty/u-empty":"node-modules/uview-ui/components/u-empty/u-empty","components/CanvasImage":"components/CanvasImage","node-modules/uview-ui/components/u-switch/u-switch":"node-modules/uview-ui/components/u-switch/u-switch","node-modules/uview-ui/components/u-parse/u-parse":"node-modules/uview-ui/components/u-parse/u-parse","node-modules/uview-ui/components/u-checkbox-group/u-checkbox-group":"node-modules/uview-ui/components/u-checkbox-group/u-checkbox-group","node-modules/uview-ui/components/u-checkbox/u-checkbox":"node-modules/uview-ui/components/u-checkbox/u-checkbox","uni_modules/piaoyi-cityPicker/components/piaoyi-cityPicker/piaoyi-cityPicker":"uni_modules/piaoyi-cityPicker/components/piaoyi-cityPicker/piaoyi-cityPicker","node-modules/uview-ui/components/u-radio-group/u-radio-group":"node-modules/uview-ui/components/u-radio-group/u-radio-group","node-modules/uview-ui/components/u-radio/u-radio":"node-modules/uview-ui/components/u-radio/u-radio","node-modules/uview-ui/components/u-overlay/u-overlay":"node-modules/uview-ui/components/u-overlay/u-overlay","node-modules/uview-ui/components/u-safe-bottom/u-safe-bottom":"node-modules/uview-ui/components/u-safe-bottom/u-safe-bottom","node-modules/uview-ui/components/u-status-bar/u-status-bar":"node-modules/uview-ui/components/u-status-bar/u-status-bar","node-modules/uview-ui/components/u-transition/u-transition":"node-modules/uview-ui/components/u-transition/u-transition","node-modules/uview-ui/components/u-loading-icon/u-loading-icon":"node-modules/uview-ui/components/u-loading-icon/u-loading-icon","node-modules/uview-ui/components/u-parse/node/node":"node-modules/uview-ui/components/u-parse/node/node"}[chunkId]||chunkId) + ".wxss";
-/******/ 				var fullhref = __webpack_require__.p + href;
-/******/ 				var existingLinkTags = document.getElementsByTagName("link");
-/******/ 				for(var i = 0; i < existingLinkTags.length; i++) {
-/******/ 					var tag = existingLinkTags[i];
-/******/ 					var dataHref = tag.getAttribute("data-href") || tag.getAttribute("href");
-/******/ 					if(tag.rel === "stylesheet" && (dataHref === href || dataHref === fullhref)) return resolve();
-/******/ 				}
-/******/ 				var existingStyleTags = document.getElementsByTagName("style");
-/******/ 				for(var i = 0; i < existingStyleTags.length; i++) {
-/******/ 					var tag = existingStyleTags[i];
-/******/ 					var dataHref = tag.getAttribute("data-href");
-/******/ 					if(dataHref === href || dataHref === fullhref) return resolve();
-/******/ 				}
-/******/ 				var linkTag = document.createElement("link");
-/******/ 				linkTag.rel = "stylesheet";
-/******/ 				linkTag.type = "text/css";
-/******/ 				linkTag.onload = resolve;
-/******/ 				linkTag.onerror = function(event) {
-/******/ 					var request = event && event.target && event.target.src || fullhref;
-/******/ 					var err = new Error("Loading CSS chunk " + chunkId + " failed.\n(" + request + ")");
-/******/ 					err.code = "CSS_CHUNK_LOAD_FAILED";
-/******/ 					err.request = request;
-/******/ 					delete installedCssChunks[chunkId]
-/******/ 					linkTag.parentNode.removeChild(linkTag)
-/******/ 					reject(err);
-/******/ 				};
-/******/ 				linkTag.href = fullhref;
 /******/
-/******/ 				var head = document.getElementsByTagName("head")[0];
-/******/ 				head.appendChild(linkTag);
-/******/ 			}).then(function() {
-/******/ 				installedCssChunks[chunkId] = 0;
-/******/ 			}));
-/******/ 		}
 /******/
 /******/ 		// JSONP chunk loading for javascript
 /******/
