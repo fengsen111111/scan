@@ -150,7 +150,8 @@
 					</view>
 					<u-icon name="checkmark-circle-fill" color="black" size="20" v-if="payType===1"></u-icon>
 				</view>
-				<view class="confirm" @click="tc_confirm()">{{addType?'加菜':'菜品下单'}}</view>
+				<view class="confirmBianshe" v-if="btnBianshe">支付中</view>
+				<view class="confirm" v-else @click="tc_confirm()">{{addType?'加菜':'菜品下单'}}</view>
 			</view>
 		</u-popup>
 		<cityPicker :mask-close-able="true" @confirm="tableConfirm()" @cancel="tableShow=false" :visible="tableShow"
@@ -227,10 +228,19 @@
 
 				jwdxx: '',
 
-				visOrderId: '' // 订单id
+				visOrderId: '' ,// 订单id
+				
+				btnBianshe:false,//弹窗按钮变色
 			};
 		},
 		onLoad(options) {
+			uni.showLoading({
+				title: "加载中",
+				mask: true
+			})
+			setTimeout(()=>{
+				uni.hideLoading()
+			},2000)
 			// options.pay_time = 'b'
 			console.log('options11', options);
 			if (options.rk == 'shopping') {
@@ -268,7 +278,7 @@
 			// 加菜
 			if (options.addType) {
 				uni.showLoading({
-					title: "加载中...",
+					title: "加载中",
 					mask: true,
 				})
 				// this.workerType = true //不进入支付，直接下单
@@ -822,182 +832,206 @@
 				}
 				console.log(orderForm)
                 console.log('打印订单号',this.visOrderId);
-				// if (this.addType) {
-				// 	orderForm = {
-				// 		order_id: this.orderId,
-				// 		goods_list: this.formData.goods_list
-				// 	}
-				// }
 
-                // 有订单号
-				if (this.visOrderId) {
-					this.$request("/food/Order/payOrder", {
-						order_id:  this.visOrderId,
-						coupon_id: this.orderForm.coupon_id,
-						pay_type
-					}).then(pay => {
-						if (pay.result === 1) {
-							this.clearShopDel() //删除购物车缓存
-							uni.showToast({
-								title: "支付成功",
-								icon: "success",
-								duration: 2000
-							})
-							setTimeout(() => {
-								if (this.addType) {
-									// 加菜
-									uni.reLaunch({
-										url: '/order_packages/cpxdz/index?order=' + res
-											.order_id
-									})
-								} else {
-									uni.switchTab({
-										url: "/pages/Order/index"
-									})
-								}
-							}, 2000)
-						} else if (pay.result === 3) {
-							this.clearShopDel() //删除购物车缓存
-							uni.requestPayment({
-								provider: "wxpay",
-								...pay.pay_data,
-								success: res => {
-									uni.showToast({
-										title: "支付成功",
-										icon: "success",
-										duration: 2000
-									})
-									setTimeout(() => {
-										if (this.addType) {
-											// 加菜
-											uni.reLaunch({
-												url: '/order_packages/cpxdz/index?order=' +
-													res.order_id
-											})
-										} else {
-											uni.switchTab({
-												url: "/pages/Order/index"
-											})
-										}
-
-									}, 2000)
-								},
-								fail: () => {
-									uni.showToast({
-										title: "用户取消支付",
-										icon: "error"
-									})
-									this.payFlag = true;
-								}
-							})
-						} else {
-							this.payFlag = true;
-							uni.showToast({
-								title: "支付失败",
-								icon: "error",
-								duration: 2000
-							})
-						}
-					}).catch(() => {
-						this.payFlag = true;
-					})
-				} else {
-					this.$request("/food/Order/createOrder", orderForm).then(res => {
-						this.visOrderId = res.order_id
-						if (res.result === 1) {
-							this.clearShopDel() //删除购物车缓存
-							uni.removeStorageSync("shop" + this.store_id);
-							this.$request("/food/Order/payOrder", {
-								order_id: res.order_id,
-								coupon_id: this.orderForm.coupon_id,
-								pay_type
-							}).then(pay => {
-								if (pay.result === 1) {
-									this.clearShopDel() //删除购物车缓存
-									uni.showToast({
-										title: "支付成功",
-										icon: "success",
-										duration: 2000
-									})
-									setTimeout(() => {
-										if (this.addType) {
-											// 加菜
-											uni.reLaunch({
-												url: '/order_packages/cpxdz/index?order=' +
-													res
-													.order_id
-											})
-										} else {
-											uni.switchTab({
-												url: "/pages/Order/index"
-											})
-										}
-
-									}, 2000)
-
-								} else if (pay.result === 3) {
-									this.clearShopDel() //删除购物车缓存
-									uni.requestPayment({
-										provider: "wxpay",
-										...pay.pay_data,
-										success: res => {
-											uni.showToast({
-												title: "支付成功",
-												icon: "success",
-												duration: 2000
-											})
-											setTimeout(() => {
-												if (this.addType) {
-													// 加菜
-													uni.reLaunch({
-														url: '/order_packages/cpxdz/index?order=' +
-															res.order_id
-													})
-												} else {
-													uni.switchTab({
-														url: "/pages/Order/index"
-													})
-												}
-
-											}, 2000)
-										},
-										fail: () => {
-											uni.showToast({
-												title: "用户取消支付",
-												icon: "error"
-											})
-											this.payFlag = true;
-										}
-									})
-								} else {
-									this.payFlag = true;
-									uni.showToast({
-										title: "支付失败",
-										icon: "error",
-										duration: 2000
-									})
-								}
-							}).catch(() => {
-								this.payFlag = true;
-							})
-						} else {
-							this.payFlag = true;
-							uni.showToast({
-								title: "下单失败",
-								icon: "error",
-								duration: 1000
-							})
-						}
-					}).catch(() => {
-						this.payFlag = true;
-					})
-				}
+                const that = this
+				that.btnBianshe = true//按钮变色
+				uni.showLoading({
+					title: "请稍后……",
+					mask: true
+				})
+				
+				setTimeout(()=>{
+					// 有订单号
+					if (that.visOrderId) {
+						that.$request("/food/Order/payOrder", {
+							order_id:  that.visOrderId,
+							coupon_id: that.orderForm.coupon_id,
+							pay_type
+						}).then(pay => {
+							that.btnBianshe = false//按钮变色
+							uni.hideLoading()
+							if (pay.result === 1) {
+								that.clearShopDel() //删除购物车缓存
+								uni.showToast({
+									title: "支付成功",
+									icon: "success",
+									duration: 2000
+								})
+								setTimeout(() => {
+									if (that.addType) {
+										// 加菜
+										uni.reLaunch({
+											url: '/order_packages/cpxdz/index?order=' + res
+												.order_id
+										})
+									} else {
+										uni.switchTab({
+											url: "/pages/Order/index"
+										})
+									}
+								}, 2000)
+							} else if (pay.result === 3) {
+								that.clearShopDel() //删除购物车缓存
+								uni.requestPayment({
+									provider: "wxpay",
+									...pay.pay_data,
+									success: res => {
+										uni.showToast({
+											title: "支付成功",
+											icon: "success",
+											duration: 2000
+										})
+										setTimeout(() => {
+											if (that.addType) {
+												// 加菜
+												uni.reLaunch({
+													url: '/order_packages/cpxdz/index?order=' +
+														res.order_id
+												})
+											} else {
+												uni.switchTab({
+													url: "/pages/Order/index"
+												})
+											}
+					
+										}, 2000)
+									},
+									fail: () => {
+										uni.showToast({
+											title: "用户取消支付",
+											icon: "error"
+										})
+										that.payFlag = true;
+									}
+								})
+							} else {
+								that.payFlag = true;
+								uni.showToast({
+									title: "支付失败",
+									icon: "error",
+									duration: 2000
+								})
+							}
+						}).catch(() => {
+							that.btnBianshe = false//按钮变色
+							uni.hideLoading()
+							that.payFlag = true;
+						})
+					} else {
+						that.$request("/food/Order/createOrder", orderForm).then(res => {
+							that.btnBianshe = false//按钮变色
+							uni.hideLoading()
+							that.visOrderId = res.order_id
+							if (res.result === 1) {
+								that.clearShopDel() //删除购物车缓存
+								uni.removeStorageSync("shop" + that.store_id);
+								that.$request("/food/Order/payOrder", {
+									order_id: res.order_id,
+									coupon_id: that.orderForm.coupon_id,
+									pay_type
+								}).then(pay => {
+									if (pay.result === 1) {
+										that.clearShopDel() //删除购物车缓存
+										uni.showToast({
+											title: "支付成功",
+											icon: "success",
+											duration: 2000
+										})
+										setTimeout(() => {
+											if (that.addType) {
+												// 加菜
+												uni.reLaunch({
+													url: '/order_packages/cpxdz/index?order=' +
+														res
+														.order_id
+												})
+											} else {
+												uni.switchTab({
+													url: "/pages/Order/index"
+												})
+											}
+					
+										}, 2000)
+					
+									} else if (pay.result === 3) {
+										that.clearShopDel() //删除购物车缓存
+										uni.requestPayment({
+											provider: "wxpay",
+											...pay.pay_data,
+											success: res => {
+												uni.showToast({
+													title: "支付成功",
+													icon: "success",
+													duration: 2000
+												})
+												setTimeout(() => {
+													if (that.addType) {
+														// 加菜
+														uni.reLaunch({
+															url: '/order_packages/cpxdz/index?order=' +
+																res.order_id
+														})
+													} else {
+														uni.switchTab({
+															url: "/pages/Order/index"
+														})
+													}
+					
+												}, 2000)
+											},
+											fail: () => {
+												uni.showToast({
+													title: "用户取消支付",
+													icon: "error"
+												})
+												that.payFlag = true;
+											}
+										})
+									} else {
+										that.payFlag = true;
+										uni.showToast({
+											title: "支付失败",
+											icon: "error",
+											duration: 2000
+										})
+									}
+								}).catch(() => {
+									that.payFlag = true;
+								})
+							} else {
+								that.payFlag = true;
+								uni.showToast({
+									title: "下单失败",
+									icon: "error",
+									duration: 1000
+								})
+							}
+						}).catch(() => {
+							that.btnBianshe = false//按钮变色
+							uni.hideLoading()
+							that.payFlag = true;
+						})
+					}
+				},2000)
 			}
 		}
 	}
 </script>
 
 <style lang="scss">
+	.confirmBianshe{
+		width: 80vw;
+		height: 12vw;
+		line-height: 12vw;
+		text-align: center;
+		background: #ff0000;
+		border-radius: 6vw;
+		margin: 10vw auto 0;
+		font-weight: bold;
+		font-size: 4vw;
+		color: rgb(245, 232, 174);
+	}
+	
 	.payContent {
 		padding: 4.93vw 4vw;
 

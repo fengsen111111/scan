@@ -33,11 +33,11 @@
 				<view class="banner flex alignCenter">
 					<template v-if="shopInfo.store_images.length">
 						<image :src="shopInfo.store_images[item]" mode="" v-for="item in 3" :key="item"
-							@click="previewImg(shopInfo.store_images[item])"></image>
+							@click="previewImg(shopInfo.store_images[item])"  lazy-load></image>
 					</template>
 					<template v-else-if="shopInfo.brand_images.length">
 						<image :src="shopInfo.brand_images[item]" mode="" v-for="item in 3" :key="item"
-							@click="previewImg(shopInfo.brand_images[item])"></image>
+							@click="previewImg(shopInfo.brand_images[item])" lazy-load></image>
 					</template>
 					<view class="more flex alignCenter justifyCenter"
 						@click="$nav('/home_packages/album/index',{id:shopInfo.id})">查看更多
@@ -137,7 +137,7 @@
 					<view class="label">{{item.name}}</view>
 					<view class="list" v-for="(obj,j) in item.list" :key="obj.id">
 						<view class="item" v-if="obj.is_group==='Y'&&!item.is_buyed" @click="selGroup(obj)">
-							<image v-if="obj.cover_image" :src="obj.cover_image" mode=""></image>
+							<image v-if="obj.cover_image" :src="obj.cover_image" mode="" lazy-load></image>
 							<image v-else src="../../static/cpmrt.png" mode=""></image>
 							<view class="title flex alignCenter spaceBetween">
 								{{obj.name}}
@@ -200,7 +200,7 @@
 						</view>
 						<view class="item_type flex alignCenter spaceBetween flexWrap" v-else
 							@click="openShopping(obj)">
-							<image v-if="obj.cover_image" :src="obj.cover_image" mode=""></image>
+							<image v-if="obj.cover_image" :src="obj.cover_image" lazy-load mode=""></image>
 							<image v-else src="../../static/cpmrt.png" mode=""></image>
 							<view class="right">
 								<view class="title">{{obj.name}}</view>
@@ -254,7 +254,7 @@
 							style="height: 41.87vw;"
 							:style="{width:i.goods_list?i.goods_list.length*33.7+'vw':'0vw',marginRight:i.goods_list.length===1?'10px':''}">
 							<view class="img_box" v-for="(item) in i.goods_list" :key="item.id">
-								<image :src="item.cover_image" mode=""></image>
+								<image :src="item.cover_image" lazy-load mode=""></image>
 								<text>{{item.name}}</text>
 								<text>x{{item.has_number}}</text>
 							</view>
@@ -304,7 +304,7 @@
 				<scroll-view scroll-x="true" v-if="goodsObj.images&&goodsObj.images.length">
 					<view class="imgs flex alignCenter"
 						:style="{width:goodsObj.images?goodsObj.images.length*33.7+'vw':'0vw'}">
-						<image :src="item" mode="" v-for="(item,index) in goodsObj.images" :key="index"></image>
+						<image :src="item" mode="" v-for="(item,index) in goodsObj.images" lazy-load :key="index"></image>
 					</view>
 				</scroll-view>
 				<view class="line"></view>
@@ -350,7 +350,7 @@
 					<view class="item flex spaceBetween" v-for="(item,index) in shopCarList" :key="index">
 						<view class="left flex alignCenter">
 							<view style="width: 100rpx;height: 100rpx;">
-								<image :src="item.info.cover_image" mode="" style="width:100rpx;height: 100rpx;">
+								<image :src="item.info.cover_image" lazy-load mode="" style="width:100rpx;height: 100rpx;">
 								</image>
 							</view>
 							<view class="right">
@@ -399,7 +399,7 @@
 					<view class="imgs flex alignCenter" style="height: 41.87vw;"
 						:style="{width:menuDetail.group_goods?menuDetail.group_goods.length*33.7+'vw':'0vw'}">
 						<view class="img_box" v-for="(item) in menuDetail.group_goods" :key="item.id">
-							<image :src="item.cover_image" mode=""></image>
+							<image :src="item.cover_image" lazy-load mode=""></image>
 							<text>{{item.name}}</text>
 							<text>x{{item.has_number}}</text>
 						</view>

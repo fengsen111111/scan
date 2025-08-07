@@ -274,3 +274,4 @@
 .container > .content > .order_num > text {
   font-size: 3.2vw;
 }
+

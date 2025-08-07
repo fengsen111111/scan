@@ -266,3 +266,4 @@
 .container > .head > .title > .inputBox > input {
   flex: auto;
 }
+

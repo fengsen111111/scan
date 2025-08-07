@@ -34,9 +34,7 @@ view.data-v-4a8c9de7, scroll-view.data-v-4a8c9de7, swiper-item.data-v-4a8c9de7 {
   align-content: flex-start;
 }
 .u-switch.data-v-4a8c9de7 {
-
   display: flex;
-
   flex-direction: row;
   box-sizing: border-box;
   position: relative;
@@ -51,9 +49,7 @@ view.data-v-4a8c9de7, scroll-view.data-v-4a8c9de7, swiper-item.data-v-4a8c9de7 {
   overflow: hidden;
 }
 .u-switch__node.data-v-4a8c9de7 {
-
   display: flex;
-
   flex-direction: row;
   align-items: center;
   justify-content: center;
@@ -82,3 +78,4 @@ view.data-v-4a8c9de7, scroll-view.data-v-4a8c9de7, swiper-item.data-v-4a8c9de7 {
 .u-switch--disabled.data-v-4a8c9de7 {
   opacity: 0.6;
 }
+

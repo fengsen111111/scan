@@ -24,6 +24,18 @@
 /* 垂直间距 */
 /* 透明度 */
 /* 文章场景相关 */
+.confirmBianshe {
+  width: 80vw;
+  height: 12vw;
+  line-height: 12vw;
+  text-align: center;
+  background: #ff0000;
+  border-radius: 6vw;
+  margin: 10vw auto 0;
+  font-weight: bold;
+  font-size: 4vw;
+  color: #f5e8ae;
+}
 .payContent {
   padding: 4.93vw 4vw;
 }
@@ -314,3 +326,4 @@
   height: 100%;
   background: #000000;
 }
+

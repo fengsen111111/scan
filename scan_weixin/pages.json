@@ -1,6 +1,7 @@
 {
 	"subPackages": [{
 			"root": "home_packages",
+			"lazyCodeLoading": "requiredComponents", // ✅ 配置在这里
 			"pages": [{
 					"path": "search/index",
 					"style": {
@@ -11,6 +12,7 @@
 					"path": "shop_detail/index",
 					"style": {
 						"navigationBarTitleText": "门店详情"
+						
 					}
 				},
 				{
