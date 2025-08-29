@@ -996,6 +996,7 @@
 										})
 									}
 								}).catch(() => {
+									console.log('1111222');
 									that.payFlag = true;
 								})
 							} else {

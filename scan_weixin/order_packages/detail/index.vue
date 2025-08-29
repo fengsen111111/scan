@@ -110,13 +110,14 @@
 					</view>
 					<u-icon name="checkmark-circle-fill" color="#EFA246" size="20" v-if="payType===2"></u-icon>
 				</view>
-				<view style="padding: 60rpx 52rpx 20rpx;">
+				<view style="height: 40rpx;"></view>
+				<!-- <view style="padding: 60rpx 52rpx 20rpx;">
 					<u-checkbox-group v-model="checkValue" shape="circle">
 						<u-checkbox activeColor="#EFA246" labelSize="20rpx" labelColor="#999999"
 							:label="'当前积分可抵扣:￥'+(orderInfo.integral_price||0)+'，是否抵扣'" :name="1">
 						</u-checkbox>
 					</u-checkbox-group>
-				</view>
+				</view> -->
 				<view class="confirm_two" @click="confirm()">支付</view>
 			</view>
 		</u-popup>
@@ -180,9 +181,11 @@
 				shopInfo: {}, //门店信息
 				coupon_obj: {}, //选择的优惠卷
 				moneyObj: {}, //优惠金额
+				optionParams:{}//
 			};
 		},
 		onLoad(options) {
+			this.optionParams = options
 			this.time_status = options.time_status;
 			this.pay_status = options.pay_status
 			this.$request("/food/Order/userGetOrderDetail", {
@@ -352,6 +355,13 @@
 						this.payFlag = true;
 					}
 				}).catch(() => {
+					this.payShow = false; //关闭弹窗 、、重新调用订单详情
+					this.$request("/food/Order/userGetOrderDetail", {
+						order_id: this.optionParams.id
+					}).then(res => {
+						this.orderInfo = res
+						this.selectCount() //所有可用优惠卷
+					})
 					this.payFlag = true;
 				})
 			}
